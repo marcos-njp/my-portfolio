@@ -10,6 +10,13 @@ import EducationSection from "@/components/sections/education-section"
 export default function Page() {
   return (
     <div className="min-h-screen bg-background">
+      {/* Development Notice */}
+      <div className="bg-primary/10 border-b border-primary/20 py-2 px-4">
+        <p className="text-center text-xs text-primary">
+          🚧 This portfolio is currently under development. Some features may change.
+        </p>
+      </div>
+
       {/* Minimalist Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
