@@ -8,8 +8,8 @@ import type React from "react" // Import React
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "John.dev - Full Stack Developer",
-  description: "Full stack developer portfolio showcasing projects and skills",
+  title: "m-njp - Full Stack Developer",
+  description: "Full stack developer portfolio showcasing projects and skills by Niño Marcos",
 }
 
 export default function RootLayout({

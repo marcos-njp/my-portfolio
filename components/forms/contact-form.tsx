@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
-import { submitContactForm } from "../actions"
+import { submitContactForm } from "@/app/actions"
 
 export default function ContactForm() {
   const [pending, setPending] = useState(false)
@@ -24,30 +24,34 @@ export default function ContactForm() {
   }
 
   return (
-    <Card className="p-6">
+    <Card className="p-5 max-w-lg mx-auto">
       <form action={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-2">
+          <label htmlFor="name" className="block text-sm font-medium mb-1.5">
             Name
           </label>
-          <Input id="name" name="name" required />
+          <Input id="name" name="name" placeholder="Your name" required className="h-9" />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-2">
+          <label htmlFor="email" className="block text-sm font-medium mb-1.5">
             Email
           </label>
-          <Input id="email" name="email" type="email" required />
+          <Input id="email" name="email" type="email" placeholder="your.email@example.com" required className="h-9" />
         </div>
         <div>
-          <label htmlFor="message" className="block text-sm font-medium mb-2">
+          <label htmlFor="message" className="block text-sm font-medium mb-1.5">
             Message
           </label>
-          <Textarea id="message" name="message" required />
+          <Textarea id="message" name="message" placeholder="Your message..." required className="min-h-[100px] resize-none" />
         </div>
         <Button type="submit" className="w-full" disabled={pending}>
           {pending ? "Sending..." : "Send Message"}
         </Button>
-        {message && <p className="text-sm text-center mt-4 text-muted-foreground">{message}</p>}
+        {message && (
+          <p className={`text-sm text-center mt-3 ${message.includes("Thanks") ? "text-green-600 dark:text-green-400" : "text-destructive"}`}>
+            {message}
+          </p>
+        )}
       </form>
     </Card>
   )
