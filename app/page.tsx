@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import Link from "next/link"
 import ContactForm from "@/components/forms/contact-form"
@@ -6,8 +9,12 @@ import HeroSection from "@/components/sections/hero-section"
 import ProjectsSection from "@/components/sections/projects-section"
 import ExperienceSection from "@/components/sections/experience-section"
 import EducationSection from "@/components/sections/education-section"
+import ChatSidebar from "@/components/ai-chat/chat-sidebar"
+import ChatTrigger from "@/components/ai-chat/chat-trigger"
 
 export default function Page() {
+  const [isChatOpen, setIsChatOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background">
       {/* Development Notice */}
@@ -65,18 +72,21 @@ export default function Page() {
         <section id="ai-chat" className="py-12 md:py-16">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="relative overflow-hidden rounded-lg border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-10">
+              <div 
+                onClick={() => setIsChatOpen(true)}
+                className="relative overflow-hidden rounded-lg border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-10 cursor-pointer hover:shadow-lg transition-all group"
+              >
                 <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
-                    Coming Soon
+                  <span className="inline-flex items-center rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400 ring-1 ring-inset ring-green-500/20">
+                    Live Now! Click to Try
                   </span>
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight group-hover:text-primary transition-colors">
                     AI Chat Assistant
                   </h2>
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl">
-                    Soon you'll be able to chat with an AI assistant that knows all about my projects, skills, and experience. 
+                    Chat with an AI assistant that knows all about my projects, skills, and experience. 
                     Ask questions, get detailed explanations, or just have a conversation about my work!
                   </p>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -91,7 +101,7 @@ export default function Page() {
                         <span className="text-xs">✨</span>
                       </div>
                     </div>
-                    <span>Powered by AI • Interactive • Available 24/7</span>
+                    <span>Powered by RAG • OpenAI GPT-4o • Available 24/7</span>
                   </div>
                 </div>
               </div>
@@ -224,6 +234,10 @@ export default function Page() {
           </div>
         </div>
       </footer>
+
+      {/* AI Chat Components */}
+      <ChatTrigger onClick={() => setIsChatOpen(true)} />
+      <ChatSidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   )
 }

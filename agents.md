@@ -16,3 +16,11 @@ FOR LATER:
 Set up Neon Postgres DB (Prisma) from Vercel?
 Upstash Vector DB for the AI database.
 Vercel AI SDK for the bridge 
+
+Documentations you must read:
+set up upstash db: https://upstash.com/docs/vector/sdks/ts/getting-started
+for the ai: https://ai-sdk.dev/docs/introduction
+open ai: https://ai-sdk.dev/providers/ai-sdk-providers/openai
+idk why but my bootcamp has this step: https://upstash.com/docs/redis/overall/getstarted
+
+
