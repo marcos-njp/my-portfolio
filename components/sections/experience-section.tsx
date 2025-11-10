@@ -4,28 +4,28 @@ import { Briefcase, Trophy } from "lucide-react"
 const experiences = [
   {
     type: "education",
-    title: "Student",
+    title: "IT Student",
     organization: "Current Institution",
     period: "Present",
-    description: "Pursuing studies in Computer Science and Software Development",
+    description: "Pursuing Bachelor of Science in Information Technology with focus on full-stack development",
     icon: Briefcase
   },
   {
-    type: "achievement",
+    type: "competition",
     title: "4th Place - Programming Skills Excellence",
-    organization: "STEAM International Challenge 2018",
+    organization: "STEAM International Challenge 2018 (Competition)",
     period: "November 2018",
     location: "Shenzhen, China",
-    description: "Represented Team Philippines in international robotics competition with 118 teams from 5 countries",
+    description: "International robotics competition - Represented Team Philippines among 118 teams from 5 countries",
     icon: Trophy
   },
   {
-    type: "achievement",
+    type: "competition",
     title: "5th Place - Excellence Award",
-    organization: "6th Robothon National Competition",
+    organization: "6th Robothon National Competition (Competition)",
     period: "October 2018",
     location: "Quezon City, Philippines",
-    description: "Competed at national level representing St. Paul University Philippines among 43 schools",
+    description: "National robotics competition - Represented St. Paul University Philippines among 43 schools",
     icon: Trophy
   }
 ]
