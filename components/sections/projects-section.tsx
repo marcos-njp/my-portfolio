@@ -12,8 +12,6 @@ export default function ProjectsSection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [visibleCount, setVisibleCount] = useState(1)
-  const cardWidth = 344 // 340px card + 4px gap
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project)
@@ -22,56 +20,55 @@ export default function ProjectsSection() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = cardWidth * visibleCount
+      const scrollAmount = 360
       const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount)
-      scrollContainerRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' })
-      // update active index immediately so dots respond right away
-      const newIndex = Math.round(newScrollLeft / cardWidth)
-      setActiveIndex(Math.max(0, Math.min(newIndex, projects.length - 1)))
+      scrollContainerRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      })
     }
   }
 
-  const scrollToIndex = (index: number) => {
+  const scrollToIndex = (pageIndex: number) => {
     if (scrollContainerRef.current) {
-      const left = index * cardWidth
-      scrollContainerRef.current.scrollTo({ left, behavior: 'smooth' })
-      setActiveIndex(index)
+      const container = scrollContainerRef.current
+      const scrollWidth = container.scrollWidth
+      const containerWidth = container.clientWidth
+      
+      // Scroll to the appropriate position for this "page"
+      // Page 0 = start (0), Page 1 = scroll to show hidden cards
+      const targetScroll = pageIndex === 0 ? 0 : scrollWidth - containerWidth
+      
+      container.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      })
     }
   }
-  // track scroll to update activeIndex
+
   useEffect(() => {
     const handleScroll = () => {
       if (scrollContainerRef.current) {
-        const scrollLeft = scrollContainerRef.current.scrollLeft
-        const newIndex = Math.round(scrollLeft / cardWidth)
-        setActiveIndex(newIndex)
+        const container = scrollContainerRef.current
+        const scrollLeft = container.scrollLeft
+        const containerWidth = container.clientWidth
+        const scrollWidth = container.scrollWidth
+        
+        // Calculate which "page" we're on based on scroll position
+        // If we've scrolled past halfway through the viewport, we're on page 2
+        const progress = scrollLeft / (scrollWidth - containerWidth)
+        const activePage = progress > 0.3 ? 1 : 0
+        
+        setActiveIndex(activePage)
       }
     }
 
     const container = scrollContainerRef.current
     if (container) {
-      container.addEventListener('scroll', handleScroll, { passive: true })
+      container.addEventListener('scroll', handleScroll)
       return () => container.removeEventListener('scroll', handleScroll)
     }
-  }, [cardWidth])
-
-  // compute how many cards fit in the container (visible count)
-  useEffect(() => {
-    const updateVisible = () => {
-      const container = scrollContainerRef.current
-      if (container) {
-        const count = Math.max(1, Math.floor(container.clientWidth / cardWidth))
-        setVisibleCount(count)
-      } else {
-        // fallback for SSR or initial render
-        const width = typeof window !== 'undefined' ? window.innerWidth : 1200
-        setVisibleCount(Math.max(1, Math.floor(width / cardWidth)))
-      }
-    }
-    updateVisible()
-    window.addEventListener('resize', updateVisible)
-    return () => window.removeEventListener('resize', updateVisible)
-  }, [cardWidth])
+  }, [])
 
   return (
     <section 
@@ -143,16 +140,16 @@ export default function ProjectsSection() {
 
         {/* Scroll Indicator Dots */}
         <div className="flex justify-center gap-2 mt-6">
-          {[0, 1].map((index) => (
+          {[0, 1].map((pageIndex) => (
             <button
-              key={index}
-              onClick={() => scrollToIndex(index * 2)}
+              key={pageIndex}
+              onClick={() => scrollToIndex(pageIndex)}
               className={`transition-all duration-300 rounded-full ${
-                Math.floor(activeIndex / 2) === index 
+                activeIndex === pageIndex 
                   ? 'w-8 h-2 bg-primary' 
                   : 'w-2 h-2 bg-primary/30 hover:bg-primary/50'
               }`}
-              aria-label={`Go to projects ${index * 2 + 1}-${Math.min((index + 1) * 2, projects.length)}`}
+              aria-label={`Go to page ${pageIndex + 1}`}
             />
           ))}
         </div>
