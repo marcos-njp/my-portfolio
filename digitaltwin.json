@@ -1,10 +1,10 @@
 {
   "personal": {
     "name": "Niño Marcos",
-    "title": "Full Stack Developer",
+    "title": "IT Student & Aspiring Full Stack Developer",
     "location": "Tuguegarao City, Philippines",
-    "summary": "IT student passionate about building modern web applications with clean, elegant solutions. Experienced in full-stack development with Next.js, React, and TypeScript. Competition background in robotics programming using Python.",
-    "elevator_pitch": "Full-stack developer with a strong foundation in modern web technologies and a proven track record in international robotics competitions. I build scalable, user-friendly applications using Next.js, TypeScript, and cutting-edge tools like AI integration and RAG systems.",
+    "summary": "IT student at St. Paul University Philippines with a passion for modern web development and AI integration. Currently building projects with Next.js, React, and TypeScript while learning advanced concepts. Competitive robotics programmer with 4th place finish in international STEAM Challenge 2018 (118 teams from 5 countries).",
+    "elevator_pitch": "As an IT student, I combine academic learning with hands-on project development. I've competed internationally in robotics programming and now focus on modern web technologies. While I don't have formal work experience yet, I demonstrate my skills through personal projects involving Next.js, AI integration, and full-stack development. I'm highly competitive, self-driven, and eager to contribute to real-world projects.",
     "contact": {
       "email": "justinpmarcos@gmail.com",
       "linkedin": "https://www.linkedin.com/in/niño-marcos/",
@@ -13,13 +13,14 @@
     }
   },
   "salary_location": {
-    "current_status": "Student seeking internship or entry-level opportunities",
-    "salary_expectations": "Open to discussion based on role and responsibilities",
+    "current_status": "IT Student actively seeking internship, OJT, or entry-level opportunities",
+    "salary_expectations": "Open to internship rates or entry-level compensation. More interested in learning opportunities and real-world experience than high salary at this stage",
     "location_preferences": ["Remote", "Tuguegarao City", "Manila", "Hybrid"],
     "relocation_willing": true,
-    "remote_experience": "Experienced with remote collaboration and self-directed learning",
-    "travel_availability": "Available for travel as needed",
-    "work_authorization": "Filipino Citizen"
+    "remote_experience": "Comfortable with remote work through self-directed learning and online collaborations. All personal projects developed independently",
+    "travel_availability": "Flexible schedule as a student - available for travel and relocation",
+    "work_authorization": "Filipino Citizen",
+    "student_status": "Currently enrolled at St. Paul University Philippines, available for part-time or full-time opportunities depending on academic schedule"
   },
   "experience": [
     {

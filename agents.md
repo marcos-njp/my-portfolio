@@ -17,10 +17,16 @@ Set up Neon Postgres DB (Prisma) from Vercel?
 Upstash Vector DB for the AI database.
 Vercel AI SDK for the bridge 
 
+AI SETUP:
+- Use Groq AI (NOT OpenAI) - faster and more cost-effective
+- Model: llama-3.1-8b-instant for chat responses
+- Upstash Vector for semantic search with RAG
+- Upstash Redis for caching (optional)
+
 Documentations you must read:
 set up upstash db: https://upstash.com/docs/vector/sdks/ts/getting-started
 for the ai: https://ai-sdk.dev/docs/introduction
-open ai: https://ai-sdk.dev/providers/ai-sdk-providers/openai
+groq ai: https://ai-sdk.dev/providers/ai-sdk-providers/groq
 idk why but my bootcamp has this step: https://upstash.com/docs/redis/overall/getstarted
 
 

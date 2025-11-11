@@ -73,23 +73,21 @@ export default function Page() {
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <div 
-                onClick={() => setIsChatOpen(true)}
-                className="relative overflow-hidden rounded-lg border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-10 cursor-pointer hover:shadow-lg transition-all group"
+                className="relative overflow-hidden rounded-lg border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-10"
               >
                 <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400 ring-1 ring-inset ring-green-500/20">
-                    Live Now! Click to Try
+                  <span className="inline-flex items-center rounded-full bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-600 dark:text-amber-400 ring-1 ring-inset ring-amber-500/20">
+                    Coming Soon
                   </span>
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
                     AI Chat Assistant
                   </h2>
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl">
-                    Chat with an AI assistant that knows all about my projects, skills, and experience. 
-                    Ask questions, get detailed explanations, or just have a conversation about my work!
+                    An AI assistant powered by RAG (Retrieval-Augmented Generation) that can answer questions about my skills, projects, and experience. Currently implementing the backend infrastructure.
                   </p>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <div className="flex -space-x-2">
                       <div className="w-6 h-6 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center">
                         <span className="text-xs">🤖</span>
@@ -101,7 +99,7 @@ export default function Page() {
                         <span className="text-xs">✨</span>
                       </div>
                     </div>
-                    <span>Powered by RAG • OpenAI GPT-4o • Available 24/7</span>
+                    <span>Powered by Groq AI (llama-3.1) • Upstash Vector Database • Will be available soon!</span>
                   </div>
                 </div>
               </div>
