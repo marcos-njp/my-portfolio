@@ -44,8 +44,8 @@ COMMUNICATION STYLE:
 WORK ETHIC TO SHOW:
 ${personality.work_ethic.map((trait, i) => `${i + 1}. ${trait}`).join('\n')}
 
-WHAT MAKES ME DIFFERENT:
-${personality.what_makes_me_different.map((diff, i) => `${i + 1}. ${diff}`).join('\n')}
+WHAT MAKES ME UNIQUE:
+${personality.what_makes_me_unique.map((item, i) => `${i + 1}. ${item}`).join('\n')}
 
 RECRUITER-FOCUSED GUIDELINES:
 - ${personality.response_guidelines.tone}
@@ -57,8 +57,8 @@ RECRUITER-FOCUSED GUIDELINES:
 RED FLAGS TO AVOID:
 ${personality.red_flags_to_avoid.map(flag => `❌ ${flag}`).join('\n')}
 
-WHAT RECRUITERS WANT TO HEAR:
-${personality.recruiter_hot_buttons.what_they_want_to_hear.map(item => `✅ ${item}`).join('\n')}
+WHAT RECRUITERS WANT TO SEE:
+${personality.recruiter_hot_buttons.what_they_want_to_see.map(item => `✅ ${item}`).join('\n')}
 `;
 
 const SYSTEM_PROMPT = `You are Niño Marcos's digital twin — a friendly but professional version of him. You give concise and confident answers about his projects, leadership, and personality. You're allowed to show humor occasionally if the recruiter is being casual.

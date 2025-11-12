@@ -3,8 +3,8 @@
     "name": "Niño Marcos",
     "title": "IT Student & Full Stack Developer",
     "location": "Tuguegarao City, Philippines",
-    "summary": "3rd-year IT student at St. Paul University Philippines who doesn't wait for graduation to build real products. Proven international competitor (4th/118 teams, STEAM Challenge 2018) now shipping production web apps with Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and hands-on experience in OAuth, RAG systems, and database management.",
-    "elevator_pitch": "I'm Niño - I competed internationally in robotics at 13 and haven't stopped building since. While most students stick to classroom projects, I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I bring competition-level problem-solving, self-directed learning, and genuine passion for technology. I'm looking for a team where I can contribute immediately while learning from experienced developers.",
+    "summary": "3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management.",
+    "elevator_pitch": "I'm Niño - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers.",
     "contact": {
       "email": "justinpmarcos@gmail.com",
       "linkedin": "https://www.linkedin.com/in/niño-marcos/",
@@ -23,13 +23,13 @@
     "current_status": "3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities",
     "salary_expectations": "Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay.",
     "location_preferences": [
-      "Remote (preferred - proven self-management through independent projects)",
+      "Remote",
       "Tuguegarao City",
-      "Manila (willing to relocate)",
+      "Manila",
       "Hybrid"
     ],
     "relocation_willing": true,
-    "remote_experience": "Highly comfortable with remote work. All personal projects developed independently with self-imposed deadlines. Used async communication (GitHub, documentation) and remote collaboration tools. No hand-holding needed - I figure things out.",
+    "remote_experience": "Comfortable with remote work. All personal projects have been developed independently with self-managed timelines. Experienced with async communication tools (GitHub, documentation) and remote collaboration. I'm resourceful and enjoy finding solutions to challenges.",
     "travel_availability": "Flexible schedule as a student. Available for team meetings, onboarding, or client presentations. Can adjust academic schedule for work commitments.",
     "work_authorization": "Filipino Citizen - no visa sponsorship needed",
     "student_status": "Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now.",
@@ -50,16 +50,16 @@
           "result": "Successfully deployed secure application with 100% authentication coverage. Gained deep understanding of OAuth2 flows, JWT tokens, database schema design, and production security practices. Now confident explaining auth implementation in technical interviews."
         },
         {
-          "situation": "Required a professional online presence to showcase skills and projects to recruiters, but didn't want a generic template",
-          "task": "Create a modern, responsive portfolio website that stands out from the thousands of cookie-cutter portfolios",
+          "situation": "Required a professional online presence to showcase skills and projects to recruiters",
+          "task": "Create a modern, responsive portfolio website with a distinctive design",
           "action": "Built custom portfolio from scratch with Next.js 15, implemented dark/light mode theming using next-themes, added smooth scroll animations with Framer Motion, optimized Lighthouse scores to 95+, and deployed to Vercel with custom domain",
-          "result": "Created distinctive minimalist portfolio that recruiters actually remember. Received multiple compliments on design sensibility and code organization. Portfolio itself demonstrates UI/UX skills and attention to detail."
+          "result": "Created a clean, minimalist portfolio. Received positive feedback on design sensibility and code organization. The portfolio demonstrates UI/UX skills and attention to detail."
         },
         {
-          "situation": "Growing interest in AI/ML technologies and need to demonstrate RAG system implementation to stand out from other student candidates",
-          "task": "Implement a production-ready RAG system for portfolio AI assistant that actually works (not just a ChatGPT wrapper)",
+          "situation": "Growing interest in AI/ML technologies and desire to demonstrate RAG system implementation",
+          "task": "Implement a production-ready RAG system for portfolio AI assistant with custom vector embeddings",
           "action": "Integrated Groq AI with llama-3.1-8b-instant model, set up Upstash Vector database for semantic search with 25 embedded knowledge chunks, structured professional profile using STAR methodology, implemented streaming responses with Vercel AI SDK, added session memory with Redis, and created dual-personality system (professional + GenZ modes)",
-          "result": "Built functional AI assistant with 75% relevance threshold answering recruiter queries in real-time. Demonstrates understanding of RAG architecture, vector embeddings, prompt engineering, and LLM integration. Recruiters impressed by technical depth for a student project."
+          "result": "Built functional AI assistant with 75% relevance threshold answering queries in real-time. Demonstrates understanding of RAG architecture, vector embeddings, prompt engineering, and LLM integration. Gained valuable experience with modern AI development practices."
         }
       ],
       "technical_skills_used": [
@@ -453,7 +453,7 @@
       "id": "chunk_1",
       "title": "Personal Profile",
       "type": "personal_info",
-      "content": "Name: Niño Marcos. Title: IT Student & Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: 3rd-year IT student at St. Paul University Philippines who doesn't wait for graduation to build real products. Proven international competitor (4th/118 teams, STEAM Challenge 2018) now shipping production web apps with Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and hands-on experience in OAuth, RAG systems, and database management. Elevator Pitch: I'm Niño - I competed internationally in robotics at 13 and haven't stopped building since. While most students stick to classroom projects, I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I bring competition-level problem-solving, self-directed learning, and genuine passion for technology. I'm looking for a team where I can contribute immediately while learning from experienced developers. Fun Facts: Started programming at 8 years old with Scratch, moved to Python by 10. Represented Philippines internationally at 13 - youngest team member. Built my first web app before taking any formal web dev courses. Actually enjoy debugging - it's like solving puzzles under pressure. Can switch between professional recruiter mode and GenZ slang mode 🔥",
+      "content": "Name: Niño Marcos. Title: IT Student & Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: 3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management. Elevator Pitch: I'm Niño - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers. Fun Facts: Started programming at 8 years old with Scratch, moved to Python by 10. Represented Philippines internationally at 13 - youngest team member. Built my first web app before taking any formal web dev courses. Actually enjoy debugging - it's like solving puzzles under pressure. Can switch between professional recruiter mode and GenZ slang mode 🔥",
       "metadata": {
         "category": "personal",
         "tags": [
@@ -482,7 +482,7 @@
       "id": "chunk_3",
       "title": "Salary and Location Preferences",
       "type": "compensation",
-      "content": "Current Status: 3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities. Salary Expectations: Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay. Location Preferences: Remote (preferred - proven self-management through independent projects), Tuguegarao City, Manila (willing to relocate), Hybrid. Relocation Willing: True. Remote Experience: Highly comfortable with remote work. All personal projects developed independently with self-imposed deadlines. Used async communication (GitHub, documentation) and remote collaboration tools. No hand-holding needed - I figure things out. Work Authorization: Filipino Citizen - no visa sponsorship needed. Student Status: Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now. Availability: Can start immediately for internships or part-time. Flexible hours including weekends if needed for deadlines.",
+      "content": "Current Status: 3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities. Salary Expectations: Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay. Location Preferences: Remote, Tuguegarao City, Manila, Hybrid. Open to discussing what works best for both parties. Relocation Willing: True. Remote Experience: Comfortable with remote work. All personal projects have been developed independently with self-managed timelines. Experienced with async communication tools (GitHub, documentation) and remote collaboration. I'm resourceful and enjoy finding solutions to challenges. Work Authorization: Filipino Citizen - no visa sponsorship needed. Student Status: Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now. Availability: Can start immediately for internships or part-time. Flexible hours including weekends if needed for deadlines.",
       "metadata": {
         "category": "compensation",
         "tags": [
