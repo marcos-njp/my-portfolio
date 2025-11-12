@@ -23,11 +23,3 @@ tastes:
 
 after done, commit all changes and push. there are current commits that are not done, so maybe that is a rebase.
 */
-
-For this task, do not commit to github instantly, we should do a testing first before commit.
-Time for the AI work using the RAG. Please read agents.md, most specially the documentations.
-- free AI model that we are going to use: gpt-oss-120b.
-- we will be using python for the code.
-- the chat should have options for the visitor to choose which model since I want to use Gemini soon too.
-- do not bruteforce, if there is a key/url that I should set up, provide the link where I can do it.
-- project will be deployed using vercel so make sure you install dependencies. 
