@@ -114,9 +114,32 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         return
       }
 
-      if (!response.ok) throw new Error("Failed to get response")
+      // Handle server errors (500 status)
+      if (response.status === 500) {
+        const errorData = await response.json()
+        console.error('[API Error]', errorData);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: (Date.now() + 1).toString(),
+            role: "assistant",
+            content: `⚠️ Server error: ${errorData.message || 'Failed to generate response'}${errorData.details ? `\n\nDetails: ${errorData.details}` : ''}`,
+          },
+        ])
+        setIsLoading(false)
+        return
+      }
+
+      if (!response.ok) {
+        console.error('[API Error] Status:', response.status, 'Status Text:', response.statusText);
+        throw new Error(`API returned ${response.status}: ${response.statusText}`)
+      }
 
       const reader = response.body?.getReader()
+      if (!reader) {
+        throw new Error('Response body reader is null')
+      }
+      
       const decoder = new TextDecoder()
       let aiResponse = ""
 
@@ -127,7 +150,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       };
       setMessages((prev) => [...prev, assistantMessage]);
 
-      while (reader) {
+      while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
@@ -144,13 +167,14 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 
       console.log(`[Response Complete] Mood was: ${currentMood}`);
     } catch (error) {
-      console.error("Chat error:", error);
+      console.error("❌ Chat error:", error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: "assistant",
-          content: "Sorry, I encountered an error. Please try again.",
+          content: `⚠️ Error: ${errorMessage}\n\nThis might be a network issue or server configuration problem. Please try again or contact support if the issue persists.`,
         },
       ]);
     } finally {

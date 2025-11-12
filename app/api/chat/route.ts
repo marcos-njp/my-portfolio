@@ -15,20 +15,35 @@ import {
 } from '@/lib/session-memory';
 import personality from '@/data/personality.json';
 
+// Edge Runtime configuration for Vercel
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
+
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
+// Validate environment variables
+if (!process.env.GROQ_API_KEY) {
+  console.error('❌ GROQ_API_KEY is not set in environment variables');
+}
+if (!process.env.UPSTASH_VECTOR_REST_URL) {
+  console.error('❌ UPSTASH_VECTOR_REST_URL is not set in environment variables');
+}
+if (!process.env.UPSTASH_VECTOR_REST_TOKEN) {
+  console.error('❌ UPSTASH_VECTOR_REST_TOKEN is not set in environment variables');
+}
+
 // Initialize Groq AI
 const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY!,
+  apiKey: process.env.GROQ_API_KEY || '',
 });
 
 // Initialize Upstash Vector
 const vectorIndex = new Index({
-  url: process.env.UPSTASH_VECTOR_REST_URL!,
-  token: process.env.UPSTASH_VECTOR_REST_TOKEN!,
+  url: process.env.UPSTASH_VECTOR_REST_URL || '',
+  token: process.env.UPSTASH_VECTOR_REST_TOKEN || '',
 });
 
 // Enhanced system prompt with personality layer from personality.json
@@ -111,6 +126,31 @@ RESPONSE GUIDELINES:
 
 export async function POST(req: Request) {
   try {
+    // Validate environment variables at runtime
+    if (!process.env.GROQ_API_KEY) {
+      console.error('❌ GROQ_API_KEY missing');
+      return new Response(
+        JSON.stringify({ 
+          error: 'Server configuration error',
+          message: 'AI service not configured. Please check environment variables.',
+          details: 'GROQ_API_KEY is missing'
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!process.env.UPSTASH_VECTOR_REST_URL || !process.env.UPSTASH_VECTOR_REST_TOKEN) {
+      console.error('❌ Upstash Vector credentials missing');
+      return new Response(
+        JSON.stringify({ 
+          error: 'Server configuration error',
+          message: 'Vector database not configured.',
+          details: 'Upstash credentials missing'
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { messages, mood = 'professional', sessionId } = await req.json() as { 
       messages: Message[];
       mood?: AIMood;
@@ -212,9 +252,14 @@ export async function POST(req: Request) {
     
     console.log(`[AI Generation] Mood: ${mood}, Temperature: ${moodConfig.temperature}, Mood Name: ${moodConfig.name}`);
     
+    // CRITICAL: Put mood instructions FIRST so LLM sees them before other instructions
+    const finalSystemPrompt = moodConfig.systemPromptAddition + '\n\n' + SYSTEM_PROMPT + conversationContext + contextInfo + '\n\n' + responseLengthGuidelines;
+    
+    console.log(`[System Prompt Preview] First 500 chars: ${finalSystemPrompt.substring(0, 500)}...`);
+    
     const result = streamText({
       model: groq('llama-3.1-8b-instant'),
-      system: SYSTEM_PROMPT + conversationContext + contextInfo + '\n\n' + responseLengthGuidelines + '\n\n' + moodConfig.systemPromptAddition,
+      system: finalSystemPrompt,
       messages,
       temperature: moodConfig.temperature,
       onFinish: async ({ text }) => {
@@ -233,9 +278,21 @@ export async function POST(req: Request) {
 
     return result.toTextStreamResponse();
   } catch (error) {
-    console.error('Chat API error:', error);
+    console.error('❌ Chat API error:', error);
+    
+    // Log detailed error information
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    
     return new Response(
-      JSON.stringify({ error: 'Failed to generate response' }),
+      JSON.stringify({ 
+        error: 'Failed to generate response',
+        message: error instanceof Error ? error.message : 'Unknown error occurred',
+        timestamp: new Date().toISOString()
+      }),
       {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
