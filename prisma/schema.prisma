@@ -1,0 +1,50 @@
+// Prisma schema for tracking AI chat analytics
+// Using Neon Postgres to monitor user questions and improve responses
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ChatAnalytics {
+  id              String   @id @default(cuid())
+  sessionId       String
+  userQuery       String   @db.Text
+  aiResponse      String   @db.Text
+  mood            String   @default("professional")
+  
+  // RAG Metrics
+  chunksUsed      Int      @default(0)
+  topScore        Float    @default(0.0)
+  averageScore    Float    @default(0.0)
+  
+  // Feedback tracking
+  hadFeedback     Boolean  @default(false)
+  feedbackType    String?  // 'length' | 'detail' | 'tone'
+  
+  // Performance
+  responseTime    Int?     // milliseconds
+  
+  // Metadata
+  timestamp       DateTime @default(now())
+  ipHash          String?  // hashed IP for analytics, not storage
+  
+  @@index([sessionId])
+  @@index([timestamp])
+  @@index([mood])
+}
+
+model FrequentQuestions {
+  id              String   @id @default(cuid())
+  question        String   @unique @db.Text
+  category        String   // 'projects' | 'skills' | 'experience' | 'education'
+  count           Int      @default(1)
+  lastAsked       DateTime @default(now())
+  
+  @@index([category])
+  @@index([count(sort: Desc)])
+}

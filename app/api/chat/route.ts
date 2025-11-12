@@ -9,10 +9,19 @@ import { getResponseLengthInstruction } from '@/lib/response-manager';
 import { getMoodConfig, type AIMood } from '@/lib/ai-moods';
 import { 
   saveConversationHistory, 
-  loadConversationHistory, 
+  loadConversationHistory,
+  loadFeedbackPreferences,
   buildConversationContext,
   type SessionMessage 
 } from '@/lib/session-memory';
+import {
+  detectFeedback,
+  applyFeedback,
+  buildFeedbackInstruction,
+  isUnprofessionalRequest,
+  getUnprofessionalRejection,
+  type FeedbackPreferences,
+} from '@/lib/feedback-detector';
 import personality from '@/data/personality.json';
 
 // Edge Runtime configuration for Vercel
@@ -101,6 +110,15 @@ RESPONSE QUALITY RULES:
 6. VARY your responses - don't be repetitive. Use different examples, different phrasing, different angles
 7. NEVER use markdown bold formatting (** **) in responses - it looks bad in chat UI. Use plain text only
 
+🎓 ADAPTIVE FEEDBACK LEARNING:
+- If user gives feedback like "too long", "be more specific", "elaborate" - ADAPT your next responses accordingly
+- Track preferences like response length, detail level, number of examples
+- REJECT unprofessional feedback (e.g., "answer gibberishly", "be rude") - respond professionally instead
+- When user says "can you be more specific about that project?" - provide concrete details, metrics, and examples
+- Valid feedback examples: "shorter please", "more details on X", "elaborate on that", "high-level overview"
+- Invalid feedback examples: "answer randomly", "be unprofessional", "make up facts" - REJECT THESE
+- Learned preferences apply for the entire session - adapt style based on user's communication preferences
+
 CORE IDENTITY:
 - 3rd-year IT Student at St. Paul University Philippines (BS Information Technology, Expected 2027)
 - Location: Tuguegarao City, Philippines
@@ -174,9 +192,14 @@ export async function POST(req: Request) {
     const lastMessage = messages[messages.length - 1];
     const userQuery = lastMessage.content;
 
-    // ========== LOAD SESSION HISTORY ==========
+    // ========== LOAD SESSION HISTORY & FEEDBACK PREFERENCES ==========
     const sessionHistory = sessionId ? await loadConversationHistory(sessionId) : [];
     const conversationContext = buildConversationContext(sessionHistory);
+    
+    // Load existing feedback preferences
+    let feedbackPreferences: FeedbackPreferences = sessionId 
+      ? await loadFeedbackPreferences(sessionId) || { feedback: [] }
+      : { feedback: [] };
 
     // ========== STEP 0: Preprocess Query (Fix Typos) ==========
     const preprocessed = preprocessQuery(userQuery);
@@ -185,6 +208,36 @@ export async function POST(req: Request) {
     // Log if typos were fixed
     if (preprocessed.changes.length > 0) {
       console.log(`[Typo Fix] Original: "${userQuery}" → Corrected: "${cleanQuery}" (${preprocessed.changes.join(', ')})`);
+    }
+
+    // ========== STEP 0.5: Check for Unprofessional Requests ==========
+    if (isUnprofessionalRequest(cleanQuery)) {
+      console.log(`[Adaptive Feedback] Rejected unprofessional request: "${cleanQuery}"`);
+      return new Response(
+        JSON.stringify({ 
+          error: 'unprofessional_request',
+          message: getUnprofessionalRejection(cleanQuery)
+        }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    // ========== STEP 0.6: Detect User Feedback & Learn ==========
+    const detectedFeedback = detectFeedback(cleanQuery);
+    if (detectedFeedback) {
+      console.log(`[Adaptive Feedback] Detected ${detectedFeedback.type} feedback:`, detectedFeedback.instruction);
+      
+      if (detectedFeedback.isProfessional) {
+        // Apply and save feedback preferences
+        feedbackPreferences = applyFeedback(feedbackPreferences, detectedFeedback);
+        console.log(`[Adaptive Feedback] Updated preferences:`, feedbackPreferences);
+      } else {
+        // Log unprofessional feedback but don't apply it
+        console.log(`[Adaptive Feedback] Rejected unprofessional feedback:`, detectedFeedback.instruction);
+      }
     }
 
     // ========== STEP 1: Validate Query (SKIP for follow-ups with context) ==========
@@ -259,16 +312,28 @@ export async function POST(req: Request) {
       contextInfo += `\n\nMETA INFO: This is an AI digital twin built with Groq AI (llama-3.1-8b-instant), Upstash Vector for semantic search, and Next.js. It answers questions about Niño Marcos's professional background with >75% relevance accuracy.`;
     }
 
-    // ========== STEP 5: Generate AI Response with Mood Configuration ==========
+    // ========== STEP 5: Generate AI Response with Mood + Adaptive Feedback ==========
     const responseLengthGuidelines = getResponseLengthInstruction();
+    const feedbackInstruction = buildFeedbackInstruction(feedbackPreferences);
     const moodConfig = getMoodConfig(mood);
     
     console.log(`[AI Generation] Mood: ${mood}, Temperature: ${moodConfig.temperature}, Mood Name: ${moodConfig.name}`);
+    if (feedbackInstruction) {
+      console.log(`[Adaptive Feedback] Applying user preferences to this response`);
+    }
     
-    // CRITICAL: Put mood instructions FIRST so LLM sees them before other instructions
-    const finalSystemPrompt = moodConfig.systemPromptAddition + '\n\n' + SYSTEM_PROMPT + conversationContext + contextInfo + '\n\n' + responseLengthGuidelines;
+    // CRITICAL: Put mood instructions FIRST, then adaptive feedback, then rest
+    const finalSystemPrompt = 
+      moodConfig.systemPromptAddition + '\n\n' + 
+      SYSTEM_PROMPT + 
+      conversationContext + 
+      contextInfo + '\n\n' + 
+      responseLengthGuidelines +
+      feedbackInstruction; // Apply learned preferences
     
     console.log(`[System Prompt Preview] First 500 chars: ${finalSystemPrompt.substring(0, 500)}...`);
+    
+    const startTime = Date.now();
     
     const result = streamText({
       model: groq('llama-3.1-8b-instant'),
@@ -276,7 +341,9 @@ export async function POST(req: Request) {
       messages,
       temperature: moodConfig.temperature,
       onFinish: async ({ text }) => {
-        // Save conversation history after AI responds
+        const responseTime = Date.now() - startTime;
+        
+        // Save conversation history with feedback preferences
         if (sessionId) {
           const updatedHistory: SessionMessage[] = [
             ...sessionHistory,
@@ -284,7 +351,27 @@ export async function POST(req: Request) {
             { role: 'assistant', content: text, timestamp: Date.now(), mood },
           ];
           
-          await saveConversationHistory(sessionId, updatedHistory, mood);
+          await saveConversationHistory(sessionId, updatedHistory, mood, feedbackPreferences);
+          
+          // Log analytics asynchronously (non-blocking, separate API call)
+          if (process.env.ENABLE_ANALYTICS === 'true') {
+            fetch('/api/analytics/log', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                sessionId,
+                userQuery,
+                aiResponse: text,
+                mood,
+                chunksUsed: ragContext.chunksUsed,
+                topScore: ragContext.topScore,
+                averageScore: ragContext.averageScore,
+                hadFeedback: detectedFeedback !== null,
+                feedbackType: detectedFeedback?.type,
+                responseTime,
+              }),
+            }).catch(err => console.error('[Analytics] Log failed:', err));
+          }
         }
       },
     });

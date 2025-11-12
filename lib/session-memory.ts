@@ -2,9 +2,11 @@
  * ROBUST Session Memory System with Upstash Redis
  * Maintains conversation history for context-aware responses
  * Minimum 8-prompt memory with automatic cleanup
+ * NOW WITH ADAPTIVE FEEDBACK LEARNING
  */
 
 import { Redis } from '@upstash/redis';
+import { FeedbackPreferences } from './feedback-detector';
 
 // Initialize Redis client
 const redis = new Redis({
@@ -25,6 +27,7 @@ export interface SessionData {
   createdAt: number;
   lastActive: number;
   mood: string; // Current session mood
+  feedbackPreferences?: FeedbackPreferences; // NEW: User preferences learned from feedback
 }
 
 const MAX_HISTORY = 16; // Keep last 16 messages (8 exchanges) for robust context
@@ -38,12 +41,13 @@ export function generateSessionId(): string {
 }
 
 /**
- * Save conversation history to Redis
+ * Save conversation history to Redis WITH feedback preferences
  */
 export async function saveConversationHistory(
   sessionId: string,
   messages: SessionMessage[],
-  mood: string = 'professional'
+  mood: string = 'professional',
+  feedbackPreferences?: FeedbackPreferences
 ): Promise<void> {
   try {
     // Keep only the last MAX_HISTORY messages
@@ -55,6 +59,7 @@ export async function saveConversationHistory(
       createdAt: Date.now(),
       lastActive: Date.now(),
       mood,
+      feedbackPreferences, // Store user preferences
     };
 
     // Save to Redis with TTL
@@ -65,6 +70,9 @@ export async function saveConversationHistory(
     );
 
     console.log(`[Session Memory] Saved ${trimmedMessages.length} messages for session ${sessionId}`);
+    if (feedbackPreferences) {
+      console.log(`[Adaptive Feedback] Saved preferences:`, feedbackPreferences);
+    }
   } catch (error) {
     console.error('[Session Memory] Failed to save:', error);
     // Non-blocking: continue even if Redis fails
@@ -92,6 +100,25 @@ export async function loadConversationHistory(
   } catch (error) {
     console.error('[Session Memory] Failed to load:', error);
     return [];
+  }
+}
+
+/**
+ * Load feedback preferences from Redis (NEW)
+ */
+export async function loadFeedbackPreferences(
+  sessionId: string
+): Promise<FeedbackPreferences | null> {
+  try {
+    const data = await redis.get<string>(`chat_session:${sessionId}`);
+    
+    if (!data) return null;
+
+    const sessionData = JSON.parse(data) as SessionData;
+    return sessionData.feedbackPreferences || null;
+  } catch (error) {
+    console.error('[Adaptive Feedback] Failed to load preferences:', error);
+    return null;
   }
 }
 

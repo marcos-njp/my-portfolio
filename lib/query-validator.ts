@@ -67,9 +67,9 @@ const IRRELEVANT_KEYWORDS = [
   // Inappropriate
   'hack', 'illegal', 'cheat', 'steal', 'pirate', 'crack',
   
-  // Unrelated Topics
+  // Unrelated Topics (NOTE: 'movie' removed - Niño has a Movie App project!)
   'weather', 'sports', 'politics', 'religion', 'celebrity', 'gossip',
-  'movie', 'game', 'recipe', 'health', 'medical', 'legal advice',
+  'game', 'recipe', 'health', 'medical', 'legal advice',
   'financial advice', 'investment',
   
   // System Manipulation
