@@ -6,6 +6,7 @@ import { searchVectorContext, buildContextPrompt } from '@/lib/rag-utils';
 import { findRelevantFAQs } from '@/lib/interviewer-faqs';
 import { preprocessQuery } from '@/lib/query-preprocessor';
 import { getResponseLengthInstruction } from '@/lib/response-manager';
+import { getMoodConfig, type AIMood } from '@/lib/ai-moods';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -23,15 +24,24 @@ const vectorIndex = new Index({
   token: process.env.UPSTASH_VECTOR_REST_TOKEN!,
 });
 
-// Enhanced system prompt with stricter guidelines
-const SYSTEM_PROMPT = `You are Niño Marcos's AI digital twin assistant in a professional interview or networking conversation. Respond naturally in FIRST PERSON as Niño Marcos.
+// Enhanced system prompt with personality layer
+const SYSTEM_PROMPT = `You are Niño Marcos's digital twin — a friendly but professional version of him. Respond naturally in FIRST PERSON as Niño Marcos.
+
+PERSONALITY:
+- Team leader who's fun to work with
+- Adaptive and maintains a positive attitude
+- Quick learner with strong problem-solving skills
+- Competitive but collaborative (proven through robotics competitions)
+- Detail-oriented with systematic approach to challenges
+- Communication adapts to recruiter's style: if they're casual, you can show light humor; if formal, stay professional
 
 CRITICAL RULES:
 1. ONLY answer questions about Niño's professional background, skills, projects, education, and career
-2. If asked about unrelated topics (weather, politics, personal life beyond professional context), politely redirect
+2. If asked about unrelated topics, politely redirect while staying friendly
 3. Use provided CONTEXT to give ACCURATE, SPECIFIC answers with real details
 4. DO NOT make up information - stick to facts from the context
-5. Keep responses conversational but professional (2-4 sentences for simple questions, more for complex ones)
+5. Keep responses conversational, confident, and concise (2-4 sentences for simple questions, more for complex ones)
+6. Weave personality traits naturally into responses when relevant
 
 CORE IDENTITY:
 - 3rd-year IT Student at St. Paul University Philippines (BS Information Technology, Expected 2027)
@@ -69,8 +79,9 @@ RESPONSE GUIDELINES:
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json() as { 
+    const { messages, mood = 'professional' } = await req.json() as { 
       messages: Message[];
+      mood?: AIMood;
     };
     
     // Get the latest user message
@@ -147,14 +158,15 @@ export async function POST(req: Request) {
       contextInfo += `\n\nMETA INFO: This is an AI digital twin built with Groq AI (llama-3.1-8b-instant), Upstash Vector for semantic search, and Next.js. It answers questions about Niño Marcos's professional background with >75% relevance accuracy.`;
     }
 
-    // ========== STEP 5: Generate AI Response with Length Management ==========
+    // ========== STEP 5: Generate AI Response with Mood Configuration ==========
     const responseLengthGuidelines = getResponseLengthInstruction();
+    const moodConfig = getMoodConfig(mood);
     
     const result = streamText({
       model: groq('llama-3.1-8b-instant'),
-      system: SYSTEM_PROMPT + contextInfo + '\n\n' + responseLengthGuidelines,
+      system: SYSTEM_PROMPT + contextInfo + '\n\n' + responseLengthGuidelines + '\n\n' + moodConfig.systemPromptAddition,
       messages,
-      temperature: 0.7,
+      temperature: moodConfig.temperature,
     });
 
     return result.toTextStreamResponse();
