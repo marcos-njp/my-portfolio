@@ -210,6 +210,8 @@ export async function POST(req: Request) {
     const responseLengthGuidelines = getResponseLengthInstruction();
     const moodConfig = getMoodConfig(mood);
     
+    console.log(`[AI Generation] Mood: ${mood}, Temperature: ${moodConfig.temperature}, Mood Name: ${moodConfig.name}`);
+    
     const result = streamText({
       model: groq('llama-3.1-8b-instant'),
       system: SYSTEM_PROMPT + conversationContext + contextInfo + '\n\n' + responseLengthGuidelines + '\n\n' + moodConfig.systemPromptAddition,

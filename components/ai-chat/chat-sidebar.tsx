@@ -78,20 +78,25 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     setInput("");
     setIsLoading(true);
 
-    console.log(`[API Call] Sending with mood: ${currentMood}, sessionId: ${sessionId}`);
+    console.log(`[API Call] 🚀 Sending query: "${input.trim()}" with mood: ${currentMood}, sessionId: ${sessionId}`);
+    console.log(`[API Call] 🎭 Current mood config:`, moods.find(m => m.id === currentMood));
+
+    const requestBody = {
+      messages: [...messages, userMessage].map((m) => ({
+        role: m.role,
+        content: m.content,
+      })),
+      mood: currentMood,
+      sessionId: sessionId,
+    };
+    
+    console.log('[API Call] 📦 Request body:', JSON.stringify(requestBody, null, 2));
 
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [...messages, userMessage].map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-          mood: currentMood, // Pass current mood to API
-          sessionId: sessionId, // Pass session ID for memory
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       // Handle validation errors (400 status)

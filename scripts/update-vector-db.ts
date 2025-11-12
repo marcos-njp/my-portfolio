@@ -22,12 +22,11 @@ if (!UPSTASH_VECTOR_REST_URL || !UPSTASH_VECTOR_REST_TOKEN) {
 interface ChunkData {
   id: string;
   title: string;
+  type: string;
   content: string;
-  category: string;
   metadata: {
-    title: string;
     category: string;
-    content: string;
+    tags: string[];
   };
 }
 
