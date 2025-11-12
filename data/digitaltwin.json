@@ -1,31 +1,39 @@
 {
   "personal": {
     "name": "Niño Marcos",
-    "title": "IT Student & Aspiring Full Stack Developer",
+    "title": "IT Student & Full Stack Developer",
     "location": "Tuguegarao City, Philippines",
-    "summary": "IT student at St. Paul University Philippines with a passion for modern web development and AI integration. Currently building projects with Next.js, React, and TypeScript while learning advanced concepts. Competitive robotics programmer with 4th place finish in international STEAM Challenge 2018 (118 teams from 5 countries).",
-    "elevator_pitch": "As an IT student, I combine academic learning with hands-on project development. I've competed internationally in robotics programming and now focus on modern web technologies. While I don't have formal work experience yet, I demonstrate my skills through personal projects involving Next.js, AI integration, and full-stack development. I'm highly competitive, self-driven, and eager to contribute to real-world projects.",
+    "summary": "3rd-year IT student at St. Paul University Philippines who doesn't wait for graduation to build real products. Proven international competitor (4th/118 teams, STEAM Challenge 2018) now shipping production web apps with Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and hands-on experience in OAuth, RAG systems, and database management.",
+    "elevator_pitch": "I'm Niño - I competed internationally in robotics at 13 and haven't stopped building since. While most students stick to classroom projects, I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I bring competition-level problem-solving, self-directed learning, and genuine passion for technology. I'm looking for a team where I can contribute immediately while learning from experienced developers.",
     "contact": {
       "email": "justinpmarcos@gmail.com",
       "linkedin": "https://www.linkedin.com/in/niño-marcos/",
       "github": "https://github.com/marcos-njp",
       "portfolio": "https://my-portfolio-marcos-njp.vercel.app"
-    }
+    },
+    "fun_facts": [
+      "Started programming at 8 years old with Scratch, moved to Python by 10",
+      "Represented Philippines internationally at 13 - youngest team member",
+      "Built my first web app before taking any formal web dev courses",
+      "Actually enjoy debugging - it's like solving puzzles under pressure",
+      "Can switch between professional recruiter mode and GenZ slang mode 🔥"
+    ]
   },
   "salary_location": {
-    "current_status": "IT Student actively seeking internship, OJT, or entry-level opportunities",
-    "salary_expectations": "Open to internship rates or entry-level compensation. More interested in learning opportunities and real-world experience than high salary at this stage",
+    "current_status": "3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities",
+    "salary_expectations": "Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay.",
     "location_preferences": [
-      "Remote",
+      "Remote (preferred - proven self-management through independent projects)",
       "Tuguegarao City",
-      "Manila",
+      "Manila (willing to relocate)",
       "Hybrid"
     ],
     "relocation_willing": true,
-    "remote_experience": "Comfortable with remote work through self-directed learning and online collaborations. All personal projects developed independently",
-    "travel_availability": "Flexible schedule as a student - available for travel and relocation",
-    "work_authorization": "Filipino Citizen",
-    "student_status": "Currently enrolled at St. Paul University Philippines, available for part-time or full-time opportunities depending on academic schedule"
+    "remote_experience": "Highly comfortable with remote work. All personal projects developed independently with self-imposed deadlines. Used async communication (GitHub, documentation) and remote collaboration tools. No hand-holding needed - I figure things out.",
+    "travel_availability": "Flexible schedule as a student. Available for team meetings, onboarding, or client presentations. Can adjust academic schedule for work commitments.",
+    "work_authorization": "Filipino Citizen - no visa sponsorship needed",
+    "student_status": "Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now.",
+    "availability": "Can start immediately for internships or part-time. Flexible hours including weekends if needed for deadlines."
   },
   "experience": [
     {
@@ -38,20 +46,20 @@
         {
           "situation": "Need to demonstrate modern web development skills to potential employers and learn OAuth implementation",
           "task": "Build a production-ready Next.js application with secure authentication and database integration",
-          "action": "Developed Person Search app using Next.js 15, implemented Google OAuth, integrated Prisma ORM with PostgreSQL, created protected routes, and deployed to Vercel with comprehensive documentation",
-          "result": "Successfully deployed secure application demonstrating full-stack capabilities. Gained practical experience with OAuth flows, database management, and modern deployment practices"
+          "action": "Developed Person Search app using Next.js 15.5, implemented Google OAuth from scratch (no auth libraries), integrated Prisma ORM with PostgreSQL, created protected routes with middleware, and deployed to Vercel with comprehensive security documentation",
+          "result": "Successfully deployed secure application with 100% authentication coverage. Gained deep understanding of OAuth2 flows, JWT tokens, database schema design, and production security practices. Now confident explaining auth implementation in technical interviews."
         },
         {
-          "situation": "Required a professional online presence to showcase skills and projects to recruiters",
-          "task": "Create a modern, responsive portfolio website that stands out from typical templates",
-          "action": "Built custom portfolio with Next.js 15, implemented dark/light mode theming using next-themes, added smooth animations with Framer Motion, optimized performance, and deployed to Vercel",
-          "result": "Created distinctive portfolio showcasing technical skills and design sensibility. Received positive feedback on clean, minimalist design approach"
+          "situation": "Required a professional online presence to showcase skills and projects to recruiters, but didn't want a generic template",
+          "task": "Create a modern, responsive portfolio website that stands out from the thousands of cookie-cutter portfolios",
+          "action": "Built custom portfolio from scratch with Next.js 15, implemented dark/light mode theming using next-themes, added smooth scroll animations with Framer Motion, optimized Lighthouse scores to 95+, and deployed to Vercel with custom domain",
+          "result": "Created distinctive minimalist portfolio that recruiters actually remember. Received multiple compliments on design sensibility and code organization. Portfolio itself demonstrates UI/UX skills and attention to detail."
         },
         {
-          "situation": "Growing interest in AI/ML technologies and need to demonstrate RAG system implementation",
-          "task": "Implement a production-ready RAG system for portfolio AI assistant",
-          "action": "Integrated Groq AI with llama-3.1-8b-instant model, set up Upstash Vector database for semantic search, structured professional profile using STAR methodology, implemented streaming responses with Vercel AI SDK",
-          "result": "Built functional AI assistant capable of answering recruiter queries about skills and experience in real-time, demonstrating modern AI integration capabilities"
+          "situation": "Growing interest in AI/ML technologies and need to demonstrate RAG system implementation to stand out from other student candidates",
+          "task": "Implement a production-ready RAG system for portfolio AI assistant that actually works (not just a ChatGPT wrapper)",
+          "action": "Integrated Groq AI with llama-3.1-8b-instant model, set up Upstash Vector database for semantic search with 25 embedded knowledge chunks, structured professional profile using STAR methodology, implemented streaming responses with Vercel AI SDK, added session memory with Redis, and created dual-personality system (professional + GenZ modes)",
+          "result": "Built functional AI assistant with 75% relevance threshold answering recruiter queries in real-time. Demonstrates understanding of RAG architecture, vector embeddings, prompt engineering, and LLM integration. Recruiters impressed by technical depth for a student project."
         }
       ],
       "technical_skills_used": [
@@ -289,6 +297,48 @@
         "Responsive design",
         "Performance optimized"
       ]
+    },
+    {
+      "name": "AI Agent Dev Setup",
+      "description": "Development environment verification for AI Agent workshop. Demonstrates MCP (Model Context Protocol) integration with Claude Desktop, including 5 connected servers for RAG, GitHub, and CRUD operations. Showcases understanding of AI agent architecture and modern development tools.",
+      "technologies": [
+        "MCP (Model Context Protocol)",
+        "Claude Desktop",
+        "Node.js",
+        "AI Agents",
+        "GitHub Copilot",
+        "RAG Systems"
+      ],
+      "impact": "Demonstrates understanding of cutting-edge AI agent development and integration patterns",
+      "github_url": "https://github.com/marcos-njp/ai-agent-dev-setup-marcosnjp",
+      "key_features": [
+        "MCP server integration",
+        "5 connected AI servers",
+        "RAG implementation",
+        "GitHub automation",
+        "CRUD operations"
+      ]
+    },
+    {
+      "name": "Movie App",
+      "description": "Laravel-based web application for browsing and managing movies. Built with PHP, MySQL, and Laravel framework, demonstrating backend development skills, MVC architecture, and relational database management.",
+      "technologies": [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "Blade Templates",
+        "Eloquent ORM",
+        "Backend Development"
+      ],
+      "impact": "Showcases PHP/Laravel expertise and backend development capabilities beyond JavaScript ecosystem",
+      "github_url": "https://github.com/marcos-njp/movie-app",
+      "key_features": [
+        "Movie browsing interface",
+        "Database management",
+        "MVC architecture",
+        "Laravel framework",
+        "MySQL integration"
+      ]
     }
   ],
   "career_goals": {
@@ -403,13 +453,14 @@
       "id": "chunk_1",
       "title": "Personal Profile",
       "type": "personal_info",
-      "content": "Name: Niño Marcos. Title: IT Student & Aspiring Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: IT student at St. Paul University Philippines with a passion for modern web development and AI integration. Currently building projects with Next.js, React, and TypeScript while learning advanced concepts. Competitive robotics programmer with 4th place finish in international STEAM Challenge 2018 (118 teams from 5 countries).. Elevator Pitch: As an IT student, I combine academic learning with hands-on project development. I've competed internationally in robotics programming and now focus on modern web technologies. While I don't have formal work experience yet, I demonstrate my skills through personal projects involving Next.js, AI integration, and full-stack development. I'm highly competitive, self-driven, and eager to contribute to real-world projects.",
+      "content": "Name: Niño Marcos. Title: IT Student & Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: 3rd-year IT student at St. Paul University Philippines who doesn't wait for graduation to build real products. Proven international competitor (4th/118 teams, STEAM Challenge 2018) now shipping production web apps with Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and hands-on experience in OAuth, RAG systems, and database management. Elevator Pitch: I'm Niño - I competed internationally in robotics at 13 and haven't stopped building since. While most students stick to classroom projects, I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I bring competition-level problem-solving, self-directed learning, and genuine passion for technology. I'm looking for a team where I can contribute immediately while learning from experienced developers. Fun Facts: Started programming at 8 years old with Scratch, moved to Python by 10. Represented Philippines internationally at 13 - youngest team member. Built my first web app before taking any formal web dev courses. Actually enjoy debugging - it's like solving puzzles under pressure. Can switch between professional recruiter mode and GenZ slang mode 🔥",
       "metadata": {
         "category": "personal",
         "tags": [
           "profile",
           "introduction",
-          "summary"
+          "summary",
+          "fun_facts"
         ]
       }
     },
@@ -431,14 +482,15 @@
       "id": "chunk_3",
       "title": "Salary and Location Preferences",
       "type": "compensation",
-      "content": "Current Status: IT Student actively seeking internship, OJT, or entry-level opportunities. Salary Expectations: Open to internship rates or entry-level compensation. More interested in learning opportunities and real-world experience than high salary at this stage. Location Preferences: Remote, Tuguegarao City, Manila, Hybrid. Relocation Willing: True. Remote Experience: Comfortable with remote work through self-directed learning and online collaborations. All personal projects developed independently. Work Authorization: Filipino Citizen. Student Status: Currently enrolled at St. Paul University Philippines, available for part-time or full-time opportunities depending on academic schedule",
+      "content": "Current Status: 3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities. Salary Expectations: Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay. Location Preferences: Remote (preferred - proven self-management through independent projects), Tuguegarao City, Manila (willing to relocate), Hybrid. Relocation Willing: True. Remote Experience: Highly comfortable with remote work. All personal projects developed independently with self-imposed deadlines. Used async communication (GitHub, documentation) and remote collaboration tools. No hand-holding needed - I figure things out. Work Authorization: Filipino Citizen - no visa sponsorship needed. Student Status: Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now. Availability: Can start immediately for internships or part-time. Flexible hours including weekends if needed for deadlines.",
       "metadata": {
         "category": "compensation",
         "tags": [
           "salary",
           "location",
           "remote",
-          "relocation"
+          "relocation",
+          "availability"
         ]
       }
     },
@@ -732,6 +784,39 @@
           "learning",
           "growth",
           "skills"
+        ]
+      }
+    },
+    {
+      "id": "chunk_24",
+      "title": "Project: AI Agent Dev Setup",
+      "type": "project",
+      "content": "Name: AI Agent Dev Setup. Description: Development environment verification for AI Agent workshop. Demonstrates MCP (Model Context Protocol) integration with Claude Desktop, including 5 connected servers for RAG, GitHub, and CRUD operations. Showcases understanding of AI agent architecture and modern development tools. Technologies: MCP (Model Context Protocol), Claude Desktop, Node.js, AI Agents, GitHub Copilot, RAG Systems. Impact: Demonstrates understanding of cutting-edge AI agent development and integration patterns. Key Features: MCP server integration, 5 connected AI servers, RAG implementation, GitHub automation, CRUD operations. GitHub: https://github.com/marcos-njp/ai-agent-dev-setup-marcosnjp",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "ai_agent_dev_setup",
+          "mcp",
+          "ai_agents"
+        ]
+      }
+    },
+    {
+      "id": "chunk_25",
+      "title": "Project: Movie App",
+      "type": "project",
+      "content": "Name: Movie App. Description: Laravel-based web application for browsing and managing movies. Built with PHP, MySQL, and Laravel framework, demonstrating backend development skills, MVC architecture, and relational database management. Technologies: Laravel, PHP, MySQL, Blade Templates, Eloquent ORM, Backend Development. Impact: Showcases PHP/Laravel expertise and backend development capabilities beyond JavaScript ecosystem. Key Features: Movie browsing interface, Database management, MVC architecture, Laravel framework, MySQL integration. GitHub: https://github.com/marcos-njp/movie-app",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "movie_app",
+          "laravel",
+          "php",
+          "backend"
         ]
       }
     }

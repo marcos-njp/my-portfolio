@@ -29,7 +29,24 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [currentMood, setCurrentMood] = useState<AIMood>("professional");
-  const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substring(7)}`);
+  
+  // Persistent sessionId using localStorage (survives page refresh)
+  const [sessionId] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('ai_chat_session_id');
+      if (stored) {
+        console.log('[Session] Restored existing session:', stored);
+        return stored;
+      }
+    }
+    const newId = `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ai_chat_session_id', newId);
+    }
+    console.log('[Session] Created new session:', newId);
+    return newId;
+  });
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Get all available moods
