@@ -11,9 +11,19 @@ interface ChatInputProps {
   onSubmit: (e: React.FormEvent) => void;
   isLoading: boolean;
   mood?: AIMood;
+  placeholder?: string;
+  [key: string]: any; // Allow additional props like data-chat-form
 }
 
-export function ChatInput({ value, onChange, onSubmit, isLoading, mood = 'professional' }: ChatInputProps) {
+export function ChatInput({ 
+  value, 
+  onChange, 
+  onSubmit, 
+  isLoading, 
+  mood = 'professional',
+  placeholder = "Ask me anything...",
+  ...restProps 
+}: ChatInputProps) {
   // Subtle border colors for different moods
   const borderColor = mood === 'genz' 
     ? 'focus-visible:ring-purple-500 focus-visible:border-purple-500' 
@@ -21,11 +31,11 @@ export function ChatInput({ value, onChange, onSubmit, isLoading, mood = 'profes
 
   return (
     <div className="border-t p-4">
-      <form onSubmit={onSubmit} className="flex gap-2">
+      <form onSubmit={onSubmit} className="flex gap-2" {...restProps}>
         <Input
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="Ask me anything..."
+          placeholder={placeholder}
           disabled={isLoading}
           className={`flex-1 transition-all duration-300 ${borderColor}`}
         />

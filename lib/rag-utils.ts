@@ -1,6 +1,6 @@
 /**
  * Enhanced RAG (Retrieval-Augmented Generation) Utilities
- * Optimized for >82% relevance accuracy
+ * Optimized with 0.75 relevance threshold for balanced accuracy and coverage
  */
 
 import { Index } from '@upstash/vector';

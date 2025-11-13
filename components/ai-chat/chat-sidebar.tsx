@@ -67,15 +67,8 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 
   useEffect(() => {
     console.log(`[Mood Change] New mood: ${currentMood}`);
-    
-    // Clear conversation when mood switches so new mood applies immediately
-    if (messages.length > 1) {
-      setMessages([{
-        id: Date.now().toString(),
-        role: "assistant",
-        content: "Hey! I'm Niño's AI digital twin. Ask me about his projects, skills, or experience!",
-      }]);
-    }
+    // Do NOT clear the conversation on mood change.
+    // Mood now applies to the next message only; keep history intact for context.
   }, [currentMood]);
 
   const handleSubmit = async (e: React.FormEvent) => {
