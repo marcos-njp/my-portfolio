@@ -24,36 +24,36 @@ Add these **exact** environment variables to Vercel:
 
 #### 1. DATABASE_URL (CRITICAL!)
 ```
-DATABASE_URL=postgresql://neondb_owner:YOUR_PASSWORD@ep-falling-bar-a1h7pgv1-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+DATABASE_URL=postgresql://[username]:[password]@[host]/[database]?sslmode=require
 ```
 - **Environments:** Production, Preview, Development (select all 3)
 - **Source:** Copy from your `.env.local` file
 - **Why:** Prisma needs this to connect to Neon database
 
-#### 2. GROQ_API_KEY (Already set?)
+#### 2. GROQ_API_KEY
 ```
-GROQ_API_KEY=gsk_...
+GROQ_API_KEY=[your-groq-api-key]
 ```
 - **Environments:** Production, Preview, Development
 
 #### 3. UPSTASH_VECTOR_REST_URL
 ```
-UPSTASH_VECTOR_REST_URL=https://...
+UPSTASH_VECTOR_REST_URL=[your-upstash-vector-url]
 ```
 
 #### 4. UPSTASH_VECTOR_REST_TOKEN
 ```
-UPSTASH_VECTOR_REST_TOKEN=...
+UPSTASH_VECTOR_REST_TOKEN=[your-upstash-vector-token]
 ```
 
 #### 5. UPSTASH_REDIS_REST_URL
 ```
-UPSTASH_REDIS_REST_URL=https://...
+UPSTASH_REDIS_REST_URL=[your-upstash-redis-url]
 ```
 
 #### 6. UPSTASH_REDIS_REST_TOKEN
 ```
-UPSTASH_REDIS_REST_TOKEN=...
+UPSTASH_REDIS_REST_TOKEN=[your-upstash-redis-token]
 ```
 
 ### Step 3: Redeploy

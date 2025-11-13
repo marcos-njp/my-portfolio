@@ -6,8 +6,10 @@ Your chat data is stored in **Neon Postgres** (cloud database), NOT on your loca
 
 ### Database URL
 ```
-postgresql://neondb_owner:...@ep-falling-bar-a1h7pgv1-pooler.ap-southeast-1.aws.neon.tech/neondb
+postgresql://[username]:[password]@[host]/[database]?sslmode=require
 ```
+
+You can find your DATABASE_URL in your `.env.local` file (never commit this file!).
 
 ## ✅ How It Works
 
