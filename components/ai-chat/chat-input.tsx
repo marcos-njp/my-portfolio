@@ -3,15 +3,22 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Loader2 } from "lucide-react";
+import { type AIMood } from "@/lib/ai-moods";
 
 interface ChatInputProps {
   value: string;
   onChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   isLoading: boolean;
+  mood?: AIMood;
 }
 
-export function ChatInput({ value, onChange, onSubmit, isLoading }: ChatInputProps) {
+export function ChatInput({ value, onChange, onSubmit, isLoading, mood = 'professional' }: ChatInputProps) {
+  // Subtle border colors for different moods
+  const borderColor = mood === 'genz' 
+    ? 'focus-visible:ring-purple-500 focus-visible:border-purple-500' 
+    : 'focus-visible:ring-blue-500 focus-visible:border-blue-500';
+
   return (
     <div className="border-t p-4">
       <form onSubmit={onSubmit} className="flex gap-2">
@@ -20,7 +27,7 @@ export function ChatInput({ value, onChange, onSubmit, isLoading }: ChatInputPro
           onChange={(e) => onChange(e.target.value)}
           placeholder="Ask me anything..."
           disabled={isLoading}
-          className="flex-1"
+          className={`flex-1 transition-all duration-300 ${borderColor}`}
         />
         <Button type="submit" size="icon" disabled={isLoading || !value.trim()}>
           {isLoading ? (

@@ -66,22 +66,6 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 
   useEffect(() => {
     console.log(`[Mood Change] New mood: ${currentMood}`);
-    
-    // Add immediate confirmation message when mood changes
-    if (messages.length > 0) {
-      const moodMessage = currentMood === 'genz' 
-        ? "🔥 Yo! GenZ mode activated fr fr - responses gonna hit different now, no cap! 💯"
-        : "💼 Professional mode activated - back to interview-ready responses.";
-      
-      setMessages(prev => [
-        ...prev,
-        {
-          id: `mood-switch-${Date.now()}`,
-          role: "assistant",
-          content: moodMessage,
-        }
-      ]);
-    }
   }, [currentMood]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -378,6 +362,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             onChange={setInput}
             onSubmit={handleSubmit}
             isLoading={isLoading}
+            mood={currentMood}
           />
         </div>
       </div>
