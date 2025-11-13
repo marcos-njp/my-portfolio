@@ -167,7 +167,7 @@ export async function POST(req: Request) {
       return new Response(
         JSON.stringify({ 
           error: 'unprofessional_request',
-          message: getUnprofessionalRejection(cleanQuery)
+          message: getUnprofessionalRejection(cleanQuery, mood)
         }),
         {
           status: 400,
@@ -203,10 +203,14 @@ export async function POST(req: Request) {
       validation = validateQuery(cleanQuery);
       
       if (!validation.isValid) {
+        const invalidMessage = mood === 'genz'
+          ? "That's not my vibe chief, we talking about my portfolio here fr 🔥 Ask about my projects, skills, or experience"
+          : validation.reason || "Please ask about my professional background, skills, or projects.";
+        
         return new Response(
           JSON.stringify({ 
             error: 'invalid_query',
-            message: validation.reason || "Please ask about my professional background, skills, or projects."
+            message: invalidMessage
           }),
           {
             status: 400,

@@ -184,7 +184,17 @@ export function isUnprofessionalRequest(message: string): boolean {
 /**
  * Get rejection message for unprofessional requests
  */
-export function getUnprofessionalRejection(message: string): string {
+export function getUnprofessionalRejection(message: string, mood: string = 'professional'): string {
+  if (mood === 'genz') {
+    const genzRejections = [
+      "Nah bro, that's not the vibe 💀 Ask me about my projects or skills instead fr",
+      "Lol that's outta pocket 😭 Let's talk about my portfolio tho - what you wanna know?",
+      "Not happening chief 🤌 We keeping this professional. Ask about my work, skills, or projects",
+      "Yo that's wild 💀 Stick to asking about my tech stuff, projects, or experience fr fr",
+    ];
+    return genzRejections[Math.floor(Math.random() * genzRejections.length)];
+  }
+  
   const rejections = [
     "I'm here to discuss Niño's professional background. Let's keep this professional - what would you like to know about his skills, projects, or experience?",
     "That's not a professional request. I'm happy to answer questions about Niño's technical skills, projects, or career goals. What would you like to know?",
