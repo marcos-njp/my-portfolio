@@ -37,6 +37,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [thinkingTimeout, setThinkingTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [thinkingInterval, setThinkingInterval] = useState<NodeJS.Timeout | null>(null);
   const [currentMood, setCurrentMood] = useState<AIMood>("professional");
   
   const [sessionId] = useState(() => {
@@ -83,9 +84,24 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "💭 Thinking...",
+        content: "💭 Thinking",
       },
     ]);
+    
+    // Animate thinking dots
+    let dotCount = 0;
+    const thinkingInterval = setInterval(() => {
+      dotCount = (dotCount + 1) % 4;
+      const dots = '.'.repeat(dotCount);
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        const lastMessage = newMessages[newMessages.length - 1];
+        if (lastMessage.role === 'assistant' && lastMessage.content.startsWith('💭 Thinking')) {
+          lastMessage.content = `💭 Thinking${dots}`;
+        }
+        return newMessages;
+      });
+    }, 500);
     setInput("");
     setIsLoading(true);
 
@@ -171,10 +187,13 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       const decoder = new TextDecoder();
       let aiResponse = "";
 
-      // Clear thinking timeout
+      // Clear thinking timeout and animation
       if (thinkingTimeout) {
         clearTimeout(thinkingTimeout);
         setThinkingTimeout(null);
+      }
+      if (thinkingInterval) {
+        clearInterval(thinkingInterval);
       }
 
       // Update the existing "Thinking..." message instead of adding a new one
@@ -209,10 +228,14 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     } catch (error) {
       console.error("[API Error]", error);
       
-      // Clear timeout on error
+      // Clear timeout and animation on error
       if (thinkingTimeout) {
         clearTimeout(thinkingTimeout);
         setThinkingTimeout(null);
+      }
+      if (thinkingInterval) {
+        clearInterval(thinkingInterval);
+        setThinkingInterval(null);
       }
       
       setMessages((prev) => [
