@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getAllMoods, type AIMood } from "@/lib/ai-moods";
-import { X, Sparkles, Send, Loader2, User } from "lucide-react";
+import { type AIMood } from "@/lib/ai-moods";
+import { X, Sparkles, Loader2 } from "lucide-react";
+import { ChatMessage } from "./chat-message";
+import { ChatInput } from "./chat-input";
+import { MoodSelector } from "./mood-selector";
+import { SuggestedQuestions } from "./suggested-questions";
 
 interface Message {
   id: string;
@@ -14,9 +16,15 @@ interface Message {
 }
 
 interface ChatSidebarProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
+
+const SUGGESTIONS = [
+  "What are your top skills?",
+  "Tell me about your projects",
+  "What's your education background?",
+];
 
 export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const [messages, setMessages] = useState<Message[]>([
@@ -30,7 +38,6 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [currentMood, setCurrentMood] = useState<AIMood>("professional");
   
-  // Persistent sessionId using localStorage (survives page refresh)
   const [sessionId] = useState(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('ai_chat_session_id');
@@ -49,17 +56,12 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Get all available moods
-  const moods = getAllMoods();
-
   console.log(`[Session] ID: ${sessionId}, Mood: ${currentMood}`);
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Log mood changes
   useEffect(() => {
     console.log(`[Mood Change] New mood: ${currentMood}`);
   }, [currentMood]);
@@ -79,7 +81,6 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     setIsLoading(true);
 
     console.log(`[API Call] 🚀 Sending query: "${input.trim()}" with mood: ${currentMood}, sessionId: ${sessionId}`);
-    console.log(`[API Call] 🎭 Current mood config:`, moods.find(m => m.id === currentMood));
 
     const requestBody = {
       messages: [...messages, userMessage].map((m) => ({
@@ -99,9 +100,8 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         body: JSON.stringify(requestBody),
       });
 
-      // Handle validation errors (400 status)
       if (response.status === 400) {
-        const errorData = await response.json()
+        const errorData = await response.json();
         setMessages((prev) => [
           ...prev,
           {
@@ -109,14 +109,13 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             role: "assistant",
             content: errorData.message || "Please ask about my professional background, skills, or projects.",
           },
-        ])
-        setIsLoading(false)
-        return
+        ]);
+        setIsLoading(false);
+        return;
       }
 
-      // Handle server errors (500 status)
       if (response.status === 500) {
-        const errorData = await response.json()
+        const errorData = await response.json();
         console.error('[API Error]', errorData);
         setMessages((prev) => [
           ...prev,
@@ -125,23 +124,23 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             role: "assistant",
             content: `⚠️ Server error: ${errorData.message || 'Failed to generate response'}${errorData.details ? `\n\nDetails: ${errorData.details}` : ''}`,
           },
-        ])
-        setIsLoading(false)
-        return
+        ]);
+        setIsLoading(false);
+        return;
       }
 
       if (!response.ok) {
         console.error('[API Error] Status:', response.status, 'Status Text:', response.statusText);
-        throw new Error(`API returned ${response.status}: ${response.statusText}`)
+        throw new Error(`API returned ${response.status}: ${response.statusText}`);
       }
 
-      const reader = response.body?.getReader()
+      const reader = response.body?.getReader();
       if (!reader) {
-        throw new Error('Response body reader is null')
+        throw new Error('Response body reader is null');
       }
       
-      const decoder = new TextDecoder()
-      let aiResponse = ""
+      const decoder = new TextDecoder();
+      let aiResponse = "";
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -154,56 +153,56 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        // Decode the chunk as plain text (toTextStreamResponse sends plain text)
-        const text = decoder.decode(value, { stream: true });
-        aiResponse += text;
-        
-        setMessages((prev) =>
-          prev.map((m) =>
-            m.id === assistantMessage.id ? { ...m, content: aiResponse } : m
-          )
-        );
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        for (const line of lines) {
+          if (line.startsWith('0:')) {
+            const textPart = line.substring(3).trim();
+            if (textPart.startsWith('"') && textPart.endsWith('"')) {
+              const cleanedText = textPart.slice(1, -1).replace(/\\n/g, '\n');
+              aiResponse += cleanedText;
+              setMessages((prev) => {
+                const newMessages = [...prev];
+                const lastMessage = newMessages[newMessages.length - 1];
+                if (lastMessage.role === 'assistant') {
+                  lastMessage.content = aiResponse;
+                }
+                return newMessages;
+              });
+            }
+          }
+        }
       }
 
-      console.log(`[Response Complete] Mood was: ${currentMood}`);
+      console.log('[API Call] ✅ Full response:', aiResponse);
+      setIsLoading(false);
     } catch (error) {
-      console.error("❌ Chat error:", error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      console.error("[API Error]", error);
       setMessages((prev) => [
-        ...prev,
+        ...prev.slice(0, -1),
         {
-          id: (Date.now() + 1).toString(),
+          id: Date.now().toString(),
           role: "assistant",
-          content: `⚠️ Error: ${errorMessage}\n\nThis might be a network issue or server configuration problem. Please try again or contact support if the issue persists.`,
+          content: "⚠️ Sorry, I encountered an error. Please try again.",
         },
       ]);
-    } finally {
       setIsLoading(false);
     }
   };
 
-  // Suggested questions - Common interviewer questions
-  const suggestions = [
-    "Tell me about yourself",
-    "What are your technical skills?",
-    "Describe your most challenging project",
-    "Why should we hire you?",
-  ]
-
   const handleSuggestionClick = (suggestion: string) => {
     setInput(suggestion);
     setTimeout(() => {
-      const form = document.querySelector("form");
+      const form = document.querySelector('form');
       if (form) {
-        const event = new Event("submit", { bubbles: true, cancelable: true });
-        form.dispatchEvent(event);
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
     }, 100);
   };
 
   return (
     <>
-      {/* Backdrop */}
       <div
         className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -211,14 +210,12 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         onClick={onClose}
       />
 
-      {/* Sidebar */}
       <div
         className={`fixed top-0 right-0 h-full w-full sm:w-[440px] bg-background border-l shadow-2xl z-50 transform transition-transform duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
-          {/* Header */}
           <div className="border-b p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -238,83 +235,16 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
               </Button>
             </div>
 
-            {/* Mood Selector */}
-            <div className="space-y-2">
-              <label className="text-xs font-medium text-muted-foreground">AI Personality Mode:</label>
-              <Select value={currentMood} onValueChange={(value) => setCurrentMood(value as AIMood)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue>
-                    {moods.find(m => m.id === currentMood)?.icon} {moods.find(m => m.id === currentMood)?.name}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  {moods.map((mood) => (
-                    <SelectItem key={mood.id} value={mood.id}>
-                      <div className="flex items-center gap-2">
-                        <span>{mood.icon}</span>
-                        <div>
-                          <div className="font-medium">{mood.name}</div>
-                          <div className="text-xs text-muted-foreground">{mood.description}</div>
-                        </div>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <MoodSelector currentMood={currentMood} onMoodChange={setCurrentMood} />
 
-            {/* Suggested Questions */}
             {messages.length === 1 && (
-              <div className="space-y-2">
-                <p className="text-xs text-muted-foreground">💡 Try asking:</p>
-                <div className="flex flex-wrap gap-2">
-                  {suggestions.map((suggestion, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleSuggestionClick(suggestion)}
-                      className="text-xs px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <SuggestedQuestions suggestions={SUGGESTIONS} onSelect={handleSuggestionClick} />
             )}
           </div>
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex gap-3 ${
-                  message.role === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                {message.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                  </div>
-                )}
-                
-                <div
-                  className={`max-w-[85%] rounded-lg p-4 ${
-                    message.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
-                  }`}
-                >
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                    {message.content}
-                  </p>
-                </div>
-
-                {message.role === "user" && (
-                  <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                    <User className="w-4 h-4 text-primary-foreground" />
-                  </div>
-                )}
-              </div>
+              <ChatMessage key={message.id} role={message.role} content={message.content} />
             ))}
 
             {isLoading && (
@@ -334,30 +264,14 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="border-t p-4">
-            <form onSubmit={handleSubmit} className="flex gap-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask me anything..."
-                disabled={isLoading}
-                className="flex-1"
-              />
-              <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
-                {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Send className="h-4 w-4" />
-                )}
-              </Button>
-            </form>
-            <p className="text-xs text-muted-foreground text-center mt-2">
-              Powered by Groq AI • Upstash Vector RAG
-            </p>
-          </div>
+          <ChatInput
+            value={input}
+            onChange={setInput}
+            onSubmit={handleSubmit}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </>
-  )
+  );
 }

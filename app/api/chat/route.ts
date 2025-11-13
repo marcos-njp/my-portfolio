@@ -352,26 +352,6 @@ export async function POST(req: Request) {
           ];
           
           await saveConversationHistory(sessionId, updatedHistory, mood, feedbackPreferences);
-          
-          // Log analytics asynchronously (non-blocking, separate API call)
-          if (process.env.ENABLE_ANALYTICS === 'true') {
-            fetch('/api/analytics/log', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                sessionId,
-                userQuery,
-                aiResponse: text,
-                mood,
-                chunksUsed: ragContext.chunksUsed,
-                topScore: ragContext.topScore,
-                averageScore: ragContext.averageScore,
-                hadFeedback: detectedFeedback !== null,
-                feedbackType: detectedFeedback?.type,
-                responseTime,
-              }),
-            }).catch(err => console.error('[Analytics] Log failed:', err));
-          }
         }
       },
     });
