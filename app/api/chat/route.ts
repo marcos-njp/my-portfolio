@@ -396,13 +396,22 @@ export async function POST(req: Request) {
           Promise.resolve().then(async () => {
             try {
               // Use absolute URL for Vercel deployment
+              // VERCEL_URL doesn't include protocol, so we add it
               const baseUrl = process.env.VERCEL_URL 
                 ? `https://${process.env.VERCEL_URL}` 
-                : 'http://localhost:3000';
+                : (process.env.NEXT_PUBLIC_VERCEL_URL 
+                    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+                    : 'http://localhost:3000');
               
-              console.log('[Analytics] 📤 Sending to:', `${baseUrl}/api/analytics/log`);
+              const analyticsUrl = `${baseUrl}/api/analytics/log`;
               
-              const response = await fetch(`${baseUrl}/api/analytics/log`, {
+              console.log('[Analytics] 📤 Sending to:', analyticsUrl);
+              console.log('[Analytics] 🔧 Environment check:', {
+                VERCEL_URL: process.env.VERCEL_URL ? 'SET' : 'NOT SET',
+                NODE_ENV: process.env.NODE_ENV,
+              });
+              
+              const response = await fetch(analyticsUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
