@@ -288,12 +288,12 @@ export async function POST(req: Request) {
       includeMetadata: true,
     });
 
-    // ========== STEP 4.5: Graceful Fallback for Low RAG Scores ==========
-    const hasGoodContext = ragContext.chunksUsed > 0 && ragContext.topScore >= 0.5;
+    // ========== STEP 4.5: Graceful Fallback for Very Low RAG Scores ==========
+    const hasGoodContext = ragContext.chunksUsed > 0 && ragContext.topScore >= 0.3;
     const hasFAQContext = faqContext.length > 0;
     
-    // If we have neither good RAG nor FAQ context, provide a helpful fallback
-    if (!hasGoodContext && !hasFAQContext && !isShortFollowUp && !isFollowUpResponse) {
+    // Only trigger fallback for very poor context (topScore < 0.2) AND no chunks
+    if (ragContext.chunksUsed === 0 && ragContext.topScore < 0.2 && !hasFAQContext && !isShortFollowUp && !isFollowUpResponse) {
       console.log(`[Graceful Fallback] Low RAG score (${ragContext.topScore.toFixed(2)}) for: "${cleanQuery}"`);
       
       // Suggest related topics based on query category
@@ -382,20 +382,26 @@ export async function POST(req: Request) {
           
           await saveConversationHistory(sessionId, updatedHistory, mood, feedbackPreferences);
           
-          // Log analytics asynchronously (non-blocking)
-          fetch('/api/analytics/log', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              sessionId,
-              userQuery,
-              aiResponse: text,
-              mood,
-              chunksUsed: ragContext.chunksUsed,
-              topScore: ragContext.topScore,
-              avgScore: ragContext.averageScore,
-            }),
-          }).catch(err => console.error('[Analytics] Failed:', err));
+          // Log analytics asynchronously (completely non-blocking)
+          Promise.resolve().then(async () => {
+            try {
+              await fetch('/api/analytics/log', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  sessionId,
+                  userQuery,
+                  aiResponse: text,
+                  mood,
+                  chunksUsed: ragContext.chunksUsed,
+                  topScore: ragContext.topScore,
+                  avgScore: ragContext.averageScore,
+                }),
+              });
+            } catch (err) {
+              console.error('[Analytics] Failed (non-blocking):', err);
+            }
+          });
         }
       },
     });
