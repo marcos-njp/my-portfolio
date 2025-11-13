@@ -352,6 +352,21 @@ export async function POST(req: Request) {
           ];
           
           await saveConversationHistory(sessionId, updatedHistory, mood, feedbackPreferences);
+          
+          // Log analytics asynchronously (non-blocking)
+          fetch('/api/analytics/log', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sessionId,
+              userQuery,
+              aiResponse: text,
+              mood,
+              chunksUsed: ragContext.chunksUsed,
+              topScore: ragContext.topScore,
+              avgScore: ragContext.averageScore,
+            }),
+          }).catch(err => console.error('[Analytics] Failed:', err));
         }
       },
     });

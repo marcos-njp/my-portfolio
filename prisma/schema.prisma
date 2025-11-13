@@ -1,0 +1,43 @@
+// Prisma schema for AI Digital Twin Analytics
+// Track user questions and AI responses for insights
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Chat interaction logs - what users ask and how the AI responds
+model ChatLog {
+  id          String   @id @default(cuid())
+  sessionId   String
+  userQuery   String   @db.Text
+  aiResponse  String   @db.Text
+  mood        String   @default("professional")
+  
+  // RAG metrics to track retrieval quality
+  chunksUsed  Int      @default(0)
+  topScore    Float    @default(0.0)
+  avgScore    Float    @default(0.0)
+  
+  timestamp   DateTime @default(now())
+  
+  @@index([sessionId])
+  @@index([timestamp])
+  @@index([mood])
+}
+
+// Track most frequently asked questions
+model FrequentQuestion {
+  id        String   @id @default(cuid())
+  question  String   @unique @db.Text
+  category  String   // 'projects' | 'skills' | 'experience' | 'education' | 'general'
+  count     Int      @default(1)
+  lastAsked DateTime @default(now())
+  
+  @@index([category])
+  @@index([count(sort: Desc)])
+}
