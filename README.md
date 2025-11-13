@@ -30,20 +30,10 @@ To learn more about Next.js, take a look at the following resources:
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 
-## Project Operations & Deployment Guide
+-## Project Operations & Deployment Guide
 
-### Analytics Dashboard
-- Tracks user questions, AI responses, RAG metrics, mood/personality, and frequent questions.
-- **View in Prisma Studio:**
-	```bash
-	pnpm db:studio
-	# Opens at http://localhost:5555
-	```
-- **Direct SQL (Neon):**
-	```sql
-	SELECT question, count, category, "lastAsked" FROM "FrequentQuestion" ORDER BY count DESC LIMIT 20;
-	SELECT "userQuery", mood, "chunksUsed", "topScore", timestamp FROM "ChatLog" ORDER BY timestamp DESC LIMIT 50;
-	```
+### Analytics
+> **Note:** Analytics is **not included** in this deployment. No user questions, AI responses, or usage metrics are tracked or stored.
 
 ### Vercel Environment Setup
 - Add these to Vercel project settings:
