@@ -31,7 +31,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! I'm an AI assistant here to help answer your questions about this portfolio. Feel free to ask about technical skills, projects, education, or work experience.",
+      content: "Hey! Ask me anything about my skills, projects, or experience.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -87,7 +87,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "💭 Thinking",
+        content: "Thinking...",
       },
     ]);
     
@@ -99,8 +99,8 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       setMessages((prev) => {
         const newMessages = [...prev];
         const lastMessage = newMessages[newMessages.length - 1];
-        if (lastMessage.role === 'assistant' && lastMessage.content.startsWith('💭 Thinking')) {
-          lastMessage.content = `💭 Thinking${dots}`;
+        if (lastMessage.role === 'assistant' && lastMessage.content.startsWith('Thinking')) {
+          lastMessage.content = `Thinking${dots}`;
         }
         return newMessages;
       });
@@ -117,8 +117,8 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       setMessages((prev) => {
         const newMessages = [...prev];
         const lastMessage = newMessages[newMessages.length - 1];
-        if (lastMessage.role === 'assistant' && lastMessage.content.startsWith('💭')) {
-          lastMessage.content = '🕒 Hold on, processing your request...';
+        if (lastMessage.role === 'assistant' && lastMessage.content.startsWith('Thinking')) {
+          lastMessage.content = 'Processing your request...';
         }
         return newMessages;
       });
@@ -128,8 +128,8 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       setMessages((prev) => {
         const newMessages = [...prev];
         const lastMessage = newMessages[newMessages.length - 1];
-        if (lastMessage.role === 'assistant' && lastMessage.content.includes('processing')) {
-          lastMessage.content = '⏳ Getting there, almost done...';
+        if (lastMessage.role === 'assistant' && lastMessage.content.includes('Processing')) {
+          lastMessage.content = 'Almost there...';
         }
         return newMessages;
       });
@@ -143,7 +143,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         {
           id: Date.now().toString(),
           role: "assistant",
-          content: "❌ Request timed out after 12 seconds. My AI model couldn't process this in time. Please try asking in a simpler way or refresh and try again.",
+          content: "Request timed out. Please try again or ask something simpler.",
         },
       ]);
       setIsLoading(false);
@@ -200,7 +200,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
           const newMessages = [...prev];
           const lastMessage = newMessages[newMessages.length - 1];
           if (lastMessage.role === 'assistant') {
-            lastMessage.content = "⏸️ I'm getting too many requests right now. Please wait a moment and try again in 30 seconds.";
+            lastMessage.content = "Too many requests right now. Wait 30 seconds and try again.";
           }
           return newMessages;
         });
@@ -217,7 +217,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
           const newMessages = [...prev];
           const lastMessage = newMessages[newMessages.length - 1];
           if (lastMessage.role === 'assistant') {
-            lastMessage.content = `⚠️ Server error: ${errorData.message || 'Failed to generate response'}${errorData.details ? `\n\nDetails: ${errorData.details}` : ''}`;
+            lastMessage.content = `Server error: ${errorData.message || 'Something went wrong. Try again.'}`;
           }
           return newMessages;
         });
@@ -283,7 +283,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         {
           id: Date.now().toString(),
           role: "assistant",
-          content: "⚠️ Sorry, I encountered an error. Please try again.",
+          content: "Something went wrong. Try again?",
         },
       ]);
       setIsLoading(false);
