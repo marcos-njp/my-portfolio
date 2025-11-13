@@ -409,30 +409,47 @@ export async function POST(req: Request) {
               console.log('[Analytics] 🔧 Environment check:', {
                 VERCEL_URL: process.env.VERCEL_URL ? 'SET' : 'NOT SET',
                 NODE_ENV: process.env.NODE_ENV,
+                baseUrl: baseUrl,
               });
+              
+              const analyticsPayload = {
+                sessionId,
+                userQuery,
+                aiResponse: text,
+                mood,
+                chunksUsed: ragContext.chunksUsed,
+                topScore: ragContext.topScore,
+                avgScore: ragContext.averageScore,
+              };
+              
+              console.log('[Analytics] 📦 Payload:', JSON.stringify(analyticsPayload).substring(0, 200));
               
               const response = await fetch(analyticsUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  sessionId,
-                  userQuery,
-                  aiResponse: text,
-                  mood,
-                  chunksUsed: ragContext.chunksUsed,
-                  topScore: ragContext.topScore,
-                  avgScore: ragContext.averageScore,
-                }),
+                headers: { 
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(analyticsPayload),
               });
               
+              console.log('[Analytics] 🔄 Response status:', response.status, response.statusText);
+              
               if (response.ok) {
-                console.log('[Analytics] ✅ Logged successfully to database');
+                const result = await response.json();
+                console.log('[Analytics] ✅ Logged successfully to database:', result);
               } else {
                 const errorText = await response.text();
-                console.error('[Analytics] ❌ Failed with status:', response.status, errorText);
+                console.error('[Analytics] ❌ Failed with status:', response.status, response.statusText);
+                console.error('[Analytics] ❌ Error body:', errorText);
+                console.error('[Analytics] ❌ Request URL was:', analyticsUrl);
               }
             } catch (err) {
               console.error('[Analytics] ❌ Network error:', err);
+              console.error('[Analytics] ❌ Error details:', {
+                name: err instanceof Error ? err.name : 'Unknown',
+                message: err instanceof Error ? err.message : String(err),
+                stack: err instanceof Error ? err.stack : undefined,
+              });
             }
           });
         }
