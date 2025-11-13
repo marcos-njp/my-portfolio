@@ -394,18 +394,27 @@ export async function POST(req: Request) {
           await saveConversationHistory(sessionId, updatedHistory, mood, feedbackPreferences);
           
           // Log analytics DIRECTLY to Neon using serverless driver (works in Edge runtime!)
+          console.log('[Analytics] 🔵 Starting analytics logging process...');
+          console.log('[Analytics] 🔵 SessionId:', sessionId);
+          console.log('[Analytics] 🔵 UserQuery length:', userQuery.length);
+          console.log('[Analytics] 🔵 AI Response length:', text.length);
+          
           Promise.resolve().then(async () => {
             try {
+              console.log('[Analytics] 🟡 Inside Promise.resolve()...');
+              
               if (!process.env.DATABASE_URL) {
                 console.error('[Analytics] ❌ DATABASE_URL not set!');
                 return;
               }
 
-              console.log('[Analytics] 📝 Logging directly to Neon database...');
+              console.log('[Analytics] 📝 DATABASE_URL is set, creating Neon SQL client...');
               
               const sql = neon(process.env.DATABASE_URL);
               
-              const result = await sql`
+              console.log('[Analytics] 🔵 Executing INSERT query...');
+              
+              await sql`
                 INSERT INTO "ChatLog" (
                   id,
                   "sessionId",
@@ -429,12 +438,19 @@ export async function POST(req: Request) {
                 )
               `;
               
-              console.log('[Analytics] ✅ Successfully logged to Neon!', { sessionId, queryLength: userQuery.length, responseLength: text.length });
+              console.log('[Analytics] ✅ Successfully logged to Neon!', { 
+                sessionId, 
+                queryLength: userQuery.length, 
+                responseLength: text.length,
+                mood,
+                chunksUsed: ragContext.chunksUsed 
+              });
             } catch (err) {
               console.error('[Analytics] ❌ Database error:', err);
               console.error('[Analytics] ❌ Error details:', {
                 name: err instanceof Error ? err.name : 'Unknown',
                 message: err instanceof Error ? err.message : String(err),
+                stack: err instanceof Error ? err.stack : undefined,
               });
             }
           });
