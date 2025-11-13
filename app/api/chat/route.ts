@@ -413,8 +413,18 @@ export async function POST(req: Request) {
               const sql = neon(process.env.DATABASE_URL);
               
               console.log('[Analytics] 🔵 Executing INSERT query...');
+              console.log('[Analytics] 🔵 Data to insert:', {
+                sessionId,
+                userQueryLength: userQuery.length,
+                aiResponseLength: text.length,
+                mood,
+                chunksUsed: ragContext.chunksUsed,
+                topScore: ragContext.topScore,
+                avgScore: ragContext.averageScore,
+              });
               
-              await sql`
+              // Use unquoted column names to match Prisma's PostgreSQL naming
+              const insertResult = await sql`
                 INSERT INTO "ChatLog" (
                   id,
                   "sessionId",
@@ -431,15 +441,18 @@ export async function POST(req: Request) {
                   ${userQuery.substring(0, 1000)},
                   ${text.substring(0, 10000)},
                   ${mood},
-                  ${ragContext.chunksUsed},
-                  ${ragContext.topScore},
-                  ${ragContext.averageScore},
+                  ${ragContext.chunksUsed || 0},
+                  ${ragContext.topScore || 0.0},
+                  ${ragContext.averageScore || 0.0},
                   NOW()
                 )
+                RETURNING id, "sessionId", timestamp
               `;
               
               console.log('[Analytics] ✅ Successfully logged to Neon!', { 
-                sessionId, 
+                insertedId: insertResult[0]?.id,
+                sessionId: insertResult[0]?.sessionId,
+                timestamp: insertResult[0]?.timestamp,
                 queryLength: userQuery.length, 
                 responseLength: text.length,
                 mood,
