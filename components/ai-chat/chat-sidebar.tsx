@@ -77,7 +77,15 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       content: input.trim(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [
+      ...prev,
+      userMessage,
+      {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "💭 Thinking...",
+      },
+    ]);
     setInput("");
     setIsLoading(true);
 
@@ -121,14 +129,15 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 
       if (response.status === 400) {
         const errorData = await response.json();
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: (Date.now() + 1).toString(),
-            role: "assistant",
-            content: errorData.message || "Please ask about my professional background, skills, or projects.",
-          },
-        ]);
+        // Update the thinking message with error
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          const lastMessage = newMessages[newMessages.length - 1];
+          if (lastMessage.role === 'assistant' && lastMessage.content === "💭 Thinking...") {
+            lastMessage.content = errorData.message || "Please ask about my professional background, skills, or projects.";
+          }
+          return newMessages;
+        });
         setIsLoading(false);
         return;
       }
@@ -136,14 +145,15 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
       if (response.status === 500) {
         const errorData = await response.json();
         console.error('[API Error]', errorData);
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: (Date.now() + 1).toString(),
-            role: "assistant",
-            content: `⚠️ Server error: ${errorData.message || 'Failed to generate response'}${errorData.details ? `\n\nDetails: ${errorData.details}` : ''}`,
-          },
-        ]);
+        // Update the thinking message with error
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          const lastMessage = newMessages[newMessages.length - 1];
+          if (lastMessage.role === 'assistant' && lastMessage.content === "💭 Thinking...") {
+            lastMessage.content = `⚠️ Server error: ${errorData.message || 'Failed to generate response'}${errorData.details ? `\n\nDetails: ${errorData.details}` : ''}`;
+          }
+          return newMessages;
+        });
         setIsLoading(false);
         return;
       }
@@ -167,31 +177,27 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
         setThinkingTimeout(null);
       }
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: "",
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
+      // Update the existing "Thinking..." message instead of adding a new one
+      let streamedContent = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        aiResponse += chunk;
+        streamedContent += chunk;
         
         setMessages((prev) => {
           const newMessages = [...prev];
           const lastMessage = newMessages[newMessages.length - 1];
           if (lastMessage.role === 'assistant') {
-            lastMessage.content = aiResponse;
+            lastMessage.content = streamedContent;
           }
           return newMessages;
         });
       }
 
-      console.log('[API Call] ✅ Full response:', aiResponse);
+      console.log('[API Call] ✅ Full response:', streamedContent);
       
       // Clear any remaining timeout
       if (thinkingTimeout) {

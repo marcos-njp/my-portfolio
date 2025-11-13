@@ -400,8 +400,10 @@ export async function POST(req: Request) {
           console.log('[Analytics] 🔵 AI Response length:', text.length);
           
           // CRITICAL: Use .catch() on the Promise to ensure errors are caught!
-          Promise.resolve().then(async () => {
-            console.log('[Analytics] 🟡 Inside Promise.resolve()...');
+          // Race the INSERT against a timeout to prevent hanging
+          const analyticsPromise = Promise.race([
+            Promise.resolve().then(async () => {
+              console.log('[Analytics] 🟡 Inside Promise.resolve()...');
             
             if (!process.env.DATABASE_URL) {
               console.error('[Analytics] ❌ DATABASE_URL not set!');
@@ -458,7 +460,14 @@ export async function POST(req: Request) {
               mood,
               chunksUsed: ragContext.chunksUsed 
             });
-          }).catch((err) => {
+            }),
+            // Timeout after 10 seconds to prevent hanging
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Analytics timeout after 10s')), 10000)
+            )
+          ]);
+
+          analyticsPromise.catch((err) => {
             // CRITICAL: Catch errors that might be swallowed
             console.error('[Analytics] ❌❌❌ CAUGHT ERROR IN PROMISE:', err);
             console.error('[Analytics] ❌ Error name:', err instanceof Error ? err.name : 'Unknown');
