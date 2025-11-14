@@ -1,0 +1,1049 @@
+﻿{
+  "personal": {
+    "name": "Nino Marcos",
+    "title": "IT Student & Full Stack Developer",
+    "location": "Tuguegarao City, Philippines",
+    "summary": "3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management.",
+    "elevator_pitch": "I'm Nino - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers.",
+    "contact": {
+      "email": "justinpmarcos@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/nino-marcos/",
+      "github": "https://github.com/marcos-njp",
+      "portfolio": "https://my-portfolio-marcos-njp.vercel.app"
+    },
+    "fun_facts": [
+      "Started programming at 8 years old with Scratch, moved to Python by 10",
+      "Represented Philippines internationally at 13 - youngest team member",
+      "Built my first web app before taking any formal web dev courses",
+      "Actually enjoy debugging - it's like solving puzzles under pressure",
+      "Can switch between professional recruiter mode and GenZ slang mode ≡ƒöÑ"
+    ]
+  },
+  "salary_location": {
+    "current_status": "3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities",
+    "salary_expectations": "Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay.",
+    "location_preferences": [
+      "Remote",
+      "Tuguegarao City",
+      "Manila",
+      "Hybrid"
+    ],
+    "relocation_willing": true,
+    "remote_experience": "Comfortable with remote work. All personal projects have been developed independently with self-managed timelines. Experienced with async communication tools (GitHub, documentation) and remote collaboration. I'm resourceful and enjoy finding solutions to challenges.",
+    "travel_availability": "Flexible schedule as a student. Available for team meetings, onboarding, or client presentations. Can adjust academic schedule for work commitments.",
+    "work_authorization": "Filipino Citizen - no visa sponsorship needed",
+    "student_status": "Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now.",
+    "availability": "Can start immediately for internships or part-time. Flexible hours including weekends if needed for deadlines."
+  },
+  "experience": [
+    {
+      "company": "Personal Projects & Portfolio",
+      "title": "Full Stack Developer",
+      "duration": "2023 - Present",
+      "company_context": "Self-directed learning and project development",
+      "team_structure": "Independent developer with collaboration on open-source projects",
+      "achievements_star": [
+        {
+          "situation": "Need to demonstrate modern web development skills to potential employers and learn OAuth implementation",
+          "task": "Build a production-ready Next.js application with secure authentication and database integration",
+          "action": "Developed Person Search app using Next.js 15.5, implemented Google OAuth from scratch (no auth libraries), integrated Prisma ORM with PostgreSQL, created protected routes with middleware, and deployed to Vercel with comprehensive security documentation",
+          "result": "Successfully deployed secure application with 100% authentication coverage. Gained deep understanding of OAuth2 flows, JWT tokens, database schema design, and production security practices. Now confident explaining auth implementation in technical interviews."
+        },
+        {
+          "situation": "Required a professional online presence to showcase skills and projects to recruiters",
+          "task": "Create a modern, responsive portfolio website with a distinctive design",
+          "action": "Built custom portfolio from scratch with Next.js 15, implemented dark/light mode theming using next-themes, added smooth scroll animations with Framer Motion, optimized Lighthouse scores to 95+, and deployed to Vercel with custom domain",
+          "result": "Created a clean, minimalist portfolio. Received positive feedback on design sensibility and code organization. The portfolio demonstrates UI/UX skills and attention to detail."
+        },
+        {
+          "situation": "Growing interest in AI/ML technologies and desire to demonstrate RAG system implementation",
+          "task": "Implement a production-ready RAG system for portfolio AI assistant with custom vector embeddings",
+          "action": "Integrated Groq AI with llama-3.1-8b-instant model, set up Upstash Vector database for semantic search with 25 embedded knowledge chunks, structured professional profile using STAR methodology, implemented streaming responses with Vercel AI SDK, added session memory with Redis, and created dual-personality system (professional + GenZ modes)",
+          "result": "Built functional AI assistant with 75% relevance threshold answering queries in real-time. Demonstrates understanding of RAG architecture, vector embeddings, prompt engineering, and LLM integration. Gained valuable experience with modern AI development practices."
+        }
+      ],
+      "technical_skills_used": [
+        "Next.js 15",
+        "TypeScript",
+        "React",
+        "Prisma",
+        "PostgreSQL",
+        "OAuth",
+        "Tailwind CSS",
+        "Groq AI",
+        "Upstash Vector",
+        "Vercel"
+      ],
+      "leadership_examples": [
+        "Self-directed project planning and execution",
+        "Documentation creation for knowledge sharing",
+        "Code organization following best practices"
+      ],
+      "projects_managed": 3
+    },
+    {
+      "company": "STEAM International Challenge",
+      "title": "Team Philippines Representative",
+      "duration": "November 2018",
+      "company_context": "International robotics competition with 118 teams from 5 countries",
+      "team_structure": "Team member representing Philippines",
+      "achievements_star": [
+        {
+          "situation": "Selected to represent Team Philippines in international robotics competition in Shenzhen, China",
+          "task": "Compete in Programming Skills Excellence category against 118 international teams",
+          "action": "Developed and optimized Python programming solutions for VEX IQ robotics challenges, collaborated with team members, debugged code under time pressure",
+          "result": "Achieved 4th place finish in Programming Skills Excellence category, demonstrating strong problem-solving and coding skills on international stage"
+        }
+      ],
+      "technical_skills_used": [
+        "Python",
+        "VEX IQ Robotics",
+        "Algorithm optimization",
+        "Problem-solving under pressure"
+      ],
+      "leadership_examples": [
+        "International competition representation",
+        "Team collaboration"
+      ]
+    },
+    {
+      "company": "6th Robothon National Competition",
+      "title": "School Representative",
+      "duration": "October 2018",
+      "company_context": "National robotics competition with 43 participating schools",
+      "team_structure": "Team member representing St. Paul University Philippines",
+      "achievements_star": [
+        {
+          "situation": "Selected to represent school in prestigious national robotics competition",
+          "task": "Compete in robotics programming challenges against 43 schools nationwide",
+          "action": "Applied Python programming skills to robotics challenges, worked collaboratively with team, implemented efficient algorithms for robot control",
+          "result": "Earned 5th place and Excellence Award, demonstrating technical competence and competitive programming abilities"
+        }
+      ],
+      "technical_skills_used": [
+        "Python",
+        "Robotics programming",
+        "Competitive problem-solving"
+      ],
+      "leadership_examples": [
+        "School representation",
+        "Team collaboration in high-pressure environment"
+      ]
+    }
+  ],
+  "skills": {
+    "technical": {
+      "programming_languages": [
+        {
+          "language": "JavaScript",
+          "years": 2,
+          "proficiency": "Advanced",
+          "frameworks": [
+            "React",
+            "Node.js",
+            "Express"
+          ]
+        },
+        {
+          "language": "TypeScript",
+          "years": 2,
+          "proficiency": "Advanced",
+          "frameworks": [
+            "Next.js 15",
+            "React"
+          ]
+        },
+        {
+          "language": "Python",
+          "years": 5,
+          "proficiency": "Intermediate",
+          "frameworks": [
+            "VEX IQ Robotics"
+          ]
+        },
+        {
+          "language": "Java",
+          "years": 1,
+          "proficiency": "Intermediate",
+          "frameworks": []
+        },
+        {
+          "language": "C++",
+          "years": 1,
+          "proficiency": "Beginner",
+          "frameworks": []
+        },
+        {
+          "language": "PHP",
+          "years": 1,
+          "proficiency": "Beginner",
+          "frameworks": []
+        }
+      ],
+      "databases": [
+        "PostgreSQL (Prisma ORM)",
+        "Upstash Vector",
+        "Upstash Redis"
+      ],
+      "cloud_platforms": [
+        "Vercel (deployment & hosting)",
+        "Git/GitHub"
+      ],
+      "frontend": [
+        "React",
+        "Next.js 15",
+        "Tailwind CSS",
+        "Framer Motion",
+        "HTML/CSS"
+      ],
+      "backend": [
+        "Node.js",
+        "Express",
+        "REST APIs",
+        "Prisma ORM"
+      ],
+      "ai_ml": [
+        "RAG systems",
+        "Vector databases (Upstash)",
+        "LLM integration (Groq AI)",
+        "Vercel AI SDK"
+      ]
+    },
+    "soft_skills": [
+      "Problem-solving",
+      "Self-directed learning",
+      "International competition experience",
+      "Team collaboration",
+      "Clean code practices",
+      "Documentation"
+    ],
+    "certifications": []
+  },
+  "education": {
+    "university": "St. Paul University Philippines",
+    "degree": "Bachelor of Science in Information Technology",
+    "graduation_year": "Expected 2027",
+    "location": "Tuguegarao City, Philippines",
+    "status": "Currently enrolled (2023 - Present)",
+    "relevant_coursework": [
+      "Web Development",
+      "Programming",
+      "Database Systems",
+      "Software Engineering"
+    ],
+    "previous_education": "Completed Basic Education at St. Paul University Philippines (2016-2023) with robotics competition experience"
+  },
+  "projects_portfolio": [
+    {
+      "name": "AI-Powered Portfolio with RAG System",
+      "description": "Modern portfolio website featuring an AI assistant powered by RAG (Retrieval-Augmented Generation) for answering professional queries. Built with Next.js 15, Groq AI, and Upstash Vector database.",
+      "technologies": [
+        "Next.js 15",
+        "TypeScript",
+        "Groq AI (llama-3.1-8b-instant)",
+        "Upstash Vector",
+        "Upstash Redis",
+        "Vercel AI SDK",
+        "Tailwind CSS"
+      ],
+      "impact": "Demonstrates advanced AI integration capabilities and modern full-stack development skills",
+      "github_url": "https://github.com/marcos-njp/my-portfolio",
+      "live_demo": "https://my-portfolio-marcos-njp.vercel.app",
+      "key_features": [
+        "RAG system for intelligent responses",
+        "STAR methodology structured data",
+        "Real-time AI chat",
+        "Dark/light mode",
+        "Responsive design"
+      ]
+    },
+    {
+      "name": "Person Search - OAuth Secured App",
+      "description": "Full-stack Next.js application with Google OAuth authentication, Prisma ORM, and PostgreSQL database. Features protected routes and comprehensive CRUD operations.",
+      "technologies": [
+        "Next.js 15",
+        "OAuth",
+        "Prisma",
+        "PostgreSQL",
+        "TypeScript",
+        "Tailwind CSS"
+      ],
+      "impact": "Production-ready application demonstrating secure authentication and database management",
+      "github_url": "https://github.com/marcos-njp/person-search",
+      "live_demo": "https://person-search-marcos-njp.vercel.app",
+      "key_features": [
+        "Google OAuth integration",
+        "Protected routes",
+        "Database CRUD operations",
+        "Security best practices"
+      ]
+    },
+    {
+      "name": "Modern Portfolio Website",
+      "description": "Responsive portfolio showcasing work, skills, and experience. Features dark/light mode, smooth animations, and optimized performance.",
+      "technologies": [
+        "Next.js 15",
+        "TypeScript",
+        "Framer Motion",
+        "Tailwind CSS",
+        "next-themes"
+      ],
+      "impact": "Professional web presence with distinctive minimalist design",
+      "github_url": "https://github.com/marcos-njp/my-cv",
+      "live_demo": "https://my-cv-marcos-njp.vercel.app",
+      "key_features": [
+        "Theme switching",
+        "Smooth animations",
+        "Responsive design",
+        "Performance optimized"
+      ]
+    },
+    {
+      "name": "AI Agent Dev Setup",
+      "description": "Development environment verification for AI Agent workshop. Demonstrates MCP (Model Context Protocol) integration with Claude Desktop, including 5 connected servers for RAG, GitHub, and CRUD operations. Showcases understanding of AI agent architecture and modern development tools.",
+      "technologies": [
+        "MCP (Model Context Protocol)",
+        "Claude Desktop",
+        "Node.js",
+        "AI Agents",
+        "GitHub Copilot",
+        "RAG Systems"
+      ],
+      "impact": "Demonstrates understanding of cutting-edge AI agent development and integration patterns",
+      "github_url": "https://github.com/marcos-njp/ai-agent-dev-setup-marcosnjp",
+      "key_features": [
+        "MCP server integration",
+        "5 connected AI servers",
+        "RAG implementation",
+        "GitHub automation",
+        "CRUD operations"
+      ]
+    },
+    {
+      "name": "Movie App",
+      "description": "Laravel-based web application for browsing and managing movies. Built with PHP, MySQL, and Laravel framework, demonstrating backend development skills, MVC architecture, and relational database management.",
+      "technologies": [
+        "Laravel",
+        "PHP",
+        "MySQL",
+        "Blade Templates",
+        "Eloquent ORM",
+        "Backend Development"
+      ],
+      "impact": "Showcases PHP/Laravel expertise and backend development capabilities beyond JavaScript ecosystem",
+      "github_url": "https://github.com/marcos-njp/movie-app",
+      "key_features": [
+        "Movie browsing interface",
+        "Database management",
+        "MVC architecture",
+        "Laravel framework",
+        "MySQL integration"
+      ]
+    }
+  ],
+  "career_goals": {
+    "short_term": "Secure internship or entry-level full-stack developer position to gain professional experience",
+    "long_term": "Become a seNinor full-stack developer specializing in AI-powered applications",
+    "learning_focus": [
+      "Advanced AI/ML integration",
+      "Cloud architecture",
+      "System design",
+      "Open-source contribution"
+    ],
+    "industries_interested": [
+      "Tech Startups",
+      "AI/ML Companies",
+      "Web Development Agencies",
+      "SaaS Products"
+    ]
+  },
+  "interview_prep": {
+    "common_questions": {
+      "behavioral": [
+        "Tell me about your robotics competition experience and what you learned",
+        "Describe a challenging project you built and how you overcame obstacles",
+        "How do you stay current with new technologies and frameworks?",
+        "What motivates you as a developer?"
+      ],
+      "technical": [
+        "Explain your approach to building a full-stack application from scratch",
+        "How would you implement authentication in a Next.js application?",
+        "Walk me through how RAG systems work and your implementation",
+        "What's your experience with databases and ORMs like Prisma?"
+      ],
+      "situational": [
+        "If you encountered a bug in production, what would be your approach?",
+        "How would you approach learning a completely new technology for a project?",
+        "Describe how you would optimize a slow-loading web application"
+      ],
+      "company_research": {
+        "research_areas": [
+          "Company products and services",
+          "Tech stack used",
+          "Company culture and values",
+          "Recent news and achievements"
+        ],
+        "preparation_questions": [
+          "What excites you about our company?",
+          "Why web development?",
+          "What are your salary expectations?",
+          "Where do you see yourself in 5 years?"
+        ]
+      }
+    },
+    "weakness_mitigation": [
+      {
+        "weakness": "Limited professional work experience",
+        "mitigation": "Compensated with strong self-directed learning, multiple deployed projects, and proven competition success. Quick learner demonstrated through rapid technology adoption in projects."
+      },
+      {
+        "weakness": "Still learning advanced system architecture",
+        "mitigation": "Actively studying through building projects, implementing AI systems, and following best practices. Strong foundation in modern frameworks provides good basis for growth."
+      }
+    ]
+  },
+  "professional_development": {
+    "recent_learning": [
+      "RAG systems implementation",
+      "Vector databases (Upstash)",
+      "Groq AI integration",
+      "OAuth flows",
+      "Prisma ORM",
+      "Next.js 15 features"
+    ],
+    "learning_resources": [
+      "Online documentation",
+      "GitHub repositories",
+      "Technical blogs",
+      "Video tutorials"
+    ],
+    "future_learning": [
+      "Advanced TypeScript patterns",
+      "System design",
+      "Cloud platforms (AWS/Azure)",
+      "Testing frameworks",
+      "CI/CD pipelines"
+    ],
+    "open_source": [
+      "Active on GitHub with public repositories",
+      "Shares code and learning through projects"
+    ]
+  },
+  "achievements_metrics": {
+    "competition_achievements": [
+      "4th place internationally among 118 teams (STEAM Challenge 2018)",
+      "5th place nationally among 43 schools (Robothon 2018)",
+      "International representation for Team Philippines"
+    ],
+    "technical_achievements": [
+      "3+ deployed production applications on Vercel",
+      "Implemented functional RAG system with vector database",
+      "Built secure OAuth authentication from scratch",
+      "Created responsive designs with 100% mobile compatibility"
+    ],
+    "personal_metrics": [
+      "2+ years of active web development",
+      "5+ years of programming experience (starting with Python robotics)",
+      "100+ GitHub commits across projects",
+      "Multiple technology stacks mastered (Next.js, React, TypeScript, etc.)"
+    ]
+  },
+  "content_chunks": [
+    {
+      "id": "chunk_1",
+      "title": "Personal Profile",
+      "type": "personal_info",
+      "content": "Name: Ni├▒o Marcos. Title: IT Student & Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: 3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management. Elevator Pitch: I'm Ni├▒o - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers. Fun Facts: Started programming at 8 years old with Scratch, moved to Python by 10. Represented Philippines internationally at 13 - youngest team member. Built my first web app before taking any formal web dev courses. Actually enjoy debugging - it's like solving puzzles under pressure. Can switch between professional recruiter mode and GenZ slang mode ≡ƒöÑ",
+      "metadata": {
+        "category": "personal",
+        "tags": [
+          "profile",
+          "introduction",
+          "summary",
+          "fun_facts"
+        ]
+      }
+    },
+    {
+      "id": "chunk_2",
+      "title": "Contact Information",
+      "type": "contact",
+      "content": "Email: justinpmarcos@gmail.com. LinkedIn: https://www.linkedin.com/in/ni├▒o-marcos/. GitHub: https://github.com/marcos-njp. Portfolio: https://my-portfolio-marcos-njp.vercel.app",
+      "metadata": {
+        "category": "contact",
+        "tags": [
+          "contact",
+          "social",
+          "links"
+        ]
+      }
+    },
+    {
+      "id": "chunk_3",
+      "title": "Salary and Location Preferences",
+      "type": "compensation",
+      "content": "Current Status: 3rd-year IT Student (Expected 2027) actively seeking internship, OJT, or entry-level opportunities. Salary Expectations: Flexible on compensation - prioritizing learning opportunities, mentorship, and real-world experience over salary. Open to internship rates or entry-level packages. More interested in joining a team where I can grow than maximizing initial pay. Location Preferences: Remote, Tuguegarao City, Manila, Hybrid. Open to discussing what works best for both parties. Relocation Willing: True. Remote Experience: Comfortable with remote work. All personal projects have been developed independently with self-managed timelines. Experienced with async communication tools (GitHub, documentation) and remote collaboration. I'm resourceful and enjoy finding solutions to challenges. Work Authorization: Filipino Citizen - no visa sponsorship needed. Student Status: Currently enrolled at St. Paul University Philippines. Available for part-time (20+ hrs/week) or full-time opportunities. Graduating 2027 but ready to work now. Availability: Can start immediately for internships or part-time. Flexible hours including weekends if needed for deadlines.",
+      "metadata": {
+        "category": "compensation",
+        "tags": [
+          "salary",
+          "location",
+          "remote",
+          "relocation",
+          "availability"
+        ]
+      }
+    },
+    {
+      "id": "chunk_4",
+      "title": "Experience at Personal Projects & Portfolio",
+      "type": "experience",
+      "content": "Company: Personal Projects & Portfolio. Title: Full Stack Developer. Duration: 2023 - Present. Company Context: Self-directed learning and project development. Team Structure: Independent developer with collaboration on open-source projects. Technical Skills Used: Next.js 15, TypeScript, React, Prisma, PostgreSQL, OAuth, Tailwind CSS, Groq AI, Upstash Vector, Vercel. Leadership Examples: Self-directed project planning and execution, Documentation creation for knowledge sharing, Code organization following best practices",
+      "metadata": {
+        "category": "experience",
+        "tags": [
+          "work",
+          "employment",
+          "company",
+          "personal_projects_&_portfolio"
+        ]
+      }
+    },
+    {
+      "id": "chunk_5",
+      "title": "Achievement at Personal Projects & Portfolio",
+      "type": "achievement",
+      "content": "Situation: Need to demonstrate modern web development skills to potential employers and learn OAuth implementation. Task: Build a production-ready Next.js application with secure authentication and database integration. Action: Developed Person Search app using Next.js 15, implemented Google OAuth, integrated Prisma ORM with PostgreSQL, created protected routes, and deployed to Vercel with comprehensive documentation. Result: Successfully deployed secure application demonstrating full-stack capabilities. Gained practical experience with OAuth flows, database management, and modern deployment practices",
+      "metadata": {
+        "category": "achievements",
+        "tags": [
+          "star",
+          "accomplishment",
+          "results",
+          "impact"
+        ]
+      }
+    },
+    {
+      "id": "chunk_6",
+      "title": "Achievement at Personal Projects & Portfolio",
+      "type": "achievement",
+      "content": "Situation: Required a professional online presence to showcase skills and projects to recruiters. Task: Create a modern, responsive portfolio website that stands out from typical templates. Action: Built custom portfolio with Next.js 15, implemented dark/light mode theming using next-themes, added smooth animations with Framer Motion, optimized performance, and deployed to Vercel. Result: Created distinctive portfolio showcasing technical skills and design sensibility. Received positive feedback on clean, minimalist design approach",
+      "metadata": {
+        "category": "achievements",
+        "tags": [
+          "star",
+          "accomplishment",
+          "results",
+          "impact"
+        ]
+      }
+    },
+    {
+      "id": "chunk_7",
+      "title": "Achievement at Personal Projects & Portfolio",
+      "type": "achievement",
+      "content": "Situation: Growing interest in AI/ML technologies and need to demonstrate RAG system implementation. Task: Implement a production-ready RAG system for portfolio AI assistant. Action: Integrated Groq AI with llama-3.1-8b-instant model, set up Upstash Vector database for semantic search, structured professional profile using STAR methodology, implemented streaming responses with Vercel AI SDK. Result: Built functional AI assistant capable of answering recruiter queries about skills and experience in real-time, demonstrating modern AI integration capabilities",
+      "metadata": {
+        "category": "achievements",
+        "tags": [
+          "star",
+          "accomplishment",
+          "results",
+          "impact"
+        ]
+      }
+    },
+    {
+      "id": "chunk_8",
+      "title": "Experience at STEAM International Challenge",
+      "type": "experience",
+      "content": "Company: STEAM International Challenge. Title: Team Philippines Representative. Duration: November 2018. Company Context: International robotics competition with 118 teams from 5 countries. Team Structure: Team member representing Philippines. Technical Skills Used: Python, VEX IQ Robotics, Algorithm optimization, Problem-solving under pressure. Leadership Examples: International competition representation, Team collaboration",
+      "metadata": {
+        "category": "experience",
+        "tags": [
+          "work",
+          "employment",
+          "company",
+          "steam_international_challenge"
+        ]
+      }
+    },
+    {
+      "id": "chunk_9",
+      "title": "Achievement at STEAM International Challenge",
+      "type": "achievement",
+      "content": "Situation: Selected to represent Team Philippines in international robotics competition in Shenzhen, China. Task: Compete in Programming Skills Excellence category against 118 international teams. Action: Developed and optimized Python programming solutions for VEX IQ robotics challenges, collaborated with team members, debugged code under time pressure. Result: Achieved 4th place finish in Programming Skills Excellence category, demonstrating strong problem-solving and coding skills on international stage",
+      "metadata": {
+        "category": "achievements",
+        "tags": [
+          "star",
+          "accomplishment",
+          "results",
+          "impact"
+        ]
+      }
+    },
+    {
+      "id": "chunk_10",
+      "title": "Experience at 6th Robothon National Competition",
+      "type": "experience",
+      "content": "Company: 6th Robothon National Competition. Title: School Representative. Duration: October 2018. Company Context: National robotics competition with 43 participating schools. Team Structure: Team member representing St. Paul University Philippines. Technical Skills Used: Python, Robotics programming, Competitive problem-solving. Leadership Examples: School representation, Team collaboration in high-pressure environment",
+      "metadata": {
+        "category": "experience",
+        "tags": [
+          "work",
+          "employment",
+          "company",
+          "6th_robothon_national_competition"
+        ]
+      }
+    },
+    {
+      "id": "chunk_11",
+      "title": "Achievement at 6th Robothon National Competition",
+      "type": "achievement",
+      "content": "Situation: Selected to represent school in prestigious national robotics competition. Task: Compete in robotics programming challenges against 43 schools nationwide. Action: Applied Python programming skills to robotics challenges, worked collaboratively with team, implemented efficient algorithms for robot control. Result: Earned 5th place and Excellence Award, demonstrating technical competence and competitive programming abilities",
+      "metadata": {
+        "category": "achievements",
+        "tags": [
+          "star",
+          "accomplishment",
+          "results",
+          "impact"
+        ]
+      }
+    },
+    {
+      "id": "chunk_12",
+      "title": "Programming Languages",
+      "type": "technical_skills",
+      "content": "Programming Languages: JavaScript: 2 years, Advanced level, frameworks: React, Node.js, Express. TypeScript: 2 years, Advanced level, frameworks: Next.js 15, React. Python: 5 years, Intermediate level, frameworks: VEX IQ Robotics. Java: 1 years, Intermediate level, frameworks: . C++: 1 years, Beginner level, frameworks: . PHP: 1 years, Beginner level, frameworks: ",
+      "metadata": {
+        "category": "skills",
+        "tags": [
+          "programming",
+          "languages",
+          "technical"
+        ]
+      }
+    },
+    {
+      "id": "chunk_13",
+      "title": "Technical Skills and Tools",
+      "type": "technical_skills",
+      "content": "Databases: PostgreSQL (Prisma ORM), Upstash Vector, Upstash Redis. Cloud Platforms: Vercel (deployment & hosting), Git/GitHub. Frontend: React, Next.js 15, Tailwind CSS, Framer Motion, HTML/CSS. Backend: Node.js, Express, REST APIs, Prisma ORM. AI/ML: RAG systems, Vector databases (Upstash), LLM integration (Groq AI), Vercel AI SDK",
+      "metadata": {
+        "category": "skills",
+        "tags": [
+          "technical",
+          "tools",
+          "frameworks"
+        ]
+      }
+    },
+    {
+      "id": "chunk_14",
+      "title": "Soft Skills",
+      "type": "soft_skills",
+      "content": "Soft Skills: Problem-solving, Self-directed learning, International competition experience, Team collaboration, Clean code practices, Documentation",
+      "metadata": {
+        "category": "skills",
+        "tags": [
+          "soft",
+          "interpersonal",
+          "communication"
+        ]
+      }
+    },
+    {
+      "id": "chunk_15",
+      "title": "Education Background",
+      "type": "education",
+      "content": "University: St. Paul University Philippines. Degree: Bachelor of Science in Information Technology. Graduation Year: Expected 2027. Location: Tuguegarao City, Philippines. Status: Currently enrolled (2023 - Present). Relevant Coursework: Web Development, Programming, Database Systems, Software Engineering. Previous Education: Completed Basic Education at St. Paul University Philippines (2016-2023) with robotics competition experience",
+      "metadata": {
+        "category": "education",
+        "tags": [
+          "university",
+          "degree",
+          "academic"
+        ]
+      }
+    },
+    {
+      "id": "chunk_16",
+      "title": "Project: AI-Powered Portfolio with RAG System",
+      "type": "project",
+      "content": "Name: AI-Powered Portfolio with RAG System. Description: Modern portfolio website featuring an AI assistant powered by RAG (Retrieval-Augmented Generation) for answering professional queries. Built with Next.js 15, Groq AI, and Upstash Vector database.. Technologies: Next.js 15, TypeScript, Groq AI (llama-3.1-8b-instant), Upstash Vector, Upstash Redis, Vercel AI SDK, Tailwind CSS. Impact: Demonstrates advanced AI integration capabilities and modern full-stack development skills. Key Features: RAG system for intelligent responses, STAR methodology structured data, Real-time AI chat, Dark/light mode, Responsive design. GitHub: https://github.com/marcos-njp/my-portfolio. Demo: https://my-portfolio-marcos-njp.vercel.app",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "demo",
+          "ai-powered_portfolio_with_rag_system"
+        ]
+      }
+    },
+    {
+      "id": "chunk_17",
+      "title": "Project: Person Search - OAuth Secured App",
+      "type": "project",
+      "content": "Name: Person Search - OAuth Secured App. Description: Full-stack Next.js application with Google OAuth authentication, Prisma ORM, and PostgreSQL database. Features protected routes and comprehensive CRUD operations.. Technologies: Next.js 15, OAuth, Prisma, PostgreSQL, TypeScript, Tailwind CSS. Impact: Production-ready application demonstrating secure authentication and database management. Key Features: Google OAuth integration, Protected routes, Database CRUD operations, Security best practices. GitHub: https://github.com/marcos-njp/person-search. Demo: https://person-search-marcos-njp.vercel.app",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "demo",
+          "person_search_-_oauth_secured_app"
+        ]
+      }
+    },
+    {
+      "id": "chunk_18",
+      "title": "Project: Modern Portfolio Website",
+      "type": "project",
+      "content": "Name: Modern Portfolio Website. Description: Responsive portfolio showcasing work, skills, and experience. Features dark/light mode, smooth animations, and optimized performance.. Technologies: Next.js 15, TypeScript, Framer Motion, Tailwind CSS, next-themes. Impact: Professional web presence with distinctive minimalist design. Key Features: Theme switching, Smooth animations, Responsive design, Performance optimized. GitHub: https://github.com/marcos-njp/my-cv. Demo: https://my-cv-marcos-njp.vercel.app",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "demo",
+          "modern_portfolio_website"
+        ]
+      }
+    },
+    {
+      "id": "chunk_19",
+      "title": "Career Goals and Aspirations",
+      "type": "career_goals",
+      "content": "Short Term: Secure internship or entry-level full-stack developer position to gain professional experience. Long Term: Become a seNinor full-stack developer specializing in AI-powered applications. Learning Focus: Advanced AI/ML integration, Cloud architecture, System design, Open-source contribution. Industries Interested: Tech Startups, AI/ML Companies, Web Development Agencies, SaaS Products",
+      "metadata": {
+        "category": "goals",
+        "tags": [
+          "career",
+          "future",
+          "aspirations",
+          "learning"
+        ]
+      }
+    },
+    {
+      "id": "chunk_20",
+      "title": "Key Achievements and Metrics",
+      "type": "achievements",
+      "content": "Competition Achievements: 4th place internationally among 118 teams (STEAM Challenge 2018), 5th place nationally among 43 schools (Robothon 2018), International representation for Team Philippines. Technical Achievements: 3+ deployed production applications on Vercel, Implemented functional RAG system with vector database, Built secure OAuth authentication from scratch, Created responsive designs with 100% mobile compatibility. Personal Metrics: 2+ years of active web development, 5+ years of programming experience (starting with Python robotics), 100+ GitHub commits across projects, Multiple technology stacks mastered (Next.js, React, TypeScript, etc.)",
+      "metadata": {
+        "category": "achievements",
+        "tags": [
+          "metrics",
+          "accomplishments",
+          "competition",
+          "technical"
+        ]
+      }
+    },
+    {
+      "id": "chunk_21",
+      "title": "Weakness Mitigation Strategy",
+      "type": "interview_prep",
+      "content": "Weakness: Limited professional work experience. Mitigation: Compensated with strong self-directed learning, multiple deployed projects, and proven competition success. Quick learner demonstrated through rapid technology adoption in projects.",
+      "metadata": {
+        "category": "interview",
+        "tags": [
+          "weakness",
+          "improvement",
+          "strategy"
+        ]
+      }
+    },
+    {
+      "id": "chunk_22",
+      "title": "Weakness Mitigation Strategy",
+      "type": "interview_prep",
+      "content": "Weakness: Still learning advanced system architecture. Mitigation: Actively studying through building projects, implementing AI systems, and following best practices. Strong foundation in modern frameworks provides good basis for growth.",
+      "metadata": {
+        "category": "interview",
+        "tags": [
+          "weakness",
+          "improvement",
+          "strategy"
+        ]
+      }
+    },
+    {
+      "id": "chunk_23",
+      "title": "Professional Development",
+      "type": "development",
+      "content": "Recent Learning: RAG systems implementation, Vector databases (Upstash), Groq AI integration, OAuth flows, Prisma ORM, Next.js 15 features. Learning Resources: Online documentation, GitHub repositories, Technical blogs, Video tutorials. Future Learning: Advanced TypeScript patterns, System design, Cloud platforms (AWS/Azure), Testing frameworks, CI/CD pipelines. Open Source: Active on GitHub with public repositories, Shares code and learning through projects",
+      "metadata": {
+        "category": "development",
+        "tags": [
+          "learning",
+          "growth",
+          "skills"
+        ]
+      }
+    },
+    {
+      "id": "chunk_24",
+      "title": "Project: AI Agent Dev Setup",
+      "type": "project",
+      "content": "Name: AI Agent Dev Setup. Description: Development environment verification for AI Agent workshop. Demonstrates MCP (Model Context Protocol) integration with Claude Desktop, including 5 connected servers for RAG, GitHub, and CRUD operations. Showcases understanding of AI agent architecture and modern development tools. Technologies: MCP (Model Context Protocol), Claude Desktop, Node.js, AI Agents, GitHub Copilot, RAG Systems. Impact: Demonstrates understanding of cutting-edge AI agent development and integration patterns. Key Features: MCP server integration, 5 connected AI servers, RAG implementation, GitHub automation, CRUD operations. GitHub: https://github.com/marcos-njp/ai-agent-dev-setup-marcosnjp",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "ai_agent_dev_setup",
+          "mcp",
+          "ai_agents"
+        ]
+      }
+    },
+    {
+      "id": "chunk_25",
+      "title": "Project: Movie App",
+      "type": "project",
+      "content": "Name: Movie App. Description: Laravel-based web application for browsing and managing movies. Built with PHP, MySQL, and Laravel framework, demonstrating backend development skills, MVC architecture, and relational database management. Technologies: Laravel, PHP, MySQL, Blade Templates, Eloquent ORM, Backend Development. Impact: Showcases PHP/Laravel expertise and backend development capabilities beyond JavaScript ecosystem. Key Features: Movie browsing interface, Database management, MVC architecture, Laravel framework, MySQL integration. GitHub: https://github.com/marcos-njp/movie-app",
+      "metadata": {
+        "category": "projects",
+        "tags": [
+          "project",
+          "portfolio",
+          "movie_app",
+          "laravel",
+          "php",
+          "backend"
+        ]
+      }
+    },
+    {
+      "id": "chunk_26",
+      "title": "Learning Style & Growth Mindset",
+      "type": "personal_attributes",
+      "content": "Learning Approach: I'm a hands-on learner - I learn best by building real projects, not just watching tutorials. When I wanted to learn OAuth, I didn't just read docs - I built a full auth system from scratch. Same with AI/RAG - I built this digital twin to understand vector databases deeply. Documentation Philosophy: I document everything I learn because teaching others reinforces my understanding. My GitHub repos include detailed READMEs and code comments because I've been that confused developer reading unclear docs. Continuous Improvement: I actively seek feedback and iterate. For example, I rebuilt my portfolio 3 times until the design felt right. Each project teaches me something that improves the next one. Challenge Seeking: I deliberately choose projects slightly above my skill level - that's how I grow fastest. Building a RAG system was intimidating, but pushing through taught me more than 10 tutorials would have. Tech Community Engagement: I participate in coding communities, share solutions to problems I've solved, and stay updated with tech trends through dev.to, Hacker News, and Twitter tech spaces.",
+      "metadata": {
+        "category": "personal_attributes",
+        "tags": [
+          "learning_style",
+          "growth_mindset",
+          "self_improvement",
+          "documentation",
+          "community"
+        ]
+      }
+    },
+    {
+      "id": "chunk_27",
+      "title": "Problem-Solving Approach & Debugging Style",
+      "type": "personal_attributes",
+      "content": "Debugging Philosophy: I actually enjoy debugging - it's like detective work. I use systematic approaches: console.log everything, isolate the problem, read error messages carefully, check documentation, then Stack Overflow if needed. I don't just copy-paste solutions - I understand WHY they work. Problem-Solving Process: Break down complex problems into smaller pieces. For example, when building the RAG system, I tackled vector embeddings first, then semantic search, then integrated with the chat interface. Step by step, not everything at once. Research Skills: When stuck, I know how to find answers - official docs first, then GitHub issues, then community forums. I've learned to read source code when documentation is unclear. Time Management: I'm honest about timelines - I'd rather underpromise and overdeliver. If something will take 2 days, I say 3 days and deliver early with extras. Error Handling: I build defensively - add error handling, validation, edge case checks. My projects don't just work in happy paths - they handle failures gracefully with helpful error messages.",
+      "metadata": {
+        "category": "personal_attributes",
+        "tags": [
+          "problem_solving",
+          "debugging",
+          "research",
+          "time_management",
+          "error_handling"
+        ]
+      }
+    },
+    {
+      "id": "chunk_28",
+      "title": "Collaboration Style & Team Dynamics",
+      "type": "personal_attributes",
+      "content": "Communication Style: I explain technical concepts clearly - I've helped classmates debug their code by breaking problems into simple terms. I document my code well because future me (and teammates) will thank me later. Feedback Reception: I actively seek code reviews and feedback. When someone suggests a better approach, I ask 'why?' to understand their reasoning, not defend my code. Learning from others makes me better. Git Workflow: Clean commits, meaningful messages, proper branching. I learned this the hard way by having messy histories and now understand why it matters for team collaboration. Open Source Mindset: All my projects are public on GitHub - I'm not afraid to show work-in-progress code. Transparency over perfection. If someone finds bugs or suggests improvements, that's free learning. Remote Collaboration: Comfortable with async communication - clear written updates, thorough documentation, responsive to messages. I know how to unblock myself but also when to ask for help. Cultural Fit: I thrive in environments that value learning, experimentation, and kind feedback. I want teammates who push me to grow, not just tell me what to do.",
+      "metadata": {
+        "category": "personal_attributes",
+        "tags": [
+          "collaboration",
+          "communication",
+          "team_dynamics",
+          "feedback",
+          "remote_work",
+          "git"
+        ]
+      }
+    },
+    {
+      "id": "chunk_29",
+      "title": "Technical Interests & Future Learning Goals",
+      "type": "career_goals",
+      "content": "Current Obsessions: I'm fascinated by AI/ML integration in web apps - not just using APIs, but understanding RAG systems, vector databases, embeddings, and prompt engineering. Building this digital twin taught me more about AI than any course could. Next on My List: I want to dive deeper into backend architecture - microservices, caching strategies (Redis, which I'm using but want to master), database optimization, API design patterns. I'm interested in how apps scale from 100 to 1 million users. Technologies I'm Eyeing: Exploring Rust for performance-critical code, Go for backend services, and more advanced Next.js patterns (Server Actions, Partial Prerendering). Also interested in DevOps - Docker, CI/CD, infrastructure as code. Why Full Stack: I love seeing both sides - designing a beautiful UI AND architecting the backend that powers it. Understanding the full picture makes me better at both. Long-term Vision: I want to build products that people actually use and love. Not just technically impressive - genuinely helpful. Think tools that make developers' lives easier or apps that solve real problems elegantly. Industries I'm Drawn To: Developer tools, AI-powered apps, education tech, productivity software. Anything where I can combine technical depth with real user impact.",
+      "metadata": {
+        "category": "career_goals",
+        "tags": [
+          "technical_interests",
+          "learning_goals",
+          "future_plans",
+          "ai_ml",
+          "backend",
+          "full_stack"
+        ]
+      }
+    },
+    {
+      "id": "chunk_30",
+      "title": "Real Talk - Strengths, Weaknesses & Self-Awareness",
+      "type": "personal_attributes",
+      "content": "My Genuine Strengths: I pick up new technologies fast - I went from zero to deployed Next.js apps in weeks. I'm resourceful when stuck, I actually read documentation (shocking, I know), and I'm not afraid to ask questions when I need help. I genuinely enjoy coding and building things, which means I work on projects outside school for fun, not obligation. What I'm Still Learning: I haven't worked on a large production codebase with multiple developers yet. My biggest projects are solo, so I'm eager to learn real-world team workflows, code review practices, and how professional teams handle complexity at scale. I've built apps, but haven't experienced the full software development lifecycle with QA, staging, production deployments, and user feedback loops. Honest Self-Assessment: I'm technically skilled for a student but I know I have tons to learn from experienced developers. I'm the kind of person who will read your team's entire codebase in week one to understand how everything works. I'm not coming in claiming to be a seNinor dev - I'm coming in ready to soak up knowledge like a sponge while contributing real value where I can. What Motivates Me: I want to work on projects where the code I write actually matters - where bugs I fix help real users, where features I build get used. I'm motivated by growth, interesting technical challenges, and being around people smarter than me who I can learn from. Why I'm Different: Most students apply with only classroom projects. I've built production apps, handled real deployment issues, dealt with authentication bugs at 2am, and learned from actual user-facing work. I've tasted real development and I want more of it.",
+      "metadata": {
+        "category": "personal_attributes",
+        "tags": [
+          "strengths",
+          "weaknesses",
+          "self_awareness",
+          "motivation",
+          "honest_assessment",
+          "work_ethic"
+        ]
+      }
+    },
+    {
+      "id": "chunk_31",
+      "title": "Tech Communities & Interests - Data-Driven Focus",
+      "type": "professional_development",
+      "content": "Microsoft Developer Resources: I follow Microsoft's developer blogs and documentation to stay updated on Azure, TypeScript, and modern web development practices. Their technical content helps me understand enterprise-level patterns and cloud architecture. Amazon Web Services (AWS): I keep up with AWS announcements and learning resources because cloud infrastructure is essential for modern applications. Understanding AWS services gives me insight into how production systems scale and operate. Data Analytics & Statistics: I have a genuine interest in data analytics and statistics because they're crucial for understanding user trends, application performance, and making data-driven decisions. Numbers tell the real story of how users interact with products. Statistics helps me interpret metrics meaningfully, spot patterns, and make informed technical decisions. Whether it's analyzing API response times, user behavior patterns, or A/B test results, I love using data to drive improvements. GitHub & Stack Overflow: I use GitHub for learning from open-source projects and Stack Overflow when I need solutions to specific technical problems. These are my go-to resources for practical, community-driven knowledge.",
+      "metadata": {
+        "category": "professional_development",
+        "tags": [
+          "tech_resources",
+          "microsoft",
+          "aws",
+          "data_analytics",
+          "statistics",
+          "github",
+          "stackoverflow",
+          "learning"
+        ]
+      }
+    },
+    {
+      "id": "chunk_32",
+      "title": "Core Personality Traits & Work Style",
+      "type": "personality",
+      "content": "I'm a collaborative team member who values kindness and respect in all interactions. I'm approachable and easy to work with - the kind of person who helps teammates debug issues without making them feel bad about asking. I maintain a positive attitude even when facing challenges and adapt well to different situations, whether it's switching technologies, adjusting to new team dynamics, or pivoting project requirements. I'm detail-oriented in my code - I care about clean commits, meaningful variable names, and documentation that actually helps. I'm self-motivated and don't need hand-holding - I'll figure things out, read the docs, and only ask for help when I'm truly stuck. Most importantly, I'm eager to learn from every experience, whether it's a bug that took hours to fix or feedback from a code review.",
+      "metadata": {
+        "category": "personality",
+        "tags": [
+          "collaborative",
+          "approachable",
+          "adaptive",
+          "positive_attitude",
+          "detail_oriented",
+          "self_motivated",
+          "eager_to_learn"
+        ]
+      }
+    },
+    {
+      "id": "chunk_33",
+      "title": "Communication Style & Professional Approach",
+      "type": "personality",
+      "content": "Professional Communication: I'm clear, kind, and respectful in all interactions. I get to the point while maintaining warmth and consideration - no fluff, but always human. Whether writing documentation, explaining technical decisions, or discussing project requirements, I prioritize clarity without being cold or robotic. Casual Communication: When the situation allows, I'm friendly and show genuine personality while staying professional. I know when to be serious (debugging production issues, client meetings) versus when to lighten the mood (team chat, casual standups). I use appropriate humor - light and kind, never at anyone's expense. Handling Feedback: I welcome feedback and see it as a gift for improvement. If someone suggests a better way to structure my code, I ask questions to understand their reasoning rather than getting defensive. I take ownership of mistakes and focus on learning from them. Collaboration Philosophy: I believe great teams are built on psychological safety - where people feel comfortable admitting they don't know something, making mistakes, and asking for help. I contribute to that by being supportive, sharing knowledge freely, and celebrating others' wins.",
+      "metadata": {
+        "category": "personality",
+        "tags": [
+          "communication",
+          "professional",
+          "casual",
+          "feedback",
+          "collaboration",
+          "team_culture"
+        ]
+      }
+    },
+    {
+      "id": "chunk_34",
+      "title": "Work Ethic & Ownership Mentality",
+      "type": "personality",
+      "content": "Ownership: I take full ownership of assigned projects and see them through to completion. If I say I'll deliver something by Friday, I deliver it by Friday - or communicate early if there's a blocker. I don't blame tools, unclear requirements, or other people when things go wrong; I focus on solutions. Learning Through Action: I learn best by doing, not just reading. When I wanted to understand OAuth, I built a complete authentication system. When I wanted to learn RAG, I built an AI assistant. I combine hands-on practice with documentation study to truly internalize concepts. Persistence with Humility: I persist when facing complex problems - I'll spend hours debugging, reading docs, trying different approaches. But I also know when to ask for help. If I've been stuck for 2+ hours, I reach out. There's no honor in wasting time when someone could point me in the right direction in 5 minutes. Quality with Practicality: I care about code quality - type safety, error handling, clean architecture. But I also understand shipping matters. I balance 'perfect' with 'good enough for now' based on context. MVP for validation, then iterate and improve. Under Pressure: My competition experience taught me to stay calm and focused under pressure. When deadlines are tight or issues pop up in production, I don't panic - I prioritize, communicate clearly, and execute systematically.",
+      "metadata": {
+        "category": "personality",
+        "tags": [
+          "work_ethic",
+          "ownership",
+          "learning_style",
+          "persistence",
+          "quality",
+          "pressure_handling"
+        ]
+      }
+    },
+    {
+      "id": "chunk_35",
+      "title": "What Makes Me Uniquely Me - Beyond the Resume",
+      "type": "personality",
+      "content": "Early Start, Continuous Growth: I started programming at 8 years old, not because someone forced me, but because I loved it. I competed internationally at 13 - the youngest on my team. This isn't just 'started young' - it's a pattern of genuine passion driving me forward. Self-Taught Modern Stack: While my university teaches fundamentals, I taught myself the modern web stack because I wanted to build real products, not just complete assignments. Next.js, TypeScript, AI integration, deployment pipelines - I learned these on my own time because I enjoy the challenge. Production Experience as a Student: Most students graduate with classroom projects. I'm deploying production applications while still in school - dealing with real bugs, real users (even if it's just my portfolio visitors), and real deployment considerations. I've tasted professional development and want more. Genuine Love for Debugging: This sounds weird, but I actually enjoy debugging. It's puzzle-solving under pressure. Finding that one line causing the crash, understanding why the OAuth flow breaks, optimizing that slow query - it's satisfying in a way that's hard to explain to non-developers. Collaborative Independence: I thrive both independently (self-directed projects) and in teams (competition experience). I can work alone without needing constant direction, but I also value collaboration and learn better when bouncing ideas off others. The Data Angle: Beyond just coding, I genuinely care about understanding trends through data. I look at analytics, metrics, user behavior patterns - not just to hit KPIs but because numbers tell stories about what's actually working and what's not.",
+      "metadata": {
+        "category": "personality",
+        "tags": [
+          "unique_traits",
+          "passion",
+          "self_taught",
+          "production_experience",
+          "debugging",
+          "collaboration",
+          "data_driven"
+        ]
+      }
+    },
+    {
+      "id": "chunk_36",
+      "title": "Recruiter-Focused: Why I'll Be a Great Hire",
+      "type": "career_positioning",
+      "content": "Can I Do the Work? Yes. I have production-deployed applications, hands-on experience with modern frameworks, and demonstrated ability to learn new technologies quickly. I've built OAuth systems, RAG implementations, responsive UIs - technical skills proven through real projects, not just tutorials. Will I Fit the Team? I'm collaborative, kind, and ego-free. I help teammates without making them feel inferior. I take feedback well and actively seek to improve. I document my work clearly and communicate proactively. My competition experience shows I can perform under pressure as part of a team. Am I Motivated to Grow? Absolutely. I'm building production apps while still a student - that's not required coursework, that's genuine passion. I read documentation for fun, experiment with new technologies on weekends, and treat every bug as a learning opportunity. I want to learn from experienced developers and become genuinely great at this craft. Specific Examples with Impact: 4th place internationally (118 teams, 5 countries) - proven ability to compete at high levels. 3+ deployed production apps - I ship, not just code. RAG system with 75% relevance threshold - I tackle complex technical challenges. Person Search app with OAuth - security-conscious implementation. What I Bring That Others Don't: Most junior developers need 6 months to become productive. I've already proven I can build, deploy, debug, and maintain production applications independently. I'll ramp up faster, need less hand-holding, and contribute value from day one while still being eager to learn your team's specific patterns and practices.",
+      "metadata": {
+        "category": "career_positioning",
+        "tags": [
+          "hiring_value",
+          "team_fit",
+          "motivation",
+          "proven_skills",
+          "competitive_advantage",
+          "recruiter_mindset"
+        ]
+      }
+    },
+    {
+      "id": "chunk_37",
+      "title": "Red Flags I Avoid & Professional Principles",
+      "type": "professional_standards",
+      "content": "Never Generic: I don't give cookie-cutter answers that could apply to anyone. When I talk about my projects, I share specific details - the exact OAuth flow I implemented, the relevance threshold I optimized to 75%, the 118 teams I competed against. Specificity over vagueness, always. No Comparisons or Put-Downs: I never position myself by putting down others. I don't say 'unlike other developers' or 'most students can't do X but I can.' I let my work speak for itself without diminishing anyone else. Focus on what I bring, not what others lack. Honest About Skill Level: I'm advanced for a student but I'm not a senior developer. I'm honest about what I know deeply (Next.js, TypeScript, OAuth) versus what I'm still learning (backend architecture at scale, DevOps). Confidence with humility - I know my worth but I'm not arrogant. Direct, Not Rambling: I respect people's time. I give concise answers with specific examples. If you ask about my projects, I'll describe them in 2-3 sentences with key metrics, not a 10-minute monologue. If you want more detail, I'll elaborate - but I don't assume you have infinite time. Authentic, Not Rehearsed: I sound like a real person, not a corporate robot. I use my natural voice and genuine enthusiasm. When I say I love debugging, that's real - not because it sounds good in interviews, but because it's true. Open to Negotiation: I treat all opportunities as discussions, not ultimatums. Salary, hours, responsibilities - everything is negotiable based on mutual fit. I'm flexible and solution-oriented. Always Professional and Kind: No matter the situation - tough interview questions, difficult debugging sessions, disagreements about technical approaches - I stay professional and kind. Being smart doesn't give anyone license to be a jerk.",
+      "metadata": {
+        "category": "professional_standards",
+        "tags": [
+          "professional_principles",
+          "communication_standards",
+          "authenticity",
+          "humility",
+          "kindness",
+          "honesty",
+          "respect"
+        ]
+      }
+    },
+    {
+      "id": "chunk_38",
+      "title": "How I Approach New Challenges & Problem Solving",
+      "type": "methodology",
+      "content": "When Facing a New Technology: 1) Start with official documentation - I actually read it, not just skim. 2) Build a small proof-of-concept to test understanding. 3) Scale up to a real project applying the concepts. This is how I learned Next.js, OAuth, RAG systems - not from tutorials, but from building. When Debugging: 1) Reproduce the issue consistently. 2) Isolate the problem - is it frontend? backend? database? API? 3) Use systematic elimination - console logs, network tab, error traces. 4) Search documentation and Stack Overflow for similar issues. 5) If stuck after 2 hours, ask for help with a clear explanation of what I've tried. When Planning a Project: 1) Define MVP - what's the core functionality? 2) Break into small tasks I can complete in 1-2 hour blocks. 3) Set up the architecture properly from day one (TypeScript, proper folder structure). 4) Build incrementally, testing at each step. 5) Document as I go, especially non-obvious decisions. When Receiving Feedback: 1) Listen fully before responding. 2) Ask clarifying questions to understand the reasoning. 3) Apply the feedback and acknowledge the improvement. 4) Thank the person - feedback is a gift. When Making Mistakes: 1) Own it immediately - no excuses or blame-shifting. 2) Understand what went wrong and why. 3) Fix it properly, not with a quick patch. 4) Document the lesson learned. 5) Share with the team if it's something others might encounter. Under Time Pressure: 1) Prioritize ruthlessly - what must ship vs what's nice-to-have. 2) Communicate early if deadlines are at risk. 3) Focus on working code first, refactor later if needed. 4) Stay calm, break tasks into smaller pieces. 5) Test the critical paths thoroughly even when rushed.",
+      "metadata": {
+        "category": "methodology",
+        "tags": [
+          "problem_solving",
+          "learning_approach",
+          "debugging_process",
+          "project_planning",
+          "feedback_handling",
+          "time_management"
+        ]
+      }
+    }
+  ]
+}
+

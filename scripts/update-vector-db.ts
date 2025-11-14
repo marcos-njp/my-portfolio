@@ -4,7 +4,7 @@
  */
 
 import { Index } from '@upstash/vector';
-// import digitalTwinData from '../data/digitaltwin.json';
+import digitalTwinData from '../data/digitaltwin.json';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
@@ -40,12 +40,6 @@ async function updateVectorDatabase() {
   });
 
   try {
-    console.log('⚠️  digitaltwin.json not found - skipping vector database update');
-    console.log('   This script requires data/digitaltwin.json to be present');
-    return;
-
-    // Commented out original functionality until digitaltwin.json is restored
-    /*
     // Prepare vectors for upsert
     const vectors = digitalTwinData.content_chunks.map((chunk: ChunkData) => ({
       id: chunk.id,
@@ -68,8 +62,7 @@ async function updateVectorDatabase() {
     console.log(`   Embedding model: mixedbread-ai/mxbai-embed-large-v1`);
     console.log(`   Dimensions: 1024`);
     console.log(`   Similarity: Cosine`);
-    console.log('\n✨ Vector database updated with tone-fixed content!');
-    */
+    console.log('\n✨ Vector database updated with enhanced content including personality traits!');
 
   } catch (error) {
     console.error('❌ Error updating vector database:', error);
