@@ -47,23 +47,30 @@ Ask Claude to use the digital twin tool:
 - "Chat with Niño's digital twin about his technical skills"
 - "Ask the digital twin about Niño's experience with Next.js"
 
-## 🌐 Cloud Deployment (Vercel)
+### 3. Production Configuration (Vercel)
 
-After deploying to Vercel, update your Claude Desktop config:
+For your deployed app at `https://m-njp.vercel.app`, use:
 
 ```json
 {
   "mcpServers": {
-    "digital-twin": {
+    "digital-twin-production": {
       "command": "npx",
       "args": [
         "-y",
         "mcp-remote",
-        "https://your-app.vercel.app/api/mcp"
+        "https://m-njp.vercel.app/api/sse"
       ]
     }
   }
 }
+```
+
+**Important Notes:**
+- The URL must end with `/api/sse` (for Server-Sent Events transport)
+- Alternatively, use `/api/messages` for HTTP polling
+- The `[transport]` route dynamically handles both transport types
+- First connection may take 20-30 seconds as Vercel cold-starts the function
 ```
 
 ## 🛠️ Available Tools
