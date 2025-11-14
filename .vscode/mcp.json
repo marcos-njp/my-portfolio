@@ -1,7 +1,7 @@
 {
 	"servers": {
-		"my-mcp-server-74007bc5": {
-			"url": "http://localhost:3000/api/mcp/",
+		"my-mcp-server": {
+			"url": "https://m-njp.vercel.app/api/mcp",
 			"type": "http"
 		}
 	},
