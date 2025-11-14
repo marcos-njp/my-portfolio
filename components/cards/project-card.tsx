@@ -57,7 +57,7 @@ export default function ProjectCard({ title, description, image, tags, onClick }
         <Button 
           variant="ghost" 
           size="sm" 
-          className="w-full text-xs h-8 hover:bg-primary hover:text-primary-foreground transition-colors"
+          className="w-full text-xs h-8 hover:bg-primary hover:text-primary-foreground transition-colors group-hover:bg-primary/10 dark:group-hover:bg-primary/20 dark:text-foreground dark:hover:text-primary-foreground"
           onClick={(e) => {
             e.stopPropagation()
             onClick()

@@ -22,6 +22,7 @@ import {
   getUnprofessionalRejection,
   type FeedbackPreferences,
 } from '@/lib/feedback-detector';
+import { validateMoodCompliance, logValidationResult, getMoodComplianceScore } from '@/lib/response-validator';
 
 // Edge Runtime configuration for Vercel
 export const runtime = 'edge';
@@ -282,16 +283,37 @@ export async function POST(req: Request) {
       console.log(`[Adaptive Feedback] Applying user preferences to this response`);
     }
     
-    // CRITICAL: Put mood instructions FIRST, then adaptive feedback, then rest
-    const finalSystemPrompt = 
-      moodConfig.systemPromptAddition + '\n\n' + 
-      SYSTEM_PROMPT + 
-      conversationContext + 
-      contextInfo + '\n\n' + 
-      responseLengthGuidelines +
-      feedbackInstruction; // Apply learned preferences
+    // CRITICAL: Adjust system prompt based on mood to prevent conflicts
+    let baseSystemPrompt = SYSTEM_PROMPT;
+    
+    // For GenZ mode, relax the conciseness constraint to allow personality
+    if (mood === 'genz') {
+      baseSystemPrompt = baseSystemPrompt.replace(
+        /Keep responses concise \(2-4 sentences\)/g,
+        'Keep responses helpful and engaging (3-5 sentences with personality)'
+      );
+      console.log('[GenZ Mode] Adjusted base prompt for casual tone');
+    }
+    
+    // Build final prompt with mood instructions FIRST and reinforced
+    const finalSystemPrompt = mood === 'genz'
+      ? moodConfig.systemPromptAddition + '\n\n' +
+        'REMINDER: You are in GenZ mode - use slang, emojis, and casual tone in EVERY response!\n\n' +
+        baseSystemPrompt + 
+        conversationContext + 
+        contextInfo + '\n\n' + 
+        responseLengthGuidelines +
+        feedbackInstruction +
+        '\n\n🔥 FINAL REMINDER: This is GenZ mode - be casual, use slang, add emojis! 💯'
+      : moodConfig.systemPromptAddition + '\n\n' + 
+        baseSystemPrompt + 
+        conversationContext + 
+        contextInfo + '\n\n' + 
+        responseLengthGuidelines +
+        feedbackInstruction;
     
     console.log(`[System Prompt Preview] First 500 chars: ${finalSystemPrompt.substring(0, 500)}...`);
+    console.log(`[System Prompt] Total length: ${finalSystemPrompt.length} chars, Mood: ${mood}`);
     
     const startTime = Date.now();
     
@@ -302,6 +324,13 @@ export async function POST(req: Request) {
       temperature: moodConfig.temperature,
       onFinish: async ({ text }) => {
         const responseTime = Date.now() - startTime;
+        
+        // Validate mood compliance
+        const validation = validateMoodCompliance(text, mood);
+        logValidationResult(validation, mood, text);
+        
+        const complianceScore = getMoodComplianceScore(text, mood);
+        console.log(`[Mood Compliance] Score: ${complianceScore}/100 for ${mood} mode`);
         
         // Save conversation history with feedback preferences
         if (sessionId) {
