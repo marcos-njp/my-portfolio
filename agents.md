@@ -23,7 +23,7 @@ The Task that we are going to accomplish comes from this workshop link (MUST REA
 https://aiagents.ausbizconsulting.com.au/digital-twin-workshop
 
 # Digital Twin MCP Server Project Instructions
-
+WEEK 7 TASK
 ## Project Overview
 Build an MCP server using the roll dice pattern to create a digital twin assistant that can answer questions about a person's professional profile using RAG (Retrieval-Augmented Generation).
 
@@ -93,5 +93,5 @@ await index.query({
 
 ---
 
-**Note**: This file provides context for GitHub Copilot to generate accurate, project-specific code suggestions. Keep it updated as requirements evolve.
+My database uses Vector and Redis. I use Groq API, check the specific model. We will first test the MCP server locally, and once finished, deploy it to Vercel. BUt take note, that is a separate task so I am just reminding you.
 
