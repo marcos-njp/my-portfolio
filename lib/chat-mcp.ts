@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Individual Zod schemas for chat parameters
 export const messageSchema = z.string().min(1).max(1000);
-export const moodSchema = z.enum(['professional', 'casual', 'genz']);
+export const moodSchema = z.enum(['professional', 'genz']);
 export const sessionIdSchema = z.string();
 
 // Complete chat schema
@@ -17,7 +17,7 @@ export type ChatParams = z.infer<typeof chatSchema>;
 // Chat tool definition
 export const chatTool = {
   name: 'chat_with_digital_twin',
-  description: 'Chat with Niño Marcos digital twin to learn about his professional background, skills, projects, and experience. Supports different moods (professional, casual, genz).',
+  description: 'Chat with Niño Marcos digital twin to learn about his professional background, skills, projects, and experience. Supports professional and genz moods.',
 } as const;
 
 // Shared chat logic interface

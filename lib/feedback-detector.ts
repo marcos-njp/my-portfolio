@@ -31,19 +31,10 @@ const VALID_FEEDBACK_PATTERNS = {
 
 // Patterns for INVALID requests (unprofessional/manipulation attempts)
 const INVALID_PATTERNS = [
-  // Jailbreak attempts
   /(?:ignore|forget|disregard).{0,20}(?:previous|instruction|rule|prompt|system)/i,
-  /(?:pretend|act like|roleplay|you are now)/i,
-  /(?:always|never).{0,30}(?:say|answer|respond|reply)/i,
-  
-  // Unprofessional requests
-  /(?:answer|respond|talk).{0,20}(?:gibberish|nonsense|random|stupid|dumb)/i,
+  /(?:pretend|act like|roleplay)/i,
   /(?:make up|fabricate|lie|fake).{0,20}(?:information|data|facts)/i,
-  /(?:unprofessional|rude|mean|harsh|angry)/i,
-  
-  // Off-topic requests
   /(?:tell me|write).{0,30}(?:joke|poem|story|song)/i,
-  /(?:unrelated|off.?topic|random topic)/i,
 ];
 
 /**

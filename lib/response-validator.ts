@@ -26,20 +26,13 @@ export function validateMoodCompliance(
 ): ValidationResult {
   
   if (mood === 'genz') {
-    const slangTerms = [
-      // Common slang
-      'no cap', 'fr', 'ngl', 'ong', 'bet', 'facts', 'tbh', 'icl', 'imo', 'istg', 'iykyk',
-      // Reactions
-      'lmao', 'lol', 'bruh', "ain't that deep", 'deadass',
-      // Quality descriptors
-      'fire', 'bussin', 'goated', 'hits different', 'ate', 'slay', 'mid', "it's giving", 'based', 'unhinged',
-      // Casual phrases
-      'finna', 'ion', 'valid', 'rent free', 'main character',
-      // Avoid checking for overused ones
-    ];
+    const slangTerms = new Set([
+      'no cap', 'fr', 'ngl', 'ong', 'bet', 'facts', 'tbh', 'lmao', 'lol', 'bruh',
+      'fire', 'bussin', 'goated', 'hits different', 'ate', 'finna', 'valid',
+    ]);
     
     const lowerResponse = response.toLowerCase();
-    const slangMatches = slangTerms.filter(term => lowerResponse.includes(term));
+    const slangMatches = Array.from(slangTerms).filter(term => lowerResponse.includes(term));
     const hasSlang = slangMatches.length > 0;
     const slangCount = slangMatches.length;
     

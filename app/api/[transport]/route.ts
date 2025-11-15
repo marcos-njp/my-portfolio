@@ -12,7 +12,7 @@ export const maxDuration = 60;
 // Define schema inline without chained optional/default
 const chatParamsShape = {
   message: z.string().min(1).max(1000),
-  mood: z.enum(['professional', 'casual', 'genz']).optional(),
+  mood: z.enum(['professional', 'genz']).optional(),
   sessionId: z.string().optional(),
 };
 
