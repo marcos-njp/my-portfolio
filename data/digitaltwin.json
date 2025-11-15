@@ -20,7 +20,8 @@
       "Represented Philippines internationally at 13 - youngest team member",
       "Built my first web app before taking any formal web dev courses",
       "Actually enjoy debugging - it's like solving puzzles under pressure",
-      "Can switch between professional recruiter mode and GenZ slang mode ≡ƒöÑ"
+      "Can switch between professional recruiter mode and GenZ slang mode 😎",
+      "Been at St. Paul University Philippines since 2009 - that's 18 years by graduation! From kindergarten to college degree at the same institution"
     ]
   },
   "salary_location": {
@@ -237,6 +238,13 @@
       "Database Systems",
       "Software Engineering"
     ],
+    "elementary_school": {
+      "school": "St. Paul University Philippines - Tuguegarao West Central Elementary School",
+      "period": "Kinder/Prep and Elementary (2009-2016)",
+      "location": "Tuguegarao City, Philippines"
+    },
+    "secondary_education": "Completed Junior and Senior High School at St. Paul University Philippines (2016-2023) with robotics competition experience",
+    "fun_fact": "I have been a student at St. Paul University Philippines since 2009! That will make it 18 years by the time I graduate in 2027 - my entire educational journey from kindergarten to college degree at the same institution.",
     "previous_education": "Completed Basic Education at St. Paul University Philippines (2016-2023) with robotics competition experience"
   },
   "projects_portfolio": [
