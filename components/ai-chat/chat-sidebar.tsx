@@ -8,6 +8,7 @@ import { ChatMessage } from "./chat-message";
 import { ChatInput } from "./chat-input";
 import { MoodSelector } from "./mood-selector";
 import { SuggestedQuestions } from "./suggested-questions";
+import { ChatFeaturesModal } from "./chat-features-modal";
 
 interface Message {
   id: string;
@@ -40,6 +41,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const [_thinkingInterval, _setThinkingInterval] = useState<NodeJS.Timeout | null>(null);
   const [_abortController, setAbortController] = useState<AbortController | null>(null);
   const [currentMood, setCurrentMood] = useState<AIMood>("professional");
+  const [questionClickCount, setQuestionClickCount] = useState(0);
   
   const [sessionId] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -365,6 +367,16 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             </div>
           </div>
 
+          {/* Disclaimer Message */}
+          <div className="px-4 py-3 bg-amber-50 dark:bg-amber-950/20 border-b border-amber-200 dark:border-amber-800/30">
+            <div className="flex items-start gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0" />
+              <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+                <strong>Note:</strong> I am still under development and may make mistakes.
+              </p>
+            </div>
+          </div>
+
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
               <ChatMessage key={message.id} role={message.role} content={message.content} />
@@ -374,27 +386,32 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
           </div>
 
           <div className="border-t">
-            {/* Suggested Questions */}
-            {messages.length === 0 && (
-              <div className="px-3 py-2 border-b bg-muted/20">
+            {/* Suggested Questions - Hide after 3 clicks */}
+            {questionClickCount < 3 && (
+              <div className="px-3 py-3 border-b bg-muted/20">
                 <SuggestedQuestions
                   suggestions={[
                     "What are your main projects?",
                     "Tell me about your tech stack",
                     "What's your experience?",
+                    "What competitions have you won?",
+                    "Tell me about your education",
                   ]}
                   onSelect={(question) => {
                     setInput(question);
+                    setQuestionClickCount(prev => prev + 1);
                   }}
                   disabled={isLoading}
                 />
               </div>
             )}
             
-            {/* Mood Selector + Input */}
+            {/* Features Info + Mood Selector + Input */}
             <div className="px-3 py-2 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">Personality:</span>
+                <div className="flex items-center gap-2">
+                  <ChatFeaturesModal />
+                </div>
                 <MoodSelector currentMood={currentMood} onMoodChange={setCurrentMood} />
               </div>
               

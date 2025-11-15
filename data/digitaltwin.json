@@ -1,17 +1,13 @@
-﻿{
+{
   "personal": {
-    "name": "Nino Marcos",
+    "name": "Niño Marcos",
     "title": "IT Student & Full Stack Developer",
     "location": "Tuguegarao City, Philippines",
     "summary": "3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management.",
-    "elevator_pitch": "I'm Nino - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers.",
-    "documentation": {
-      "portfolio_docs": "https://my-portfolio-marcos-njp.vercel.app/docs",
-      "description": "Comprehensive documentation covering RAG architecture, MCP integration, GitHub operations, profile data structure, advanced features, testing procedures, and troubleshooting guides for the AI-powered portfolio system"
-    },
+    "elevator_pitch": "I'm Niño - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers.",
     "contact": {
       "email": "justinpmarcos@gmail.com",
-      "linkedin": "https://www.linkedin.com/in/nino-marcos/",
+      "linkedin": "https://www.linkedin.com/in/niño-marcos/",
       "github": "https://github.com/marcos-njp",
       "portfolio": "https://my-portfolio-marcos-njp.vercel.app"
     },
@@ -20,8 +16,7 @@
       "Represented Philippines internationally at 13 - youngest team member",
       "Built my first web app before taking any formal web dev courses",
       "Actually enjoy debugging - it's like solving puzzles under pressure",
-      "Can switch between professional recruiter mode and GenZ slang mode 😎",
-      "Been at St. Paul University Philippines since 2009 - that's 18 years by graduation! From kindergarten to college degree at the same institution"
+      "Can switch between professional recruiter mode and GenZ slang mode 🔥"
     ]
   },
   "salary_location": {
@@ -92,13 +87,12 @@
       "duration": "November 2018",
       "company_context": "International robotics competition with 118 teams from 5 countries",
       "team_structure": "Team member representing Philippines",
-      "proof_link": "https://www.facebook.com/StPaulUniversityPhilippines/posts/caritas-christi-urget-nos-spup-beu-robotics-team-clinches-international-awards-b/1909122265809145/",
       "achievements_star": [
         {
           "situation": "Selected to represent Team Philippines in international robotics competition in Shenzhen, China",
           "task": "Compete in Programming Skills Excellence category against 118 international teams",
           "action": "Developed and optimized Python programming solutions for VEX IQ robotics challenges, collaborated with team members, debugged code under time pressure",
-          "result": "Achieved 4th place finish in Programming Skills Excellence category, demonstrating strong problem-solving and coding skills on international stage. Official announcement available at: https://www.facebook.com/StPaulUniversityPhilippines/posts/1909122265809145/"
+          "result": "Achieved 4th place finish in Programming Skills Excellence category, demonstrating strong problem-solving and coding skills on international stage"
         }
       ],
       "technical_skills_used": [
@@ -118,13 +112,12 @@
       "duration": "October 2018",
       "company_context": "National robotics competition with 43 participating schools",
       "team_structure": "Team member representing St. Paul University Philippines",
-      "proof_link": "https://www.facebook.com/StPaulUniversityPhilippines/posts/caritas-christi-urget-nos-spup-beu-secures-victory-in-robothon-national-competit/1867646416623397/",
       "achievements_star": [
         {
           "situation": "Selected to represent school in prestigious national robotics competition",
           "task": "Compete in robotics programming challenges against 43 schools nationwide",
           "action": "Applied Python programming skills to robotics challenges, worked collaboratively with team, implemented efficient algorithms for robot control",
-          "result": "Earned 5th place and Excellence Award, demonstrating technical competence and competitive programming abilities. Official announcement available at: https://www.facebook.com/StPaulUniversityPhilippines/posts/1867646416623397/"
+          "result": "Earned 5th place and Excellence Award, demonstrating technical competence and competitive programming abilities"
         }
       ],
       "technical_skills_used": [
@@ -238,13 +231,6 @@
       "Database Systems",
       "Software Engineering"
     ],
-    "elementary_school": {
-      "school": "St. Paul University Philippines",
-      "period": "Kinder/Prep and Elementary (2009-2016)",
-      "location": "Tuguegarao City, Philippines"
-    },
-    "secondary_education": "Completed Junior and Senior High School at St. Paul University Philippines (2016-2023) with robotics competition experience",
-    "fun_fact": "I have been a student at St. Paul University Philippines since 2009! That will make it 18 years by the time I graduate in 2027 - my entire educational journey from kindergarten to college degree at the same institution.",
     "previous_education": "Completed Basic Education at St. Paul University Philippines (2016-2023) with robotics competition experience"
   },
   "projects_portfolio": [
@@ -357,7 +343,7 @@
   ],
   "career_goals": {
     "short_term": "Secure internship or entry-level full-stack developer position to gain professional experience",
-    "long_term": "Become a seNinor full-stack developer specializing in AI-powered applications",
+    "long_term": "Become a senior full-stack developer specializing in AI-powered applications",
     "learning_focus": [
       "Advanced AI/ML integration",
       "Cloud architecture",
@@ -467,15 +453,14 @@
       "id": "chunk_1",
       "title": "Personal Profile",
       "type": "personal_info",
-      "content": "Name: Niño Marcos. Title: IT Student & Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: 3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management. Elevator Pitch: I'm Niño - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers. Documentation: Comprehensive technical documentation available at https://my-portfolio-marcos-njp.vercel.app/docs covering RAG architecture, MCP integration, GitHub operations, and advanced features. Fun Facts: Started programming at 8 years old with Scratch, moved to Python by 10. Represented Philippines internationally at 13 - youngest team member. Built my first web app before taking any formal web dev courses. Actually enjoy debugging - it's like solving puzzles under pressure. Can switch between professional recruiter mode and GenZ slang mode 😎",
+      "content": "Name: Niño Marcos. Title: IT Student & Full Stack Developer. Location: Tuguegarao City, Philippines. Summary: 3rd-year IT student at St. Paul University Philippines actively building production web applications. International robotics competitor (4th/118 teams, STEAM Challenge 2018) with hands-on experience in Next.js, TypeScript, and AI integration. Self-taught modern web stack with 3+ deployed applications and practical experience in OAuth, RAG systems, and database management. Elevator Pitch: I'm Niño - I competed internationally in robotics at 13 and have been passionate about building ever since. I've deployed 3 production applications, integrated AI systems, and taught myself modern web development. I enjoy problem-solving, self-directed learning, and have a genuine passion for technology. I'm looking for a team where I can contribute while learning from experienced developers. Fun Facts: Started programming at 8 years old with Scratch, moved to Python by 10. Represented Philippines internationally at 13 - youngest team member. Built my first web app before taking any formal web dev courses. Actually enjoy debugging - it's like solving puzzles under pressure. Can switch between professional recruiter mode and GenZ slang mode 🔥",
       "metadata": {
         "category": "personal",
         "tags": [
           "profile",
           "introduction",
           "summary",
-          "fun_facts",
-          "documentation"
+          "fun_facts"
         ]
       }
     },
@@ -483,7 +468,7 @@
       "id": "chunk_2",
       "title": "Contact Information",
       "type": "contact",
-      "content": "Email: justinpmarcos@gmail.com. LinkedIn: https://www.linkedin.com/in/ni├▒o-marcos/. GitHub: https://github.com/marcos-njp. Portfolio: https://my-portfolio-marcos-njp.vercel.app",
+      "content": "Email: justinpmarcos@gmail.com. LinkedIn: https://www.linkedin.com/in/niño-marcos/. GitHub: https://github.com/marcos-njp. Portfolio: https://my-portfolio-marcos-njp.vercel.app",
       "metadata": {
         "category": "contact",
         "tags": [
@@ -595,10 +580,8 @@
           "star",
           "accomplishment",
           "results",
-          "impact",
-          "proof_available"
-        ],
-        "proof_link": "https://www.facebook.com/StPaulUniversityPhilippines/posts/1909122265809145/"
+          "impact"
+        ]
       }
     },
     {
@@ -627,10 +610,8 @@
           "star",
           "accomplishment",
           "results",
-          "impact",
-          "proof_available"
-        ],
-        "proof_link": "https://www.facebook.com/StPaulUniversityPhilippines/posts/1867646416623397/"
+          "impact"
+        ]
       }
     },
     {
@@ -738,7 +719,7 @@
       "id": "chunk_19",
       "title": "Career Goals and Aspirations",
       "type": "career_goals",
-      "content": "Short Term: Secure internship or entry-level full-stack developer position to gain professional experience. Long Term: Become a seNinor full-stack developer specializing in AI-powered applications. Learning Focus: Advanced AI/ML integration, Cloud architecture, System design, Open-source contribution. Industries Interested: Tech Startups, AI/ML Companies, Web Development Agencies, SaaS Products",
+      "content": "Short Term: Secure internship or entry-level full-stack developer position to gain professional experience. Long Term: Become a senior full-stack developer specializing in AI-powered applications. Learning Focus: Advanced AI/ML integration, Cloud architecture, System design, Open-source contribution. Industries Interested: Tech Startups, AI/ML Companies, Web Development Agencies, SaaS Products",
       "metadata": {
         "category": "goals",
         "tags": [
@@ -909,7 +890,7 @@
       "id": "chunk_30",
       "title": "Real Talk - Strengths, Weaknesses & Self-Awareness",
       "type": "personal_attributes",
-      "content": "My Genuine Strengths: I pick up new technologies fast - I went from zero to deployed Next.js apps in weeks. I'm resourceful when stuck, I actually read documentation (shocking, I know), and I'm not afraid to ask questions when I need help. I genuinely enjoy coding and building things, which means I work on projects outside school for fun, not obligation. What I'm Still Learning: I haven't worked on a large production codebase with multiple developers yet. My biggest projects are solo, so I'm eager to learn real-world team workflows, code review practices, and how professional teams handle complexity at scale. I've built apps, but haven't experienced the full software development lifecycle with QA, staging, production deployments, and user feedback loops. Honest Self-Assessment: I'm technically skilled for a student but I know I have tons to learn from experienced developers. I'm the kind of person who will read your team's entire codebase in week one to understand how everything works. I'm not coming in claiming to be a seNinor dev - I'm coming in ready to soak up knowledge like a sponge while contributing real value where I can. What Motivates Me: I want to work on projects where the code I write actually matters - where bugs I fix help real users, where features I build get used. I'm motivated by growth, interesting technical challenges, and being around people smarter than me who I can learn from. Why I'm Different: Most students apply with only classroom projects. I've built production apps, handled real deployment issues, dealt with authentication bugs at 2am, and learned from actual user-facing work. I've tasted real development and I want more of it.",
+      "content": "My Genuine Strengths: I pick up new technologies fast - I went from zero to deployed Next.js apps in weeks. I'm resourceful when stuck, I actually read documentation (shocking, I know), and I'm not afraid to ask questions when I need help. I genuinely enjoy coding and building things, which means I work on projects outside school for fun, not obligation. What I'm Still Learning: I haven't worked on a large production codebase with multiple developers yet. My biggest projects are solo, so I'm eager to learn real-world team workflows, code review practices, and how professional teams handle complexity at scale. I've built apps, but haven't experienced the full software development lifecycle with QA, staging, production deployments, and user feedback loops. Honest Self-Assessment: I'm technically skilled for a student but I know I have tons to learn from experienced developers. I'm the kind of person who will read your team's entire codebase in week one to understand how everything works. I'm not coming in claiming to be a senior dev - I'm coming in ready to soak up knowledge like a sponge while contributing real value where I can. What Motivates Me: I want to work on projects where the code I write actually matters - where bugs I fix help real users, where features I build get used. I'm motivated by growth, interesting technical challenges, and being around people smarter than me who I can learn from. Why I'm Different: Most students apply with only classroom projects. I've built production apps, handled real deployment issues, dealt with authentication bugs at 2am, and learned from actual user-facing work. I've tasted real development and I want more of it.",
       "metadata": {
         "category": "personal_attributes",
         "tags": [
@@ -940,129 +921,6 @@
           "learning"
         ]
       }
-    },
-    {
-      "id": "chunk_32",
-      "title": "Core Personality Traits & Work Style",
-      "type": "personality",
-      "content": "I'm a collaborative team member who values kindness and respect in all interactions. I'm approachable and easy to work with - the kind of person who helps teammates debug issues without making them feel bad about asking. I maintain a positive attitude even when facing challenges and adapt well to different situations, whether it's switching technologies, adjusting to new team dynamics, or pivoting project requirements. I'm detail-oriented in my code - I care about clean commits, meaningful variable names, and documentation that actually helps. I'm self-motivated and don't need hand-holding - I'll figure things out, read the docs, and only ask for help when I'm truly stuck. Most importantly, I'm eager to learn from every experience, whether it's a bug that took hours to fix or feedback from a code review.",
-      "metadata": {
-        "category": "personality",
-        "tags": [
-          "collaborative",
-          "approachable",
-          "adaptive",
-          "positive_attitude",
-          "detail_oriented",
-          "self_motivated",
-          "eager_to_learn"
-        ]
-      }
-    },
-    {
-      "id": "chunk_33",
-      "title": "Communication Style & Professional Approach",
-      "type": "personality",
-      "content": "Professional Communication: I'm clear, kind, and respectful in all interactions. I get to the point while maintaining warmth and consideration - no fluff, but always human. Whether writing documentation, explaining technical decisions, or discussing project requirements, I prioritize clarity without being cold or robotic. Casual Communication: When the situation allows, I'm friendly and show genuine personality while staying professional. I know when to be serious (debugging production issues, client meetings) versus when to lighten the mood (team chat, casual standups). I use appropriate humor - light and kind, never at anyone's expense. Handling Feedback: I welcome feedback and see it as a gift for improvement. If someone suggests a better way to structure my code, I ask questions to understand their reasoning rather than getting defensive. I take ownership of mistakes and focus on learning from them. Collaboration Philosophy: I believe great teams are built on psychological safety - where people feel comfortable admitting they don't know something, making mistakes, and asking for help. I contribute to that by being supportive, sharing knowledge freely, and celebrating others' wins.",
-      "metadata": {
-        "category": "personality",
-        "tags": [
-          "communication",
-          "professional",
-          "casual",
-          "feedback",
-          "collaboration",
-          "team_culture"
-        ]
-      }
-    },
-    {
-      "id": "chunk_34",
-      "title": "Work Ethic & Ownership Mentality",
-      "type": "personality",
-      "content": "Ownership: I take full ownership of assigned projects and see them through to completion. If I say I'll deliver something by Friday, I deliver it by Friday - or communicate early if there's a blocker. I don't blame tools, unclear requirements, or other people when things go wrong; I focus on solutions. Learning Through Action: I learn best by doing, not just reading. When I wanted to understand OAuth, I built a complete authentication system. When I wanted to learn RAG, I built an AI assistant. I combine hands-on practice with documentation study to truly internalize concepts. Persistence with Humility: I persist when facing complex problems - I'll spend hours debugging, reading docs, trying different approaches. But I also know when to ask for help. If I've been stuck for 2+ hours, I reach out. There's no honor in wasting time when someone could point me in the right direction in 5 minutes. Quality with Practicality: I care about code quality - type safety, error handling, clean architecture. But I also understand shipping matters. I balance 'perfect' with 'good enough for now' based on context. MVP for validation, then iterate and improve. Under Pressure: My competition experience taught me to stay calm and focused under pressure. When deadlines are tight or issues pop up in production, I don't panic - I prioritize, communicate clearly, and execute systematically.",
-      "metadata": {
-        "category": "personality",
-        "tags": [
-          "work_ethic",
-          "ownership",
-          "learning_style",
-          "persistence",
-          "quality",
-          "pressure_handling"
-        ]
-      }
-    },
-    {
-      "id": "chunk_35",
-      "title": "What Makes Me Uniquely Me - Beyond the Resume",
-      "type": "personality",
-      "content": "Early Start, Continuous Growth: I started programming at 8 years old, not because someone forced me, but because I loved it. I competed internationally at 13 - the youngest on my team. This isn't just 'started young' - it's a pattern of genuine passion driving me forward. Self-Taught Modern Stack: While my university teaches fundamentals, I taught myself the modern web stack because I wanted to build real products, not just complete assignments. Next.js, TypeScript, AI integration, deployment pipelines - I learned these on my own time because I enjoy the challenge. Production Experience as a Student: Most students graduate with classroom projects. I'm deploying production applications while still in school - dealing with real bugs, real users (even if it's just my portfolio visitors), and real deployment considerations. I've tasted professional development and want more. Genuine Love for Debugging: This sounds weird, but I actually enjoy debugging. It's puzzle-solving under pressure. Finding that one line causing the crash, understanding why the OAuth flow breaks, optimizing that slow query - it's satisfying in a way that's hard to explain to non-developers. Collaborative Independence: I thrive both independently (self-directed projects) and in teams (competition experience). I can work alone without needing constant direction, but I also value collaboration and learn better when bouncing ideas off others. The Data Angle: Beyond just coding, I genuinely care about understanding trends through data. I look at analytics, metrics, user behavior patterns - not just to hit KPIs but because numbers tell stories about what's actually working and what's not.",
-      "metadata": {
-        "category": "personality",
-        "tags": [
-          "unique_traits",
-          "passion",
-          "self_taught",
-          "production_experience",
-          "debugging",
-          "collaboration",
-          "data_driven"
-        ]
-      }
-    },
-    {
-      "id": "chunk_36",
-      "title": "Recruiter-Focused: Why I'll Be a Great Hire",
-      "type": "career_positioning",
-      "content": "Can I Do the Work? Yes. I have production-deployed applications, hands-on experience with modern frameworks, and demonstrated ability to learn new technologies quickly. I've built OAuth systems, RAG implementations, responsive UIs - technical skills proven through real projects, not just tutorials. Will I Fit the Team? I'm collaborative, kind, and ego-free. I help teammates without making them feel inferior. I take feedback well and actively seek to improve. I document my work clearly and communicate proactively. My competition experience shows I can perform under pressure as part of a team. Am I Motivated to Grow? Absolutely. I'm building production apps while still a student - that's not required coursework, that's genuine passion. I read documentation for fun, experiment with new technologies on weekends, and treat every bug as a learning opportunity. I want to learn from experienced developers and become genuinely great at this craft. Specific Examples with Impact: 4th place internationally (118 teams, 5 countries) - proven ability to compete at high levels. 3+ deployed production apps - I ship, not just code. RAG system with 75% relevance threshold - I tackle complex technical challenges. Person Search app with OAuth - security-conscious implementation. What I Bring That Others Don't: Most junior developers need 6 months to become productive. I've already proven I can build, deploy, debug, and maintain production applications independently. I'll ramp up faster, need less hand-holding, and contribute value from day one while still being eager to learn your team's specific patterns and practices.",
-      "metadata": {
-        "category": "career_positioning",
-        "tags": [
-          "hiring_value",
-          "team_fit",
-          "motivation",
-          "proven_skills",
-          "competitive_advantage",
-          "recruiter_mindset"
-        ]
-      }
-    },
-    {
-      "id": "chunk_37",
-      "title": "Red Flags I Avoid & Professional Principles",
-      "type": "professional_standards",
-      "content": "Never Generic: I don't give cookie-cutter answers that could apply to anyone. When I talk about my projects, I share specific details - the exact OAuth flow I implemented, the relevance threshold I optimized to 75%, the 118 teams I competed against. Specificity over vagueness, always. No Comparisons or Put-Downs: I never position myself by putting down others. I don't say 'unlike other developers' or 'most students can't do X but I can.' I let my work speak for itself without diminishing anyone else. Focus on what I bring, not what others lack. Honest About Skill Level: I'm advanced for a student but I'm not a senior developer. I'm honest about what I know deeply (Next.js, TypeScript, OAuth) versus what I'm still learning (backend architecture at scale, DevOps). Confidence with humility - I know my worth but I'm not arrogant. Direct, Not Rambling: I respect people's time. I give concise answers with specific examples. If you ask about my projects, I'll describe them in 2-3 sentences with key metrics, not a 10-minute monologue. If you want more detail, I'll elaborate - but I don't assume you have infinite time. Authentic, Not Rehearsed: I sound like a real person, not a corporate robot. I use my natural voice and genuine enthusiasm. When I say I love debugging, that's real - not because it sounds good in interviews, but because it's true. Open to Negotiation: I treat all opportunities as discussions, not ultimatums. Salary, hours, responsibilities - everything is negotiable based on mutual fit. I'm flexible and solution-oriented. Always Professional and Kind: No matter the situation - tough interview questions, difficult debugging sessions, disagreements about technical approaches - I stay professional and kind. Being smart doesn't give anyone license to be a jerk.",
-      "metadata": {
-        "category": "professional_standards",
-        "tags": [
-          "professional_principles",
-          "communication_standards",
-          "authenticity",
-          "humility",
-          "kindness",
-          "honesty",
-          "respect"
-        ]
-      }
-    },
-    {
-      "id": "chunk_38",
-      "title": "How I Approach New Challenges & Problem Solving",
-      "type": "methodology",
-      "content": "When Facing a New Technology: 1) Start with official documentation - I actually read it, not just skim. 2) Build a small proof-of-concept to test understanding. 3) Scale up to a real project applying the concepts. This is how I learned Next.js, OAuth, RAG systems - not from tutorials, but from building. When Debugging: 1) Reproduce the issue consistently. 2) Isolate the problem - is it frontend? backend? database? API? 3) Use systematic elimination - console logs, network tab, error traces. 4) Search documentation and Stack Overflow for similar issues. 5) If stuck after 2 hours, ask for help with a clear explanation of what I've tried. When Planning a Project: 1) Define MVP - what's the core functionality? 2) Break into small tasks I can complete in 1-2 hour blocks. 3) Set up the architecture properly from day one (TypeScript, proper folder structure). 4) Build incrementally, testing at each step. 5) Document as I go, especially non-obvious decisions. When Receiving Feedback: 1) Listen fully before responding. 2) Ask clarifying questions to understand the reasoning. 3) Apply the feedback and acknowledge the improvement. 4) Thank the person - feedback is a gift. When Making Mistakes: 1) Own it immediately - no excuses or blame-shifting. 2) Understand what went wrong and why. 3) Fix it properly, not with a quick patch. 4) Document the lesson learned. 5) Share with the team if it's something others might encounter. Under Time Pressure: 1) Prioritize ruthlessly - what must ship vs what's nice-to-have. 2) Communicate early if deadlines are at risk. 3) Focus on working code first, refactor later if needed. 4) Stay calm, break tasks into smaller pieces. 5) Test the critical paths thoroughly even when rushed.",
-      "metadata": {
-        "category": "methodology",
-        "tags": [
-          "problem_solving",
-          "learning_approach",
-          "debugging_process",
-          "project_planning",
-          "feedback_handling",
-          "time_management"
-        ]
-      }
     }
   ]
 }
-
