@@ -1,4 +1,4 @@
-import { TestTube, TrendingUp, Sparkles, MessageSquare, ThumbsUp, Copy, Zap, AlertCircle } from "lucide-react";
+import { TestTube, TrendingUp, Sparkles, MessageSquare, Copy, Zap, AlertCircle } from "lucide-react";
 import { FeatureCard, MetricCard, SectionHeader } from "@/components/docs";
 
 export function TestingSection() {
@@ -166,7 +166,7 @@ export function TestingSection() {
       {/* Feedback Implementation */}
       <section>
         <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-          <ThumbsUp className="w-6 h-6" />
+          <Copy className="w-6 h-6" />
           User Feedback Mechanisms
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
@@ -189,24 +189,6 @@ export function TestingSection() {
             </div>
           </div>
 
-          <div className="rounded-lg border p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <ThumbsUp className="w-5 h-5 text-green-500" />
-              <h3 className="font-semibold">Thumbs Up/Down</h3>
-            </div>
-            <p className="text-sm text-muted-foreground mb-3">
-              Binary feedback collection to track response quality and identify improvement areas.
-            </p>
-            <div className="rounded-md bg-muted p-3 space-y-2 text-xs">
-              <p className="font-medium">Features:</p>
-              <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                <li>State management with visual feedback</li>
-                <li>Console logging for analytics tracking</li>
-                <li>Mutually exclusive selection (up or down)</li>
-                <li>Only shown for assistant messages</li>
-              </ul>
-            </div>
-          </div>
         </div>
 
         <div className="rounded-lg border p-6 mt-4">

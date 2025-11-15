@@ -60,7 +60,7 @@ export function ChatFeaturesModal() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-7 text-xs gap-1 hover:bg-primary/10"
+          className="h-7 text-xs gap-1 hover:bg-primary/20 hover:text-primary dark:hover:bg-primary/30 dark:hover:text-primary-foreground transition-colors"
         >
           <Info className="h-3.5 w-3.5" />
           Features

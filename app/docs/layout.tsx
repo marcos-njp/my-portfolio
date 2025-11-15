@@ -45,7 +45,7 @@ export default function DocsLayout({
 
           {/* Main Content */}
           <main className="flex-1 min-w-0 w-full">
-            <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:scroll-mt-20">
+            <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:scroll-mt-24">
               {children}
             </div>
           </main>
