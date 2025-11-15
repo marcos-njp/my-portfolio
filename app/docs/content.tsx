@@ -93,7 +93,8 @@ export default function DocsContent() {
               <p className="text-sm text-muted-foreground mb-4">
                 This is a production-ready Next.js 15 portfolio featuring an AI digital twin powered by Retrieval-Augmented Generation (RAG). 
                 The system uses Groq AI with the llama-3.1-8b-instant model and Upstash Vector for semantic search, enabling real-time responses 
-                to professional queries with high accuracy.
+                to professional queries with high accuracy. Recent enhancements include improved chat UX with transparency disclaimers, 
+                timeout protection, and always-visible question suggestions for better user guidance.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>

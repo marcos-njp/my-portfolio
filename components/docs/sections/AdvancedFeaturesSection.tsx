@@ -106,6 +106,55 @@ export function AdvancedFeaturesSection() {
           </div>
 
           <div className="rounded-lg border p-6">
+            <h3 className="font-semibold mb-3">Enhanced Chat Experience</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Recent improvements to chat sidebar UX including user guidance, transparency, and timeout handling.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-sm">
+              <div className="space-y-3">
+                <div>
+                  <p className="font-medium">Development Transparency</p>
+                  <p className="text-muted-foreground text-xs">Clear disclaimer about AI limitations</p>
+                  <div className="mt-2 rounded-md bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 p-2">
+                    <p className="text-xs text-amber-700 dark:text-amber-300">
+                      <strong>Note:</strong> I am still under development and may make mistakes.
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <p className="font-medium">Always-Visible Suggestions</p>
+                  <p className="text-muted-foreground text-xs">Persistent question prompts for better discoverability</p>
+                  <div className="mt-2 space-y-1">
+                    <div className="text-xs px-2 py-1 bg-primary/10 text-primary rounded">What are your main projects?</div>
+                    <div className="text-xs px-2 py-1 bg-primary/10 text-primary rounded">Tell me about your tech stack</div>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <p className="font-medium">Timeout Protection</p>
+                  <p className="text-muted-foreground text-xs">12-second timeout with progressive feedback</p>
+                  <div className="mt-2 text-xs space-y-1">
+                    <div>0-4s: "Thinking..." with animated dots</div>
+                    <div>4-8s: "Processing your request..."</div>
+                    <div>8-12s: "Almost there..."</div>
+                    <div>12s+: Graceful timeout message</div>
+                  </div>
+                </div>
+                <div>
+                  <p className="font-medium">Features Integration</p>
+                  <p className="text-muted-foreground text-xs">Repositioned for better information architecture</p>
+                  <div className="mt-2 flex items-center gap-2 text-xs">
+                    <span className="px-2 py-1 bg-primary/10 text-primary rounded">Features</span>
+                    <span>•</span>
+                    <span>Personality:</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border p-6">
             <h3 className="font-semibold mb-3">Follow-up Understanding</h3>
             <p className="text-sm text-muted-foreground mb-3">
               Critical follow-up rules enable pronoun resolution by checking conversation history first.
