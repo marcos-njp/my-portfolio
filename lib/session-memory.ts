@@ -159,7 +159,7 @@ export function buildConversationContext(messages: SessionMessage[]): string {
   
   let context = '\n\n=== CONVERSATION HISTORY ===\n';
   
-  recentMessages.forEach((msg, idx) => {
+  recentMessages.forEach((msg) => {
     const speaker = msg.role === 'user' ? 'User' : 'Assistant';
     context += `${speaker}: ${msg.content}\n`;
   });

@@ -231,7 +231,7 @@ export default function Page() {
                   Get in Touch
                 </h2>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Send me an email and I'll get back to you soon
+                  Send me an email and I&apos;ll get back to you soon
                 </p>
                 <div className="flex items-center justify-center gap-3">
                   <Link href="https://github.com/marcos-njp" target="_blank" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">

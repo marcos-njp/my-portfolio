@@ -12,7 +12,7 @@ export interface VectorResult {
     title?: string;
     content?: string;
     category?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -128,7 +128,7 @@ export async function searchVectorContext(
 /**
  * Format a chunk with metadata for context injection
  */
-function formatChunk(metadata: Record<string, any>, score?: number): string {
+function formatChunk(metadata: Record<string, unknown>, score?: number): string {
   const title = metadata.title || 'Information';
   const content = metadata.content || '';
   const category = metadata.category || '';

@@ -17,7 +17,7 @@ const chatParamsShape = {
 };
 
 // Log to stderr (shows in Vercel logs and Claude Desktop)
-const log = (...args: any[]) => console.error('[MCP Server]', ...args);
+const log = (...args: unknown[]) => console.error('[MCP Server]', ...args);
 
 const handler = createMcpHandler(
   (server) => {

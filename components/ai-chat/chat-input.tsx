@@ -12,7 +12,7 @@ interface ChatInputProps {
   isLoading: boolean;
   mood?: AIMood;
   placeholder?: string;
-  [key: string]: any; // Allow additional props like data-chat-form
+  [key: string]: unknown; // Allow additional props like data-chat-form
 }
 
 export function ChatInput({ 

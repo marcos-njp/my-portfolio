@@ -200,7 +200,7 @@ export async function POST(req: Request) {
     // ========== STEP 4: Vector Search with Enhanced RAG ==========
     const ragContext = await searchVectorContext(vectorIndex, enhancedQuery, {
       topK: 3, // Get top 3 most relevant chunks
-      minScore: 0.5, // 50% threshold - more lenient for better context
+      minScore: 0.6, // 60% threshold - balanced for quality context
       includeMetadata: true,
     });
 

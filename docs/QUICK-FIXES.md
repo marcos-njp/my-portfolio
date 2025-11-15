@@ -18,12 +18,12 @@ const ragContext = await searchVectorContext(vectorIndex, enhancedQuery, {
 ```typescript
 const ragContext = await searchVectorContext(vectorIndex, enhancedQuery, {
   topK: 3,          // Get more context
-  minScore: 0.5,    // 50% - more lenient
+  minScore: 0.6,    // 60% - balanced threshold
   includeMetadata: true,
 });
 ```
 
-**Why:** 0.75 (75%) threshold is rejecting too much good context. Lowering to 0.5 will let the vector database actually help.
+**Why:** 0.75 (75%) threshold was rejecting too much good context. 0.6 (60%) provides a good balance between quality and coverage.
 
 ---
 
