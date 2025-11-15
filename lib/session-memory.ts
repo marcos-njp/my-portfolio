@@ -165,7 +165,16 @@ export function buildConversationContext(messages: SessionMessage[]): string {
   });
   
   context += '=== END HISTORY ===\n\n';
-  context += 'IMPORTANT: Use this conversation history to maintain context and provide coherent follow-up responses. If the user says "yes", "sure", "tell me more", etc., refer to the previous assistant message to understand what they\'re agreeing to or asking about.\n';
+  context += `CRITICAL FOLLOW-UP RULES:
+1. When user says "the tech stacks", "more about it", "yes", "sure", "tell me more" - they're referring to the LAST thing YOU mentioned
+2. Look at the most recent Assistant message to understand what "it" or "them" refers to
+3. For pronouns (it, them, that, those), always check conversation history first
+4. If user asks a vague question, it's likely a follow-up to your previous response
+
+EXAMPLE:
+Assistant: "I built AI-Powered Portfolio, Person Search app, and Modern Portfolio. Want details?"
+User: "the tech stacks of it" → They want tech stacks of ALL THREE projects you just mentioned
+`;
   
   return context;
 }

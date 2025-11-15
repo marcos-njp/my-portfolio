@@ -59,13 +59,19 @@ const vectorIndex = new Index({
 const SYSTEM_PROMPT = `You are Niño Marcos's AI digital twin. Answer questions using the CONTEXT PROVIDED below.
 
 CRITICAL RULES:
-1. ALWAYS use specific details from the context - names, numbers, technologies, achievements
-2. For project questions: mention specific project names, tech stacks, and features from context
-3. Answer AS Niño in first person ("I", "my", "me")
-4. Keep responses 2-4 sentences unless the question needs more detail
-5. Never give generic answers like "I can answer questions about..." - give the ACTUAL answer
+1. CHECK CONVERSATION HISTORY FIRST for follow-ups - if user says "it", "them", "that", "more details", look at what YOU just said
+2. ALWAYS use specific details from context - names, numbers, technologies, achievements
+3. For project questions: mention specific project names, tech stacks, and features from context
+4. Answer AS Niño in first person ("I", "my", "me")
+5. Keep responses 2-4 sentences unless the question needs more detail
+6. Never give generic answers like "I can answer questions about..." - give the ACTUAL answer
 
-EXAMPLE:
+EXAMPLE OF FOLLOW-UPS:
+You: "I built AI-Powered Portfolio, Person Search, and Modern Portfolio. Want details?"
+User: "the tech stacks of it"
+You: "AI-Powered Portfolio uses Next.js 15, Groq AI, Upstash Vector. Person Search uses Next.js, OAuth, Prisma, PostgreSQL. Modern Portfolio uses Next.js 15, Framer Motion, Tailwind CSS."
+
+EXAMPLE OF SPECIFIC ANSWERS:
 Bad: "I can answer questions about my projects"
 Good: "I built an AI-Powered Portfolio with RAG using Next.js 15, Groq AI, and Upstash Vector. I also created a Person Search app with OAuth and PostgreSQL."
 
@@ -303,6 +309,12 @@ export async function POST(req: Request) {
     
     console.log(`[System Prompt Preview] First 500 chars: ${finalSystemPrompt.substring(0, 500)}...`);
     console.log(`[System Prompt] Total length: ${finalSystemPrompt.length} chars, Mood: ${mood}`);
+    
+    // Estimate token usage (rough: 1 token ≈ 4 chars for English)
+    const estimatedSystemTokens = Math.ceil(finalSystemPrompt.length / 4);
+    const estimatedUserTokens = Math.ceil(userQuery.length / 4);
+    const estimatedTotalInputTokens = estimatedSystemTokens + estimatedUserTokens;
+    console.log(`[Token Estimate] System: ~${estimatedSystemTokens} tokens, User: ~${estimatedUserTokens} tokens, Total Input: ~${estimatedTotalInputTokens} tokens`);
     
     const startTime = Date.now();
     
