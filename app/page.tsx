@@ -51,6 +51,9 @@ export default function Page() {
               <Link href="#education" className="text-xs font-medium transition-colors hover:text-primary">
                 Education
               </Link>
+              <Link href="/docs" className="text-xs font-medium transition-colors hover:text-primary">
+                Documentation
+              </Link>
               <Link href="#contact" className="text-xs font-medium transition-colors hover:text-primary">
                 Contact
               </Link>
