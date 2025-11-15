@@ -79,19 +79,13 @@ export function ChatMessage({ role, content, isStreaming = false, error }: ChatM
           <div className="flex items-center gap-2 px-1">
             <button
               onClick={handleCopy}
-              className="flex items-center gap-1 px-2 py-1 text-xs rounded hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              className="p-1.5 rounded hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
               title="Copy to clipboard"
             >
               {copied ? (
-                <>
-                  <Check className="w-3 h-3" />
-                  <span>Copied!</span>
-                </>
+                <Check className="w-3.5 h-3.5 text-green-600" />
               ) : (
-                <>
-                  <Copy className="w-3 h-3" />
-                  <span>Copy</span>
-                </>
+                <Copy className="w-3.5 h-3.5" />
               )}
             </button>
 
