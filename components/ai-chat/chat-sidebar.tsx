@@ -37,6 +37,9 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [hasLoadedHistory, setHasLoadedHistory] = useState(false);
   const [_thinkingTimeout, _setThinkingTimeout] = useState<NodeJS.Timeout | null>(null);
   const [_thinkingInterval, _setThinkingInterval] = useState<NodeJS.Timeout | null>(null);
   const [_abortController, setAbortController] = useState<AbortController | null>(null);
@@ -62,6 +65,77 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   console.log(`[Session] ID: ${sessionId}, Mood: ${currentMood}`);
+
+  // Load chat history from Redis on first open
+  useEffect(() => {
+    if (isOpen && !hasLoadedHistory) {
+      loadChatHistory();
+      setHasLoadedHistory(true);
+    }
+  }, [isOpen, hasLoadedHistory]);
+
+  const loadChatHistory = async () => {
+    setIsLoadingHistory(true);
+    try {
+      const response = await fetch('/api/chat/history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.messages && data.messages.length > 0) {
+          console.log(`[Chat History] Loaded ${data.messages.length} messages from session`);
+          // Restore messages from history (excluding welcome message)
+          setMessages([
+            {
+              id: "welcome",
+              role: "assistant",
+              content: "Hey, I am Niño's Digital Twin! Ask me anything about my skills, projects, or experience.",
+            },
+            ...data.messages.map((msg: any, idx: number) => ({
+              id: `history-${msg.timestamp || Date.now()}-${idx}`,
+              role: msg.role,
+              content: msg.content,
+            })),
+          ]);
+        } else {
+          console.log('[Chat History] No previous history found');
+        }
+      }
+    } catch (error) {
+      console.error('[Chat History] Failed to load:', error);
+    } finally {
+      setIsLoadingHistory(false);
+    }
+  };
+
+  const handleClearHistory = async () => {
+    if (!confirm('Clear chat history and start fresh? This will reload the page.')) {
+      return;
+    }
+
+    try {
+      // Clear from Redis
+      await fetch('/api/chat/clear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId }),
+      });
+
+      // Clear localStorage session
+      localStorage.removeItem('ai_chat_session_id');
+      
+      console.log('[Chat History] Cleared session and reloading...');
+      
+      // Reload the page to start fresh
+      window.location.reload();
+    } catch (error) {
+      console.error('[Chat History] Failed to clear:', error);
+      alert('Failed to clear history. Please try again.');
+    }
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -378,7 +452,18 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {messages.map((message) => (
+            {isLoadingHistory && (
+              <div className="flex items-center justify-center py-8">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Loading chat history...
+                </div>
+              </div>
+            )}
+            {!isLoadingHistory && messages.map((message) => (
               <ChatMessage key={message.id} role={message.role} content={message.content} />
             ))}
 
@@ -406,6 +491,27 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
               </div>
             )}
             
+            {/* View History / Clear History */}
+            <div className="px-3 pt-3 pb-2 border-b">
+              <div className="flex items-center justify-center gap-3 text-xs">
+                <button
+                  onClick={() => setShowHistoryModal(true)}
+                  disabled={isLoadingHistory}
+                  className="text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50"
+                >
+                  View History
+                </button>
+                <span className="text-muted-foreground/30">•</span>
+                <button
+                  onClick={handleClearHistory}
+                  disabled={isLoading}
+                  className="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
+                >
+                  Clear History
+                </button>
+              </div>
+            </div>
+
             {/* Features Info + Mood Selector + Input */}
             <div className="px-3 py-2 space-y-2">
               <div className="flex items-center justify-between">
@@ -426,6 +532,54 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
           </div>
         </div>
       </div>
+
+      {/* Chat History Modal */}
+      {showHistoryModal && (
+        <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4" onClick={() => setShowHistoryModal(false)}>
+          <div className="bg-background rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="border-b p-4 flex items-center justify-between">
+              <h3 className="font-semibold">Chat History</h3>
+              <Button variant="ghost" size="icon" onClick={() => setShowHistoryModal(false)} className="h-8 w-8">
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="p-4 overflow-y-auto max-h-[60vh]">
+              <div className="space-y-3">
+                {messages.filter(m => m.id !== 'welcome').length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">
+                    No chat history yet. Start a conversation!
+                  </p>
+                ) : (
+                  messages
+                    .filter(m => m.id !== 'welcome')
+                    .map((msg, idx) => (
+                      <div key={idx} className="text-sm">
+                        <div className="flex items-start gap-2">
+                          <div className={`font-medium text-xs ${
+                            msg.role === 'user' ? 'text-blue-600 dark:text-blue-400' : 'text-green-600 dark:text-green-400'
+                          }`}>
+                            {msg.role === 'user' ? 'You' : 'AI'}
+                          </div>
+                          <div className="flex-1 text-xs text-foreground/80">
+                            {msg.content}
+                          </div>
+                        </div>
+                        {idx < messages.filter(m => m.id !== 'welcome').length - 1 && (
+                          <div className="border-b my-2" />
+                        )}
+                      </div>
+                    ))
+                )}
+              </div>
+            </div>
+            <div className="border-t p-4 bg-muted/20">
+              <p className="text-xs text-muted-foreground text-center">
+                History automatically clears after 1 hour.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
