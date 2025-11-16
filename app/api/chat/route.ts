@@ -1,11 +1,8 @@
 import { createGroq } from '@ai-sdk/groq';
 import { streamText } from 'ai';
 import { Index } from '@upstash/vector';
-import { validateQuery, enhanceQuery, isMetaQuery, type ValidationResult } from '@/lib/query-validator';
 import { searchVectorContext, buildContextPrompt } from '@/lib/rag-utils';
-import { findRelevantFAQPatterns } from '@/lib/interviewer-faqs';
 import { preprocessQuery } from '@/lib/query-preprocessor';
-import { getResponseLengthInstruction } from '@/lib/response-manager';
 import { getMoodConfig, getPersonaResponse, type AIMood } from '@/lib/ai-moods';
 import { 
   saveConversationHistory, 
@@ -22,7 +19,6 @@ import {
   getUnprofessionalRejection,
   type FeedbackPreferences,
 } from '@/lib/feedback-detector';
-import { validateMoodCompliance, logValidationResult, getMoodComplianceScore } from '@/lib/response-validator';
 
 // Edge Runtime configuration for Vercel
 export const runtime = 'edge';
@@ -165,67 +161,26 @@ export async function POST(req: Request) {
       }
     }
 
-    // ========== STEP 1: Validate Query (SKIP for follow-ups with context) ==========
+    // ========== STEP 1: Check for Follow-Ups (Skip Validation) ==========
     const isShortFollowUp = cleanQuery.length < 15 && sessionHistory.length > 0;
     const followUpPatterns = /^(yes|yeah|sure|ok|okay|tell me more|elaborate|continue|go on|please|why|how|what about)$/i;
     const isFollowUpResponse = followUpPatterns.test(cleanQuery.trim());
-    
-    let validation: ValidationResult = { isValid: true, reason: '', category: 'follow-up', confidence: 1.0 };
-    
-    // Only validate if NOT a short follow-up with conversation history
-    if (!isShortFollowUp && !isFollowUpResponse) {
-      validation = validateQuery(cleanQuery);
-      
-      if (!validation.isValid) {
-        const invalidMessage = getPersonaResponse('unrelated', mood);
-        
-        return new Response(
-          JSON.stringify({ 
-            error: 'invalid_query',
-            message: invalidMessage
-          }),
-          {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
-      }
-    } else if (isFollowUpResponse && sessionHistory.length > 0) {
-      console.log(`[Follow-Up] Detected follow-up response: "${cleanQuery}" - skipping validation, using context`);
-    }
 
-    // ========== STEP 2: Check FAQ Patterns for Context Hints ==========
-    const relevantPatterns = findRelevantFAQPatterns(cleanQuery, 2);
-    let contextHints = '';
-    
-    if (relevantPatterns.length > 0) {
-      contextHints = '\n\nCONTEXT FOCUS AREAS:\n' + 
-        relevantPatterns.map((pattern, idx) => 
-          `${idx + 1}. ${pattern.contextHint} (Category: ${pattern.category})`
-        ).join('\n');
-    }
-
-    // ========== STEP 3: Enhance Query for Better Vector Search ==========
-    const enhancedQuery = enhanceQuery(cleanQuery);
-
-    // ========== STEP 4: Vector Search with Enhanced RAG ==========
-    const ragContext = await searchVectorContext(vectorIndex, enhancedQuery, {
+    // ========== STEP 2: Vector Search with RAG ==========
+    const ragContext = await searchVectorContext(vectorIndex, cleanQuery, {
       topK: 3, // Get top 3 most relevant chunks
       minScore: 0.6, // 60% threshold - balanced for quality context
       includeMetadata: true,
     });
 
-    // ========== STEP 4.5: STRICT Validation - Prevent Fabrication ==========
-    const hasContextHints = contextHints.length > 0;
-    
-    // CRITICAL: Require minimum relevance score to prevent making up information
-    // If we have no good context (score < 0.6) AND no chunks, reject the query
+    // ========== STEP 3: Graceful Fallback - Prevent Fabrication ==========
+    // CRITICAL: Require minimum relevance to prevent making up information
     const hasGoodContext = ragContext.chunksUsed > 0 && ragContext.topScore >= 0.6;
     
-    if (!hasGoodContext && !hasContextHints && !isShortFollowUp && !isFollowUpResponse) {
-      console.log(`[STRICT VALIDATION] No relevant context found (topScore: ${ragContext.topScore.toFixed(2)}, chunks: ${ragContext.chunksUsed}) for: "${cleanQuery}"`);
+    if (!hasGoodContext && !isShortFollowUp && !isFollowUpResponse) {
+      console.log(`[Graceful Fallback] No relevant context (topScore: ${ragContext.topScore.toFixed(2)}, chunks: ${ragContext.chunksUsed}) for: "${cleanQuery}"`);
       
-      // Use persona-aware fallback response
+      // Use persona-aware fallback
       const rejectionMessage = getPersonaResponse('no_context', mood);
       
       return new Response(
@@ -234,7 +189,7 @@ export async function POST(req: Request) {
           message: rejectionMessage
         }),
         {
-          status: 200, // Use 200 to avoid breaking the UI
+          status: 200,
           headers: { 'Content-Type': 'application/json' },
         }
       );
@@ -243,32 +198,19 @@ export async function POST(req: Request) {
     // Build context prompt
     let contextInfo = '';
     
-    // Include context hints if available (guides AI focus areas)
-    if (contextHints) {
-      contextInfo += '\n\n' + contextHints;
-    }
-    
     // Add vector search context if we have good results
     if (ragContext.chunksUsed > 0) {
       contextInfo += buildContextPrompt(ragContext);
       contextInfo += '\n\n⚠️ CRITICAL: Only use information from the CONTEXT above. If the context doesn\'t contain the answer, say "I don\'t have that information in my knowledge base" - DO NOT make up or infer information.';
     } else {
-      // If no vector context found, use hints or default to core identity
-      if (!contextHints) {
-        contextInfo += '\n\n⚠️ WARNING: No specific vector context found. You MUST NOT fabricate information. Only answer if you have relevant context from conversation history.';
-      }
+      // If no vector context found, rely on conversation history
+      contextInfo += '\n\n⚠️ WARNING: No specific vector context found. You MUST NOT fabricate information. Only answer if you have relevant context from conversation history.';
     }
 
-    // Log relevance metrics for monitoring
+    // Log relevance metrics
     console.log(`[RAG Metrics] Query: "${cleanQuery}" | Chunks: ${ragContext.chunksUsed} | Avg Score: ${(ragContext.averageScore * 100).toFixed(1)}% | Top Score: ${(ragContext.topScore * 100).toFixed(1)}%`);
 
-    // Handle meta queries (about the AI itself)
-    if (isMetaQuery(cleanQuery)) {
-      contextInfo += `\n\nMETA INFO: This is an AI digital twin built with Groq AI (llama-3.1-8b-instant), Upstash Vector for semantic search, and Next.js. It answers questions about Niño Marcos's professional background with >75% relevance accuracy.`;
-    }
-
-    // ========== STEP 5: Generate AI Response with Mood + Adaptive Feedback ==========
-    const responseLengthGuidelines = getResponseLengthInstruction();
+    // ========== STEP 4: Generate AI Response with Mood + Adaptive Feedback ==========
     const feedbackInstruction = buildFeedbackInstruction(feedbackPreferences);
     const moodConfig = getMoodConfig(mood);
     
@@ -277,33 +219,19 @@ export async function POST(req: Request) {
       console.log(`[Adaptive Feedback] Applying user preferences to this response`);
     }
     
-    // CRITICAL: Adjust system prompt based on mood to prevent conflicts
-    let baseSystemPrompt = SYSTEM_PROMPT;
-    
-    // For GenZ mode, relax the conciseness constraint to allow personality
-    if (mood === 'genz') {
-      baseSystemPrompt = baseSystemPrompt.replace(
-        /Keep responses concise \(2-4 sentences\)/g,
-        'Keep responses helpful and engaging (3-5 sentences with personality)'
-      );
-      console.log('[GenZ Mode] Adjusted base prompt for casual tone');
-    }
-    
-    // Build final prompt with mood instructions FIRST and reinforced
+    // Build final prompt with mood instructions
     const finalSystemPrompt = mood === 'genz'
       ? moodConfig.systemPromptAddition + '\n\n' +
-        'REMINDER: You are in GenZ mode - use slang, emojis, and casual tone in EVERY response!\n\n' +
-        baseSystemPrompt + 
+        'REMINDER: You are in GenZ mode - use slang, emojis, and casual tone!\n\n' +
+        SYSTEM_PROMPT + 
         conversationContext + 
-        contextInfo + '\n\n' + 
-        responseLengthGuidelines +
+        contextInfo +
         feedbackInstruction +
         '\n\n🔥 FINAL REMINDER: This is GenZ mode - be casual, use slang, add emojis! 💯'
       : moodConfig.systemPromptAddition + '\n\n' + 
-        baseSystemPrompt + 
+        SYSTEM_PROMPT + 
         conversationContext + 
-        contextInfo + '\n\n' + 
-        responseLengthGuidelines +
+        contextInfo +
         feedbackInstruction;
     
     console.log(`[System Prompt Preview] First 500 chars: ${finalSystemPrompt.substring(0, 500)}...`);
@@ -323,14 +251,8 @@ export async function POST(req: Request) {
       messages,
       temperature: moodConfig.temperature,
       onFinish: async ({ text }) => {
-        const _responseTime = Date.now() - startTime;
-        
-        // Validate mood compliance
-        const validation = validateMoodCompliance(text, mood);
-        logValidationResult(validation, mood, text);
-        
-        const complianceScore = getMoodComplianceScore(text, mood);
-        console.log(`[Mood Compliance] Score: ${complianceScore}/100 for ${mood} mode`);
+        const responseTime = Date.now() - startTime;
+        console.log(`[Response] Generated in ${responseTime}ms, ${text.length} chars`);
         
         // Save conversation history with feedback preferences
         if (sessionId) {
@@ -341,7 +263,6 @@ export async function POST(req: Request) {
           ];
           
           await saveConversationHistory(sessionId, updatedHistory, mood, feedbackPreferences);
-          // Analytics removed - was unreliable and slowing responses
         }
       },
     });

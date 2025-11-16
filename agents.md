@@ -26,6 +26,4 @@ Additional Resources:
 - Shadcn UI: https://ui.shadcn.com
 - Prisma ORM: https://www.prisma.io/docs
 - MCP Protocol: https://modelcontextprotocol.io/introduction
- 
-My database uses Vector and Redis. I use Groq API, check the specific model. We will first test the MCP server locally, and once finished, deploy it to Vercel. BUt take note, that is a separate task so I am just reminding you.
 

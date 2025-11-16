@@ -1,15 +1,11 @@
-- make the ai chat section the same with the overall theme of my portfolio.
-- put the features (i) at the bottom,
-- put hte try asking at the bootom as well
-- add the personality button at the bottom of the ai chat side bar as well
-- remove the thumbs up and thumbs down icon since it is not being utilized by anything, its just thjere. unless you make a use of it that will help my ai
--
-
-in ai chat section
-- the design feels so out ofplace
-- put a button outside the card and label as something like view features
-- put the doucmentation button as well there abnd click, check how I made it/documentaiton. 
-- jus tput powered by ollama model, and through upstash vector
-- remove try asking area since it kinda redundant.
-- the actual card is too big
-- when clicked, and the chat side bar appears, I want the portfolio to be still visible instead of getting blurred so that the user can scroll through my protfolio while waiting for a response.
+update my vector upstash and optimize my digital-twin.json, check the grammars and keep answers straightforward.
+- look for redundancies, and too repetitive answers (eg. Focusing too much on AI/ML for some reason)
+- Evaluate AI restrictions in lib/ and keep them comprehensive enough, remove or reduce some if needed.
+- Focus on making my vector upstash chunks better in answering via updating my digital-twin.json, and personality.json
+- I want more technicalities to be included
+- One reason of having too lengthy responses is digital-twin.json has too long responses, add more curly braces in one chunk if that is the correct approach.
+- When updating my digital-twin.json, always reflect if the sentence structure and statements reflect my personality.json, This is more of how you write the statements, not coding the logic. Some of the statements you have generated are bad or boastful in nature, such as Taking Full ownership.
+- Make sure my information is not redundant and focused on one area. For instance (just an example) Chunk 1 and Chunk 6, different question but statemetns are somewhat similar.
+- fully implement RAG, and STAR. The updated shall reflect those aspects. 
+- evaluate files on lib/.ts, check if some can be removed, and explain why. They may conflict each other
+- IF: Digital-twin.json needs to be comrepehnsive, then train or program the AI to keep responses shorter and concise

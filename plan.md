@@ -295,7 +295,7 @@ RESPONSE STRUCTURE:
 
 CONTEXT RULE: Only use slang that fits naturally. If it feels forced, skip it.
 `,
-  temperature: 1.0, // Increased from 0.9 for more natural variation
+  temperature: 0.85, // Increased from 0.9 for more natural variation
 }
 ```
 
