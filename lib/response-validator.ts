@@ -1,15 +1,16 @@
 /**
- * OPTIMIZED Response Validator - Mood Compliance Checker
+ * Response Validator - Mood Compliance Checker
  * Ensures AI responses match selected personality (GenZ vs Professional)
- * KEPT: Important for quality control and personality consistency
+ * GenZ vocabulary sourced from data/rag-config.ts (single source of truth)
  */
 
 import { type AIMood } from './ai-moods';
+import { GENZ_SLANG_SET, CASUAL_STARTERS } from '@/data/rag-config';
 
 export interface ValidationResult {
   compliant: boolean;
   reason?: string;
-  score: number; // 0-100
+  score: number;
   details?: {
     hasSlang?: boolean;
     hasEmoji?: boolean;
@@ -20,25 +21,6 @@ export interface ValidationResult {
   };
 }
 
-// OPTIMIZED: GenZ slang detection (from projectGenZ.md + brainrot culture)
-const GENZ_SLANG = new Set([
-  // Core vocabulary (high-frequency) - SAFE to use often
-  'bet', 'no cap', 'cap', 'fr', 'ngl', 'tbh', 'lowkey', 'highkey', 'bruh', 'bro', 'dude',
-  'valid', 'idk', 'say less', 'literally', 'wild', 'crazy',
-  
-  // Situational (medium-frequency) - use sparingly
-  'it\'s giving', 'ate', 'delulu', 'npc', 'main character', 'rizz', 'touch grass',
-  'iykyk', 'smh', 'mid', 'sus', 'vibe', 'fire', 'goated',
-  
-  // Brainrot tier (spicy) - for flavor, not spam
-  'slaps', 'goes hard', 'built different', 'real', 'fax', 'on god', 'deadass',
-  'W', 'L', 'ratio', 'based', 'cringe', 'cope', 'seethe', 'mald',
-]);
-
-// Casual starters
-const CASUAL_STARTERS = ['yo', 'aight', 'so like', 'okay so', 'real talk', 'ngl', 'tbh', 'bruh', 'hey'];
-
-// Emoji regex
 const EMOJI_REGEX = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E0}-\u{1F1FF}\u{1F191}-\u{1F251}]/gu;
 
 /**
@@ -49,7 +31,7 @@ function validateGenZMode(response: string): ValidationResult {
   const warnings: string[] = [];
   
   // Check for slang
-  const slangMatches = Array.from(GENZ_SLANG).filter(term => lowerResponse.includes(term));
+  const slangMatches = Array.from(GENZ_SLANG_SET).filter(term => lowerResponse.includes(term));
   const hasSlang = slangMatches.length > 0;
   const slangCount = slangMatches.length;
   
@@ -137,9 +119,9 @@ function validateProfessionalMode(response: string): ValidationResult {
   const lowerResponse = response.toLowerCase();
   const warnings: string[] = [];
   
-  // Check for overly casual language
-  const overlySlangTerms = ['yo', 'ngl', 'fr fr', 'bussin', 'ate', 'deadass', 'lowkey', 'highkey'];
-  const casualMatches = overlySlangTerms.filter(term => lowerResponse.includes(term));
+  // Check for overly casual language using shared slang list
+  const highCasualTerms = ['yo', 'ngl', 'fr fr', 'bussin', 'ate', 'deadass', 'lowkey', 'highkey'];
+  const casualMatches = highCasualTerms.filter(term => lowerResponse.includes(term));
   
   if (casualMatches.length > 0) {
     warnings.push(`Too casual for professional mode: ${casualMatches.join(', ')}`);
@@ -187,33 +169,3 @@ export function validateMoodCompliance(
   }
 }
 
-/**
- * Log validation results for monitoring
- */
-export function logValidationResult(
-  validation: ValidationResult,
-  mood: AIMood
-): void {
-  const scoreColor = validation.score >= 80 ? '✅' : validation.score >= 50 ? '⚠️' : '❌';
-  
-  console.log(`[Mood Validation] ${scoreColor} ${mood} mode - Score: ${validation.score}/100`);
-  
-  if (validation.details) {
-    console.log('[Mood Validation] Details:', JSON.stringify(validation.details, null, 2));
-  }
-  
-  if (!validation.compliant) {
-    console.warn('[Mood Validation] Compliance issue:', validation.reason);
-  }
-}
-
-/**
- * Get compliance score (0-100)
- */
-export function getMoodComplianceScore(
-  response: string,
-  mood: AIMood
-): number {
-  const validation = validateMoodCompliance(response, mood);
-  return validation.score;
-}

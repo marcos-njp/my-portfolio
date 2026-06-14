@@ -1,28 +1,9 @@
 /**
- * OPTIMIZED Query Preprocessing - Better Typo Detection & Text Normalization
- * Uses expanded dictionary + Levenshtein distance for smart corrections
+ * Query Preprocessing - Typo Detection & Text Normalization
+ * Patterns sourced from data/rag-config.ts
  */
 
-// Smart typo corrections - focus on most common patterns
-const COMMON_TYPOS: Record<string, string> = {
-  // Question words (most frequent)
-  'wat': 'what', 'wut': 'what', 'hw': 'how', 'wy': 'why',
-  // Text speak
-  'ur': 'your', 'u': 'you', 'r': 'are', 'n': 'and',
-  // Common professional terms
-  'experiance': 'experience', 'skilss': 'skills', 'projets': 'projects',
-  'programing': 'programming', 'developement': 'development', 'educaton': 'education',
-  'abotu': 'about', 'teh': 'the', 'taht': 'that', 'wich': 'which'
-};
-
-// Smart pattern-based corrections
-const TEXT_SPEAK_PATTERNS = [
-  { pattern: /\b(can|could|do|are|were|did)\s+u\b/gi, replace: '$1 you' },
-  { pattern: /\bur\s+(skills|experience|background|projects)/gi, replace: 'your $1' },
-  { pattern: /\b(wat|wut)\s+(can|do|are|is)/gi, replace: 'what $2' },
-  { pattern: /\bhw\s+(many|much)/gi, replace: 'how $1' },
-  { pattern: /\br\s+u\b/gi, replace: 'are you' }
-];
+import { COMMON_TYPOS, TEXT_SPEAK_PATTERNS, KEY_TERMS } from '@/data/rag-config';
 
 /**
  * Smart typo correction using patterns and common fixes
@@ -96,21 +77,19 @@ function levenshteinDistance(str1: string, str2: string): number {
  */
 export function correctKeyTerms(query: string): string {
   // Focus on most commonly misspelled professional terms
-  const keyTerms = ['programming', 'experience', 'development', 'projects', 'skills', 'technical', 'education', 'university'];
-  
   const words = query.split(/\s+/);
   
   for (let i = 0; i < words.length; i++) {
     const word = words[i].toLowerCase().replace(/[.,!?;:]$/, '');
     
     // Skip if word is too short or already correct
-    if (word.length < 4 || keyTerms.includes(word)) continue;
+    if (word.length < 4 || KEY_TERMS.includes(word)) continue;
     
     // Find best match using Levenshtein distance
     let bestMatch = word;
-    let minDistance = Math.floor(word.length * 0.4); // Max 40% character changes
+    let minDistance = Math.floor(word.length * 0.4);
     
-    for (const term of keyTerms) {
+    for (const term of KEY_TERMS) {
       const distance = levenshteinDistance(word, term);
       if (distance < minDistance && distance <= 3) { // Max 3 character changes
         minDistance = distance;

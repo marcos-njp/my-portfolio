@@ -1,7 +1,10 @@
 /**
  * Adaptive Feedback Detector
  * Learns from user preferences while resisting unprofessional requests
+ * Patterns sourced from data/rag-config.ts
  */
+
+import { FEEDBACK_PATTERNS, INVALID_REQUEST_PATTERNS } from '@/data/rag-config';
 
 export interface UserFeedback {
   type: 'length' | 'detail' | 'tone' | 'invalid';
@@ -14,33 +17,9 @@ export interface FeedbackPreferences {
   responseLength?: 'shorter' | 'longer' | 'default';
   detailLevel?: 'more_specific' | 'high_level' | 'default';
   tone?: 'more_humble' | 'less_boastful' | 'more_confident' | 'default';
-  examples?: number; // Number of examples to include
+  examples?: number;
   feedback: UserFeedback[];
 }
-
-// Patterns for valid user feedback (professional requests to adapt)
-const VALID_FEEDBACK_PATTERNS = {
-  length: {
-    shorter: /(?:too long|make it shorter|be more concise|less wordy|keep it brief|shorter response)/i,
-    longer: /(?:too short|more detail|elaborate|expand on|tell me more|more context)/i,
-  },
-  detail: {
-    more_specific: /(?:more specific|be more detailed|give examples|can you elaborate|explain more|what do you mean)/i,
-    high_level: /(?:high level|overview|summary|just the basics|simplified)/i,
-  },
-  tone: {
-    humble: /(?:you sounded? (?:too )?boastful|(?:too )?arrogant|(?:be )?more humble|(?:be )?less cocky|(?:sound )?(?:less )?overconfident|(?:don't )?brag)/i,
-    confident: /(?:too humble|more confident|don't undersell|sell yourself better)/i,
-  },
-};
-
-// Patterns for INVALID requests (unprofessional/manipulation attempts)
-const INVALID_PATTERNS = [
-  /(?:ignore|forget|disregard).{0,20}(?:previous|instruction|rule|prompt|system)/i,
-  /(?:pretend|act like|roleplay)/i,
-  /(?:make up|fabricate|lie|fake).{0,20}(?:information|data|facts)/i,
-  /(?:tell me|write).{0,30}(?:joke|poem|story|song)/i,
-];
 
 /**
  * Detect if message contains user feedback about response quality
@@ -49,7 +28,7 @@ export function detectFeedback(message: string): UserFeedback | null {
   const lowerMessage = message.toLowerCase();
   
   // Check for INVALID patterns first (reject these)
-  for (const pattern of INVALID_PATTERNS) {
+  for (const pattern of INVALID_REQUEST_PATTERNS) {
     if (pattern.test(lowerMessage)) {
       return {
         type: 'invalid',
@@ -61,7 +40,7 @@ export function detectFeedback(message: string): UserFeedback | null {
   }
   
   // Check for valid LENGTH feedback
-  if (VALID_FEEDBACK_PATTERNS.length.shorter.test(message)) {
+  if (FEEDBACK_PATTERNS.length.shorter.test(message)) {
     return {
       type: 'length',
       instruction: 'Keep responses shorter and more concise',
@@ -70,7 +49,7 @@ export function detectFeedback(message: string): UserFeedback | null {
     };
   }
   
-  if (VALID_FEEDBACK_PATTERNS.length.longer.test(message)) {
+  if (FEEDBACK_PATTERNS.length.longer.test(message)) {
     return {
       type: 'length',
       instruction: 'Provide more detailed and comprehensive responses',
@@ -80,7 +59,7 @@ export function detectFeedback(message: string): UserFeedback | null {
   }
   
   // Check for valid DETAIL feedback
-  if (VALID_FEEDBACK_PATTERNS.detail.more_specific.test(message)) {
+  if (FEEDBACK_PATTERNS.detail.more_specific.test(message)) {
     return {
       type: 'detail',
       instruction: 'Be more specific with examples and concrete details',
@@ -89,7 +68,7 @@ export function detectFeedback(message: string): UserFeedback | null {
     };
   }
   
-  if (VALID_FEEDBACK_PATTERNS.detail.high_level.test(message)) {
+  if (FEEDBACK_PATTERNS.detail.high_level.test(message)) {
     return {
       type: 'detail',
       instruction: 'Provide high-level overview without too many details',
@@ -99,7 +78,7 @@ export function detectFeedback(message: string): UserFeedback | null {
   }
   
   // Check for valid TONE feedback
-  if (VALID_FEEDBACK_PATTERNS.tone.humble.test(message)) {
+  if (FEEDBACK_PATTERNS.tone.humble.test(message)) {
     return {
       type: 'tone',
       instruction: 'Be more humble and less boastful in responses',
@@ -108,7 +87,7 @@ export function detectFeedback(message: string): UserFeedback | null {
     };
   }
   
-  if (VALID_FEEDBACK_PATTERNS.tone.confident.test(message)) {
+  if (FEEDBACK_PATTERNS.tone.confident.test(message)) {
     return {
       type: 'tone',
       instruction: 'Be more confident and assertive about achievements',
@@ -197,7 +176,7 @@ export function buildFeedbackInstruction(preferences: FeedbackPreferences): stri
   
   if (instructions.length === 0) return '';
   
-  return '\n\n🎯 ADAPTIVE FEEDBACK (Learn from user\'s preferences):\n' + 
+  return '\n\nADAPTIVE FEEDBACK (Learn from user\'s preferences):\n' + 
     instructions.join('\n') + 
     '\n(These preferences learned from user feedback in this session)\n';
 }
@@ -206,7 +185,7 @@ export function buildFeedbackInstruction(preferences: FeedbackPreferences): stri
  * Check if request is unprofessional and should be rejected
  */
 export function isUnprofessionalRequest(message: string): boolean {
-  return INVALID_PATTERNS.some(pattern => pattern.test(message));
+  return INVALID_REQUEST_PATTERNS.some(pattern => pattern.test(message));
 }
 
 /**
@@ -215,10 +194,10 @@ export function isUnprofessionalRequest(message: string): boolean {
 export function getUnprofessionalRejection(message: string, mood: string = 'professional'): string {
   if (mood === 'genz') {
     const genzRejections = [
-      "Nah bro, that's not the vibe 💀 Ask me about my projects or skills instead fr",
+      "Nah bro, that's not the vibe - Ask me about my projects or skills instead fr",
       "Lol that's outta pocket 😭 Let's talk about my portfolio tho - what you wanna know?",
       "Not happening chief 🤌 We keeping this professional. Ask about my work, skills, or projects",
-      "Yo that's wild 💀 Stick to asking about my tech stuff, projects, or experience fr fr",
+      "Yo that's wild - Stick to asking about my tech stuff, projects, or experience fr fr",
     ];
     return genzRejections[Math.floor(Math.random() * genzRejections.length)];
   }

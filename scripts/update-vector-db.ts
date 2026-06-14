@@ -15,7 +15,7 @@ const UPSTASH_VECTOR_REST_URL = process.env.UPSTASH_VECTOR_REST_URL;
 const UPSTASH_VECTOR_REST_TOKEN = process.env.UPSTASH_VECTOR_REST_TOKEN;
 
 if (!UPSTASH_VECTOR_REST_URL || !UPSTASH_VECTOR_REST_TOKEN) {
-  console.error('❌ Missing Upstash Vector credentials in .env.local');
+  console.error('Missing Upstash Vector credentials in .env.local');
   process.exit(1);
 }
 
@@ -31,7 +31,7 @@ interface ChunkData {
 }
 
 async function updateVectorDatabase() {
-  console.log('🚀 Starting Upstash Vector DB update...\n');
+  console.log('Starting Upstash Vector DB update...\n');
 
   // Initialize Upstash Vector client
   const index = new Index({
@@ -51,21 +51,26 @@ async function updateVectorDatabase() {
       },
     }));
 
-    console.log(`📦 Preparing to upload ${vectors.length} chunks...\n`);
+    console.log(`Preparing to upload ${vectors.length} chunks...\n`);
+
+    // Clear existing vectors first so removed/renamed chunks don't linger.
+    // (upsert alone only adds or overwrites by id, it never deletes.)
+    await index.reset();
+    console.log('Cleared existing vectors.');
 
     // Batch upsert all vectors
     await index.upsert(vectors);
 
-    console.log(`✅ Successfully uploaded ${vectors.length} vectors to Upstash Vector DB`);
-    console.log('\n📊 Upload Summary:');
+    console.log(`Successfully uploaded ${vectors.length} vectors to Upstash Vector DB`);
+    console.log('\nUpload Summary:');
     console.log(`   Total chunks: ${vectors.length}`);
     console.log(`   Embedding model: mixedbread-ai/mxbai-embed-large-v1`);
     console.log(`   Dimensions: 1024`);
     console.log(`   Similarity: Cosine`);
-    console.log('\n✨ Vector database updated with enhanced content including personality traits!');
+    console.log('\nVector database updated with enhanced content including personality traits!');
 
   } catch (error) {
-    console.error('❌ Error updating vector database:', error);
+    console.error('Error updating vector database:', error);
     process.exit(1);
   }
 }

@@ -1,24 +1,66 @@
 /**
- * ROBUST Session Memory System with Upstash Redis
- * Maintains conversation history for context-aware responses
- * Minimum 8-prompt memory with automatic cleanup
- * NOW WITH ADAPTIVE FEEDBACK LEARNING
+ * Session Memory System with Upstash Redis
+ * Maintains conversation history for context-aware responses.
+ *
+ * Resilient by design: if Redis is unconfigured, unreachable, or slow, every
+ * operation fails fast and the chat keeps working without it. A small circuit
+ * breaker avoids re-hitting a dead host on every request (which otherwise adds
+ * ~5s of DNS/connect timeout per call).
  */
 
 import { Redis } from '@upstash/redis';
 import { FeedbackPreferences } from './feedback-detector';
 
-// Initialize Redis client
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
+const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+const redis = REDIS_URL && REDIS_TOKEN ? new Redis({ url: REDIS_URL, token: REDIS_TOKEN }) : null;
+
+if (!redis) {
+  console.warn('[Redis] UPSTASH_REDIS_REST_URL/TOKEN not set — session memory disabled.');
+}
+
+// Circuit breaker: after a failure, skip Redis for this long instead of timing out repeatedly.
+const FAIL_COOLDOWN_MS = 30_000;
+const OP_TIMEOUT_MS = 1500;
+let circuitOpenUntil = 0;
+
+/**
+ * Run a Redis op with a hard timeout + circuit breaker. Returns `fallback`
+ * (never throws) if Redis is missing, the circuit is open, the op fails, or it
+ * exceeds OP_TIMEOUT_MS.
+ */
+async function withRedis<T>(label: string, op: () => Promise<T>, fallback: T): Promise<T> {
+  if (!redis) return fallback;
+  if (Date.now() < circuitOpenUntil) return fallback;
+
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const opPromise = op();
+  // Swallow a late rejection if the timeout wins the race (avoids unhandled rejection).
+  opPromise.catch(() => {});
+
+  try {
+    return await Promise.race([
+      opPromise,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`timeout after ${OP_TIMEOUT_MS}ms`)), OP_TIMEOUT_MS);
+      }),
+    ]);
+  } catch (error) {
+    circuitOpenUntil = Date.now() + FAIL_COOLDOWN_MS;
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`[Redis] ${label} unavailable, skipping for ${FAIL_COOLDOWN_MS / 1000}s (${message})`);
+    return fallback;
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 export interface SessionMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: number;
-  mood?: string; // Track mood for each message
+  mood?: string;
 }
 
 export interface SessionData {
@@ -26,24 +68,16 @@ export interface SessionData {
   sessionId: string;
   createdAt: number;
   lastActive: number;
-  mood: string; // Current session mood
-  feedbackPreferences?: FeedbackPreferences; // NEW: User preferences learned from feedback
+  mood: string;
+  feedbackPreferences?: FeedbackPreferences;
 }
 
-const MAX_SESSION_MEMORY = 8; // Keep last 8 messages for AI context (optimal token efficiency)
-const SESSION_TTL = 3600; // 1 hour TTL
-const CHAT_HISTORY_TTL = 3600; // 1 hour TTL for complete chat history (auto clear)
+const MAX_SESSION_MEMORY = 8; // Keep last 8 messages for AI context
+const SESSION_TTL = 3600; // 1 hour
+const CHAT_HISTORY_TTL = 3600; // 1 hour
 
 /**
- * Generate session ID from browser fingerprint or create new one
- */
-export function generateSessionId(): string {
-  return `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-}
-
-/**
- * Save conversation history to Redis WITH feedback preferences
- * Maintains both session memory (for AI context) and complete chat history (for persistence)
+ * Save conversation history to Redis (session memory + complete history).
  */
 export async function saveConversationHistory(
   sessionId: string,
@@ -51,160 +85,93 @@ export async function saveConversationHistory(
   mood: string = 'professional',
   feedbackPreferences?: FeedbackPreferences
 ): Promise<void> {
-  try {
-    // SESSION MEMORY: Keep only the last MAX_SESSION_MEMORY messages for AI context
-    const sessionMemory = messages.slice(-MAX_SESSION_MEMORY);
-    
-    const sessionData: SessionData = {
-      messages: sessionMemory,
-      sessionId,
-      createdAt: Date.now(),
-      lastActive: Date.now(),
-      mood,
-      feedbackPreferences,
-    };
+  const sessionMemory = messages.slice(-MAX_SESSION_MEMORY);
+  const now = Date.now();
 
-    // Save session memory (for AI context)
-    await redis.setex(
-      `chat_session:${sessionId}`,
-      SESSION_TTL,
-      JSON.stringify(sessionData)
-    );
+  const sessionData: SessionData = {
+    messages: sessionMemory,
+    sessionId,
+    createdAt: now,
+    lastActive: now,
+    mood,
+    feedbackPreferences,
+  };
 
-    // CHAT HISTORY: Save complete conversation history separately
-    await redis.setex(
-      `chat_history:${sessionId}`,
-      CHAT_HISTORY_TTL,
-      JSON.stringify({
-        messages: messages, // Complete history, no trimming
-        sessionId,
-        createdAt: Date.now(),
-        lastActive: Date.now()
-      })
-    );
-
-    console.log(`[Session Memory] Saved ${sessionMemory.length} messages for AI context`);
-    console.log(`[Chat History] Saved ${messages.length} complete messages`);
-    if (feedbackPreferences) {
-      console.log(`[Adaptive Feedback] Saved preferences:`, feedbackPreferences);
-    }
-  } catch (error) {
-    console.error('[Session Memory] Failed to save:', error);
-    // Non-blocking: continue even if Redis fails
-  }
+  await withRedis(
+    'save',
+    async () => {
+      await redis!.setex(`chat_session:${sessionId}`, SESSION_TTL, JSON.stringify(sessionData));
+      await redis!.setex(
+        `chat_history:${sessionId}`,
+        CHAT_HISTORY_TTL,
+        JSON.stringify({ messages, sessionId, createdAt: now, lastActive: now })
+      );
+    },
+    undefined
+  );
 }
 
 /**
- * Load session memory from Redis (for AI context)
+ * Load session data (messages + feedback preferences).
  */
-export async function loadConversationHistory(
+export async function loadSessionData(
   sessionId: string
-): Promise<SessionMessage[]> {
-  try {
-    const sessionData = await redis.get<SessionData>(`chat_session:${sessionId}`);
-    
-    if (!sessionData) {
-      console.log(`[Session Memory] No session memory found for ${sessionId}`);
-      return [];
-    }
-
-    console.log(`[Session Memory] Loaded ${sessionData.messages.length} messages for AI context`);
-    
-    return sessionData.messages;
-  } catch (error) {
-    console.error('[Session Memory] Failed to load:', error);
-    return [];
-  }
+): Promise<{ messages: SessionMessage[]; feedbackPreferences: FeedbackPreferences | null }> {
+  const fallback = { messages: [] as SessionMessage[], feedbackPreferences: null as FeedbackPreferences | null };
+  return withRedis(
+    'load',
+    async () => {
+      const sessionData = await redis!.get<SessionData>(`chat_session:${sessionId}`);
+      if (!sessionData) return fallback;
+      return {
+        messages: sessionData.messages,
+        feedbackPreferences: sessionData.feedbackPreferences || null,
+      };
+    },
+    fallback
+  );
 }
 
 /**
- * Load complete chat history from Redis (for history display)
+ * Load complete chat history (for the History view).
  */
-export async function loadChatHistory(
-  sessionId: string
-): Promise<SessionMessage[]> {
-  try {
-    const historyData = await redis.get<{messages: SessionMessage[]}>(`chat_history:${sessionId}`);
-    
-    if (!historyData) {
-      console.log(`[Chat History] No complete history found for ${sessionId}`);
-      return [];
-    }
-
-    console.log(`[Chat History] Loaded ${historyData.messages.length} complete messages`);
-    
-    return historyData.messages;
-  } catch (error) {
-    console.error('[Chat History] Failed to load:', error);
-    return [];
-  }
+export async function loadChatHistory(sessionId: string): Promise<SessionMessage[]> {
+  return withRedis(
+    'history',
+    async () => {
+      const historyData = await redis!.get<{ messages: SessionMessage[] }>(`chat_history:${sessionId}`);
+      return historyData?.messages ?? [];
+    },
+    []
+  );
 }
 
 /**
- * Load feedback preferences from Redis (NEW)
- */
-export async function loadFeedbackPreferences(
-  sessionId: string
-): Promise<FeedbackPreferences | null> {
-  try {
-    const sessionData = await redis.get<SessionData>(`chat_session:${sessionId}`);
-    
-    if (!sessionData) return null;
-
-    return sessionData.feedbackPreferences || null;
-  } catch (error) {
-    console.error('[Adaptive Feedback] Failed to load preferences:', error);
-    return null;
-  }
-}
-
-/**
- * Clear both session memory and chat history
+ * Clear both session memory and chat history.
  */
 export async function clearSessionHistory(sessionId: string): Promise<void> {
-  try {
-    await redis.del(`chat_session:${sessionId}`);
-    await redis.del(`chat_history:${sessionId}`);
-    console.log(`[Session Memory] Cleared session memory and chat history for ${sessionId}`);
-  } catch (error) {
-    console.error('[Session Memory] Failed to clear:', error);
-  }
+  await withRedis(
+    'clear',
+    async () => {
+      await redis!.del(`chat_session:${sessionId}`);
+      await redis!.del(`chat_history:${sessionId}`);
+    },
+    undefined
+  );
 }
 
 /**
- * Get session mood
- */
-export async function getSessionMood(sessionId: string): Promise<string> {
-  try {
-    const sessionData = await redis.get<SessionData>(`chat_session:${sessionId}`);
-    
-    if (!sessionData) return 'professional';
-
-    return sessionData.mood || 'professional';
-  } catch (error) {
-    console.error('[Session Memory] Failed to get mood:', error);
-    return 'professional';
-  }
-}
-
-/**
- * Build context from session memory (not complete chat history)
- * Optimized: Reduced verbose follow-up rules from ~120 tokens to ~40 tokens
+ * Build a compact conversation context string for the system prompt.
  */
 export function buildConversationContext(messages: SessionMessage[]): string {
   if (messages.length === 0) return '';
 
-  // Use session memory messages (already trimmed to MAX_SESSION_MEMORY)
   const recentMessages = messages.slice(-MAX_SESSION_MEMORY);
-  
   let context = '\n\n=== HISTORY ===\n';
-  
   recentMessages.forEach((msg) => {
     const speaker = msg.role === 'user' ? 'U' : 'A';
     context += `${speaker}: ${msg.content}\n`;
   });
-  
   context += '=== END ===\n\nFOLLOW-UPS: "it"/"them"/"that" = what YOU just said. Check last Assistant message.\n';
-  
   return context;
 }

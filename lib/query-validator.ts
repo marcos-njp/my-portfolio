@@ -1,8 +1,15 @@
 /**
- * SEMANTIC Query Validation - Professional Context Detection
- * Uses semantic patterns instead of exhaustive keyword lists
- * More intelligent and maintainable approach
+ * Query Validation - Professional Context Detection
+ * Patterns sourced from data/rag-config.ts
  */
+
+import {
+  PROFESSIONAL_PATTERNS,
+  REJECTION_PATTERNS,
+  KNOWLEDGE_GAP_PATTERNS,
+  SUGGESTED_QUESTION_PATTERNS,
+  GREETING_PATTERN,
+} from '@/data/rag-config';
 
 export interface ValidationResult {
   isValid: boolean;
@@ -10,44 +17,8 @@ export interface ValidationResult {
   category?: string;
   confidence: number;
   errorType?: 'unrelated' | 'manipulation' | 'too_short' | 'tech_preferences' | 'entertainment' | 'personal' | 'inappropriate' | 'knowledge_gap';
-  specificType?: string; // For detailed error categorization
+  specificType?: string;
 }
-
-// Core professional patterns - semantic approach
-const PROFESSIONAL_PATTERNS = {
-  // Technical patterns
-  technical: /\b(?:code|coding|program|develop|software|web|app|api|database|tech|stack)\b/i,
-  skills: /\b(?:skill|knowledge|experience|proficiency|expertise|learn|familiar)\b/i,
-  projects: /\b(?:project|built|created|portfolio|deployed|application)\b/i,
-  career: /\b(?:work|job|career|interview|hire|position|role|responsibility)\b/i,
-  education: /\b(?:education|university|college|degree|study|course|graduate)\b/i,
-  
-  // Question patterns
-  questions: /\b(?:what|how|why|when|where|who|which|can|do|are|is|tell|describe|explain)\b/i,
-  
-  // Professional inquiry patterns
-  inquiry: /\b(?:about|yourself|background|introduction|achievements|strengths|goals)\b/i,
-};
-
-// Enhanced rejection patterns - comprehensive off-topic detection
-const REJECTION_PATTERNS = {
-  personal: /\b(?:girlfriend|boyfriend|dating|relationship|family|parents|address|phone|bank|password|salary|income|age|birthday)\b/i,
-  inappropriate: /\b(?:hack|illegal|cheat|steal|pirate|crack|bypass|porn|sex|drugs|alcohol)\b/i,
-  
-  // Technology preferences (PC specs, hardware choices)
-  tech_preferences: /\b(?:prefer|like|choose|better)\b.{0,20}\b(?:mac|windows|linux|android|ios)\b|\b(?:pc specs?|computer specs?|hardware|RAM|graphics? card|processor|CPU|GPU|intel|amd|nvidia|macbook|gaming rig)\b/i,
-  
-  // Entertainment and media
-  entertainment: /\b(?:favorite|like|watch|listen).{0,20}\b(?:movie|music|show|game|anime|netflix|spotify)\b|\b(?:gaming|games|xbox|playstation|nintendo|youtube|tiktok|instagram|band|artist|actor|celebrity)\b/i,
-  
-  // General knowledge and random topics
-  general_offtopic: /\b(?:weather|temperature|forecast|sports?|football|basketball|soccer|news|politics|politician|recipe|cooking|food|restaurant|travel|vacation|joke|funny|meme)\b/i,
-  
-  // Original off-topic patterns (kept for compatibility)
-  offtopic: /\b(?:medical advice|legal advice|religion)\b/i,
-  
-  manipulation: /(?:ignore|forget|disregard).{0,20}(?:previous|instruction|rule|prompt|system)|(?:act as|pretend to be|jailbreak)/i,
-};
 
 /**
  * SEMANTIC: Validate if query is professionally relevant
@@ -67,21 +38,7 @@ export function validateQuery(query: string): ValidationResult {
   }
   
   // Whitelist for suggested questions - always allow these
-  const suggestedQuestionPatterns = [
-    /^what are your main projects\??$/i,
-    /^tell me about your tech stack$/i,
-    /^what competitions have you won\??$/i,
-    /^what's your experience\??$/i,
-    /^tell me about your education$/i,
-    /^what technologies did you use\??$/i,
-    /^any interesting challenges\??$/i,
-    /^how did you approach it\??$/i,
-    /^what was the outcome\??$/i,
-    /^what did you study\??$/i,
-    /^any notable achievements\??$/i
-  ];
-  
-  if (suggestedQuestionPatterns.some(pattern => pattern.test(queryLower))) {
+  if (SUGGESTED_QUESTION_PATTERNS.some(pattern => pattern.test(queryLower))) {
     return {
       isValid: true,
       category: 'suggested_question',
@@ -90,8 +47,7 @@ export function validateQuery(query: string): ValidationResult {
   }
   
   // Greetings are always valid
-  const greetingPattern = /^(?:hi|hello|hey|greetings|good (?:morning|afternoon|evening)|sup|yo)$/i;
-  if (greetingPattern.test(queryLower)) {
+  if (GREETING_PATTERN.test(queryLower)) {
     return {
       isValid: true,
       category: 'greeting',
@@ -129,24 +85,8 @@ export function validateQuery(query: string): ValidationResult {
     }
   }
   
-  // Enhanced: Detect knowledge gaps (questions asking for unavailable info)
-  const knowledgeGapPatterns = [
-    // Timeline/duration questions
-    { pattern: /how long (?:did|have you|took).{0,30}(?:develop|build|work|take|spend)/i, type: 'timeline' },
-    { pattern: /(?:timeline|duration|time frame).{0,20}(?:project|development|build)/i, type: 'timeline' },
-    
-    // Metrics/numbers questions  
-    { pattern: /how many (?:users|downloads|visits|views|clicks)/i, type: 'metrics' },
-    { pattern: /(?:traffic|revenue|conversion|performance) (?:numbers|metrics|stats)/i, type: 'metrics' },
-    
-    // Personal/private info
-    { pattern: /(?:salary|income|how much (?:do you make|earn)|home address|phone number)/i, type: 'personal_data' },
-    
-    // Very vague questions
-    { pattern: /^(?:tell me about yourself|what can you do|anything|everything)$/i, type: 'vague_inquiry' }
-  ];
-  
-  for (const { pattern, type } of knowledgeGapPatterns) {
+  // Enhanced: Detect knowledge gaps
+  for (const { pattern, type } of KNOWLEDGE_GAP_PATTERNS) {
     if (pattern.test(queryLower)) {
       return {
         isValid: false,
@@ -226,18 +166,4 @@ export function enhanceQuery(query: string): string {
   }
   
   return query;
-}
-
-/**
- * Check if query is about the AI itself
- */
-export function isMetaQuery(query: string): boolean {
-  const metaPatterns = [
-    'what can you', 'what do you do', 'how do you work',
-    'what are you', 'who made you', 'how were you built',
-    'what\'s your purpose', 'how does this work'
-  ];
-  
-  const queryLower = query.toLowerCase();
-  return metaPatterns.some(pattern => queryLower.includes(pattern));
 }
