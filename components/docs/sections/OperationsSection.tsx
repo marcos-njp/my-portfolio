@@ -1,20 +1,17 @@
 import { CheckCircle } from "lucide-react";
 import { 
   AlertBox, 
-  CodeBlock
+  CodeBlock,
+  DocPageLayout
 } from "@/components/docs/common";
 import { TroubleshootCard } from "@/components/docs";
 
 export function OperationsSection() {
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-3">Operations & Troubleshooting</h1>
-        <p className="text-xl text-muted-foreground">
-          Real-world challenges and solutions from development journey, documented through Git commit history.
-        </p>
-      </div>
-
+    <DocPageLayout
+      title="Operations & Troubleshooting"
+      subtitle="Real-world challenges and solutions from development journey, documented through Git commit history."
+    >
       <AlertBox type="info" title="Operations Guide Overview">
         <p>
           This operations guide captures actual troubleshooting scenarios encountered during development. 
@@ -99,9 +96,9 @@ const validMoods = ['professional', 'genz'] as const;`}</CodeBlock>
               </p>
               <CodeBlock language="text">{`Query: "What databases do you use?"
 Retrieved chunks:
-- Score 0.85: "Upstash Vector and Redis for AI system..." ✅
-- Score 0.78: "PostgreSQL in e-commerce projects..." ✅
-- Score 0.42: "Handled authentication with OAuth..." ❌ Irrelevant`}</CodeBlock>
+- Score 0.85: "Upstash Vector and Redis for the AI system..." PASS
+- Score 0.78: "Firebase and NoSQL for the Nihilita app..." PASS
+- Score 0.42: "Competed in robotics back in 2018..." FAIL (Irrelevant)`}</CodeBlock>
             </>
           }
           solution={
@@ -140,9 +137,9 @@ console.log('RAG Search Results:', {
             <div>
               <p className="font-medium mb-2">Example Failure:</p>
               <CodeBlock language="text">{`User: "Tell me about your AI projects"
-AI: "I built an AI-Powered Portfolio with Next.js 15..."
+AI: "I built an AI-Powered Portfolio with Next.js 16..."
 User: "What are the tech stacks of it?"
-AI: "I can answer questions about my projects..." ❌ Generic response`}</CodeBlock>
+AI: "I can answer questions about my projects..." FAIL (Generic response`}</CodeBlock>
             </div>
           }
           solution={
@@ -165,10 +162,10 @@ AI: "I can answer questions about my projects..." ❌ Generic response`}</CodeBl
               <div className="mt-3">
                 <p className="font-medium mb-2">Result:</p>
                 <CodeBlock language="text">{`User: "Tell me about your AI projects"
-AI: "I built an AI-Powered Portfolio with Next.js 15..."
+AI: "I built an AI-Powered Portfolio with Next.js 16..."
 User: "What are the tech stacks of it?"
-AI: "The AI-Powered Portfolio uses Next.js 15, TypeScript, 
-     Groq AI, Upstash Vector..." ✅ Specific response`}</CodeBlock>
+AI: "The AI-Powered Portfolio uses Next.js 16, TypeScript, 
+     Groq AI, Upstash Vector..." PASS (Specific response)`}</CodeBlock>
               </div>
             </div>
           }
@@ -184,53 +181,28 @@ AI: "The AI-Powered Portfolio uses Next.js 15, TypeScript,
         <div className="space-y-4">
           <TroubleshootCard
             problem="High Token Consumption"
-            description="Token usage ranged from 1k-3.5k per request, impacting cost and latency"
+            description="Requests were heavier than they needed to be, which cost more and added latency"
             diagnosis={
               <div>
-                <p className="font-medium mb-2">Token Breakdown Before:</p>
+                <p className="font-medium mb-2">The problem:</p>
                 <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Professional mood prompt: ~1,200 characters</li>
-                  <li>GenZ mood prompt: ~2,800 characters (verbose examples)</li>
-                  <li>50+ hardcoded FAQ responses in context</li>
-                  <li>Total: 1k-3.5k tokens per request</li>
+                  <li>Mood prompts were long and verbose</li>
+                  <li>Dozens of hardcoded FAQ responses sat in context</li>
+                  <li>Requests carried more than they needed</li>
                 </ul>
               </div>
             }
             solution={
               <div className="space-y-3">
-                <p className="font-medium mb-2">Optimizations Applied:</p>
-                <div className="space-y-2 text-sm">
-                  <p><strong>1. Mood Prompt Reduction:</strong></p>
-                  <ul className="list-disc list-inside ml-4 space-y-1">
-                    <li>Professional: 1,200 → 400 chars (↓67%)</li>
-                    <li>GenZ: 2,800 → 600 chars (↓79%)</li>
-                  </ul>
-                  <p className="mt-2"><strong>2. FAQ System Refactor:</strong></p>
-                  <ul className="list-disc list-inside ml-4 space-y-1">
-                    <li>Replaced 50+ hardcoded responses with 10 context hint patterns</li>
-                    <li>Dynamic generation instead of fixed strings</li>
-                  </ul>
-                  <p className="mt-2"><strong>3. Pattern Simplification:</strong></p>
-                  <ul className="list-disc list-inside ml-4 space-y-1">
-                    <li>Feedback detector: 9 patterns → 4 patterns (↓50%)</li>
-                    <li>Response validator: Array filter → Set lookup (O(1))</li>
-                  </ul>
-                </div>
-                <div className="mt-3">
-                  <p className="font-medium mb-2">Impact:</p>
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div>
-                      <p className="text-muted-foreground">Before:</p>
-                      <p className="text-2xl font-bold">1k-3.5k</p>
-                      <p className="text-muted-foreground">tokens/request</p>
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground">After:</p>
-                      <p className="text-2xl font-bold text-green-600">600-2k</p>
-                      <p className="text-muted-foreground">tokens/request ↓40%</p>
-                    </div>
-                  </div>
-                </div>
+                <p className="font-medium mb-2">What I did:</p>
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  <li>Trimmed the mood prompts down to the essentials</li>
+                  <li>Replaced hardcoded FAQ responses with a few context hints generated on the fly</li>
+                  <li>Simplified the validation patterns and used faster lookups</li>
+                </ul>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Result: noticeably lighter requests and faster, cheaper responses, without losing the personality.
+                </p>
               </div>
             }
             prevention="Monitor token usage regularly with logging. Keep prompts concise and use dynamic context hints instead of hardcoded responses. Optimize pattern matching with efficient data structures."
@@ -248,19 +220,19 @@ AI: "The AI-Powered Portfolio uses Next.js 15, TypeScript,
             <h3 className="font-semibold mb-3 text-sm">Development</h3>
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Test API routes with curl/Postman before deployment</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Implement CORS headers for external API access</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Maintain single source of truth for type definitions</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Add comprehensive logging for debugging production issues</span>
               </li>
             </ul>
@@ -270,19 +242,19 @@ AI: "The AI-Powered Portfolio uses Next.js 15, TypeScript,
             <h3 className="font-semibold mb-3 text-sm">AI Systems</h3>
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Tune RAG thresholds with real queries, not assumptions</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Provide explicit examples in system prompts (bad vs good)</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Monitor token usage and optimize prompts regularly</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-3 h-3 text-green-600 mt-0.5" />
+                <CheckCircle className="w-3 h-3 text-foreground mt-0.5 shrink-0" strokeWidth={1.75} />
                 <span>Use context hints instead of hardcoded responses for flexibility</span>
               </li>
             </ul>
@@ -313,7 +285,7 @@ AI: "The AI-Powered Portfolio uses Next.js 15, TypeScript,
           </div>
         </div>
       </section>
-    </div>
+    </DocPageLayout>
   );
 }
 

@@ -1,6 +1,7 @@
-import { Zap, Database, Shield, Brain, Sparkles, Settings, Users } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { 
   DocSection, 
+  DocPageLayout,
   AlertBox, 
   MetricGrid,
   HighlightBox,
@@ -8,22 +9,13 @@ import {
   Tabs,
   ComparisonGrid
 } from "@/components/docs/common";
+import { advancedFeatureMetrics } from "@/data/docs";
 
 export function AdvancedFeaturesSection() {
-  const featureMetrics = [
-    { label: "Error Categories", value: "9", description: "Persona-aware responses" },
-    { label: "Storage Layers", value: "2", description: "AI + UI optimized" },
-    { label: "Validation Patterns", value: "12", description: "Semantic accuracy" },
-    { label: "Token Savings", value: "25%", description: "Optimized context" },
-    { label: "RAG Threshold", value: "0.75", description: "Balanced accuracy" },
-    { label: "Session TTL", value: "1h", description: "Auto cleanup" }
-  ];
-
   const advancedTabs = [
     {
       id: "dual-storage",
       label: "Dual Storage Architecture",
-      icon: Database,
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Redis-Backed Dual Storage">
@@ -44,9 +36,9 @@ export function AdvancedFeaturesSection() {
               title: "Chat History (UI Display)",
               items: [
                 "Complete conversation",
-                "chat_history:{sessionId} key", 
-                "Rich formatting preserved",
-                "Copy functionality enabled"
+                "chat_history:{sessionId} key",
+                "Reloadable from the History button",
+                "1 hour TTL"
               ]
             }}
           />
@@ -82,10 +74,9 @@ export async function saveConversationHistory(
     {
       id: "persona-errors", 
       label: "Persona-Aware Error Handling",
-      icon: Shield,
       content: (
         <div className="space-y-4">
-          <HighlightBox type="warning" title="9 Error Categories with Dual Personalities">
+          <HighlightBox type="warning" title="11 Error Categories with Dual Personalities">
             <p className="text-xs">Each error type has both Professional and GenZ responses maintaining personality consistency</p>
           </HighlightBox>
 
@@ -102,10 +93,10 @@ export async function saveConversationHistory(
             <div className="space-y-2">
               <h4 className="font-medium text-sm">GenZ Responses</h4>
               <div className="space-y-1 text-xs">
-                <p><strong>unrelated:</strong> &ldquo;yo that&rsquo;s off topic 💀 let&rsquo;s talk about the portfolio stuff...&rdquo;</p>
+                <p><strong>unrelated:</strong> &ldquo;yo that&rsquo;s off topic - let&rsquo;s talk about the portfolio stuff...&rdquo;</p>
                 <p><strong>too_short:</strong> &ldquo;bro that&rsquo;s too short 😭 gimme more details...&rdquo;</p>
                 <p><strong>knowledge_gap:</strong> &ldquo;yo don&rsquo;t have those exact deets 😅 but i can break down...&rdquo;</p>
-                <p><strong>tech_preferences:</strong> &ldquo;yo we keeping this about my dev work and projects fr 💻...&rdquo;</p>
+                <p><strong>tech_preferences:</strong> &ldquo;yo we keeping this about my dev work and projects fr ...&rdquo;</p>
               </div>
             </div>
           </div>
@@ -122,9 +113,9 @@ export function getPersonaResponse(
   const responses = {
     unrelated: {
       professional: "I'm here to discuss Niño's professional background...",
-      genz: "yo that's off topic 💀 let's talk about the portfolio stuff...",
+      genz: "yo that's off topic - let's talk about the portfolio stuff...",
     },
-    // 8 more error types with dual responses...
+    // 10 more error types with dual responses...
   };
   return responses[type][mood];
 }
@@ -141,7 +132,6 @@ if (validation.errorType) {
     {
       id: "semantic-validation",
       label: "Semantic Query Validation", 
-      icon: Brain,
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Pattern-Based Intelligence">
@@ -210,7 +200,6 @@ export function validateQuery(query: string): ValidationResult {
     {
       id: "adaptive-feedback",
       label: "Adaptive Feedback Learning",
-      icon: Users,
       content: (
         <div className="space-y-4">
           <HighlightBox type="success" title="User Preference Learning">
@@ -271,7 +260,7 @@ export function buildFeedbackInstruction(preferences: FeedbackPreferences): stri
   }
   
   return instructions.length > 0 ? 
-    '\\n\\n🎯 ADAPTIVE FEEDBACK:\\n' + instructions.join('\\n') : '';
+    '\\n\\nADAPTIVE FEEDBACK:\\n' + instructions.join('\\n') : '';
 }`}
           </CodeBlock>
         </div>
@@ -280,7 +269,6 @@ export function buildFeedbackInstruction(preferences: FeedbackPreferences): stri
     {
       id: "rag-optimization",
       label: "RAG Context Optimization",
-      icon: Sparkles,
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Upstash Vector + Redis Integration">
@@ -292,16 +280,16 @@ export function buildFeedbackInstruction(preferences: FeedbackPreferences): stri
               <h4 className="font-medium text-sm">Search Optimization</h4>
               <div className="space-y-1 text-xs">
                 <p>• <strong>Relevance threshold:</strong> 0.75 for balanced accuracy</p>
-                <p>• <strong>Reranking:</strong> Boost technical/project matches</p>
-                <p>• <strong>Context validation:</strong> Verify answers match questions</p>
-                <p>• <strong>Smart fallbacks:</strong> Knowledge gap detection</p>
+                <p>• <strong>Fallback tier:</strong> top 2 results if they clear 0.65</p>
+                <p>• <strong>Context validation:</strong> verify answers match questions</p>
+                <p>• <strong>Smart fallbacks:</strong> knowledge gap detection</p>
               </div>
             </div>
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Context Assembly</h4>
               <div className="space-y-1 text-xs">
                 <p>• <strong>Session memory:</strong> Last 8 messages for AI</p>
-                <p>• <strong>Vector results:</strong> Top 5 relevant chunks</p>
+                <p>• <strong>Vector results:</strong> Top 3 relevant chunks</p>
                 <p>• <strong>Feedback prefs:</strong> User learning applied</p>
                 <p>• <strong>Mood context:</strong> Personality-aware prompts</p>
               </div>
@@ -315,7 +303,7 @@ export async function searchVectorContext(
   query: string,
   options: { topK?: number; minScore?: number } = {}
 ): Promise<RAGContext> {
-  const { topK = 5, minScore = 0.75 } = options;
+  const { topK = 3, minScore = 0.75 } = options;
 
   const results = await vectorIndex.query({
     data: query, topK, includeMetadata: true,
@@ -364,39 +352,21 @@ export function validateContextRelevance(
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-3">Advanced Features</h1>
-        <p className="text-xl text-muted-foreground">
-          Dual storage system, persona-aware errors, semantic validation, adaptive learning, and RAG optimization powering the AI digital twin.
-        </p>
-      </div>
-
-      <AlertBox type="info" icon={Zap} title="Intelligent AI System">
+    <DocPageLayout
+      title="Advanced Features"
+      subtitle="Dual storage system, persona-aware errors, semantic validation, adaptive learning, and RAG optimization powering the AI digital twin."
+    >
+      <AlertBox type="info" icon={Sparkles} title="Intelligent AI System">
         <p>Advanced features working together to create sophisticated AI interactions that feel natural, maintain consistency, and continuously improve based on user feedback while optimizing for both performance and user experience.</p>
       </AlertBox>
 
-      <DocSection title="System Metrics" icon={Settings}>
-        <MetricGrid metrics={featureMetrics} columns={3} />
+      <DocSection title="System Metrics">
+        <MetricGrid metrics={advancedFeatureMetrics} columns={3} />
       </DocSection>
 
-      <DocSection title="Core Features" icon={Sparkles}>
-        <Tabs items={advancedTabs} defaultTab="dual-storage" />
+      <DocSection title="Core Features">
+        <Tabs items={advancedTabs} defaultTab="dual-storage" layout="scroll" />
       </DocSection>
-
-      <DocSection title="Recent Enhancements">
-        <div className="grid md:grid-cols-3 gap-4">
-          <HighlightBox type="success" title="Smart Suggestions">
-            <p className="text-xs">Context-aware follow-up questions with localStorage persistence to prevent repetition</p>
-          </HighlightBox>
-          <HighlightBox type="success" title="Copy Functionality">
-            <p className="text-xs">Enhanced chat UX with message copying, feedback detection, and session persistence</p>
-          </HighlightBox>
-          <HighlightBox type="success" title="Token Optimization">
-            <p className="text-xs">25% token reduction through optimized prompts, dual storage, and context trimming</p>
-          </HighlightBox>
-        </div>
-      </DocSection>
-    </div>
+    </DocPageLayout>
   );
 }

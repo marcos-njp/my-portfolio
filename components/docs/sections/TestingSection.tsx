@@ -1,6 +1,7 @@
-import { Sparkles, Zap, TestTube, Target, TrendingUp } from "lucide-react";
+import { TestTube } from "lucide-react";
 import { 
-  DocSection, 
+  DocSection,
+  DocPageLayout,
   AlertBox, 
   ComparisonGrid, 
   StepList, 
@@ -9,38 +10,14 @@ import {
   HighlightBox,
   Tabs 
 } from "@/components/docs/common";
+import { improvementMetrics, loadingStates, feedbackImplementations } from "@/data/docs";
 
 export function TestingSection() {
-  const loadingStates = [
-    {
-      title: "Thinking...",
-      description: "Understanding your query (0-4s)",
-      color: "blue"
-    },
-    {
-      title: "Processing...", 
-      description: "Retrieving relevant knowledge (4-8s)",
-      color: "purple"
-    },
-    {
-      title: "Almost there...",
-      description: "Generating personalized response (8-12s)",
-      color: "green"
-    }
-  ];
-
-  const improvementMetrics = [
-    { label: "Response Time", value: "1-4s", description: "Most queries" },
-    { label: "Timeout Protection", value: "12s", description: "Auto-termination" }, 
-    { label: "Follow-up Accuracy", value: "95%", description: "Pronoun resolution" },
-    { label: "Token Optimization", value: "25%", description: "Reduced usage" }
-  ];
 
   const testingEvolution = [
     {
       id: "streaming",
       label: "Streaming UX",
-      icon: Sparkles,
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Progressive Loading States">
@@ -49,7 +26,7 @@ export function TestingSection() {
               {loadingStates.map((state, index) => (
                 <div key={index} className="rounded-md bg-muted p-3">
                   <div className="flex items-center gap-2 mb-1">
-                    <div className={`w-2 h-2 rounded-full bg-${state.color}-500 animate-pulse`} />
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                     <p className="font-medium text-xs">{state.title}</p>
                   </div>
                   <p className="text-xs text-muted-foreground">{state.description}</p>
@@ -63,7 +40,7 @@ export function TestingSection() {
 setTimeout(() => abortController.abort(), 12000);
 
 const result = await streamText({
-  model: groq('llama-3.1-8b-instant'),
+  model: groq('llama-3.3-70b-versatile'),
   signal: abortController.signal
 });`}
           </CodeBlock>
@@ -73,7 +50,6 @@ const result = await streamText({
     {
       id: "followup",
       label: "Follow-up Intelligence", 
-      icon: Target,
       content: (
         <div className="space-y-4">
           <ComparisonGrid
@@ -89,7 +65,7 @@ const result = await streamText({
             after={{
               title: "After Enhancement", 
               items: [
-                "\"The AI Portfolio uses Next.js 15...\"",
+                "\"The AI Portfolio uses Next.js 16...\"",
                 "Full conversation context maintained",
                 "Smart pronoun resolution", 
                 "Natural follow-up conversations"
@@ -110,7 +86,6 @@ System: ✓ Checks history for "it" → References AI Portfolio`}
     {
       id: "integration",
       label: "System Integration",
-      icon: Zap,
       content: (
         <div className="space-y-4">
           <HighlightBox type="success" title="Major Consolidation (Latest)">
@@ -153,13 +128,12 @@ System: ✓ Checks history for "it" → References AI Portfolio`}
     {
       id: "optimization",
       label: "Performance Tuning",
-      icon: TrendingUp,
       content: (
         <div className="space-y-4">
           <MetricGrid metrics={improvementMetrics} columns={2} />
 
           <HighlightBox type="success" title="Token Optimization Results">
-            <p className="text-xs">System prompts reduced from 1.5k-3k to 1k-2.5k tokens (~25% improvement) while maintaining personality accuracy</p>
+            <p className="text-xs">System prompts were trimmed a lot while keeping the personality intact, which cut token use and latency.</p>
           </HighlightBox>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -175,42 +149,11 @@ System: ✓ Checks history for "it" → References AI Portfolio`}
     }
   ];
 
-  const feedbackImplementations = [
-    {
-      title: "Adaptive Feedback Detection",
-      description: "Learns user preferences (\"be more detailed\", \"shorter responses\") and applies them persistently"
-    },
-    {
-      title: "Pattern-Based Typo Correction",
-      description: "Intelligent typo fixing using regex patterns instead of hardcoded dictionaries"
-    },
-    {
-      title: "Consolidated Validation Pipeline", 
-      description: "Single source of truth for query validation with semantic confidence scoring"
-    },
-    {
-      title: "Context Relevance Checking",
-      description: "Validates that RAG results actually answer the user's question before responding"
-    },
-    {
-      title: "Proper Pipeline Ordering",
-      description: "Feedback detection now runs before validation to prevent interference"
-    },
-    {
-      title: "Knowledge Gap Detection",
-      description: "Smart fallback messages when AI doesn't have sufficient context to answer"
-    }
-  ];
-
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-3">Testing & Evolution</h1>
-        <p className="text-xl text-muted-foreground">
-          Recent major system integration consolidating validation pipelines, adaptive feedback detection, and performance optimization through iterative testing and refactoring.
-        </p>
-      </div>
-
+    <DocPageLayout
+      title="Testing & Evolution"
+      subtitle="Recent major system integration consolidating validation pipelines, adaptive feedback detection, and performance optimization through iterative testing and refactoring."
+    >
       <AlertBox type="info" icon={TestTube} title="Testing Philosophy">
         <p>
           Every feature undergoes user testing to ensure the AI digital twin provides authentic, helpful responses. 
@@ -218,11 +161,11 @@ System: ✓ Checks history for "it" → References AI Portfolio`}
         </p>
       </AlertBox>
 
-      <DocSection title="Major Improvements" icon={Zap}>
+      <DocSection title="Major Improvements">
         <Tabs items={testingEvolution} defaultTab="streaming" />
       </DocSection>
 
-      <DocSection title="Feedback Implementation" icon={Target}>
+      <DocSection title="Feedback Implementation">
         <p className="text-sm text-muted-foreground mb-4">
           User feedback drives continuous system enhancements across UX, performance, and conversation quality.
         </p>
@@ -239,36 +182,36 @@ System: ✓ Checks history for "it" → References AI Portfolio`}
         </HighlightBox>
       </DocSection>
 
-      <DocSection title="Performance Evolution" icon={TrendingUp}>
+      <DocSection title="Performance Evolution">
         <div className="grid md:grid-cols-2 gap-4">
           <HighlightBox type="success" title="Response Quality">
             <div className="space-y-2">
-              <p className="text-xs">✅ Specific, contextual answers</p>
-              <p className="text-xs">✅ Consistent personality modes</p>
-              <p className="text-xs">✅ Natural follow-up conversations</p>
+              <p className="text-xs">Specific, contextual answers</p>
+              <p className="text-xs">Consistent personality modes</p>
+              <p className="text-xs">Natural follow-up conversations</p>
             </div>
           </HighlightBox>
 
           <HighlightBox type="success" title="System Reliability">
             <div className="space-y-2">
-              <p className="text-xs">✅ Graceful error handling</p>
-              <p className="text-xs">✅ Timeout protection</p>
-              <p className="text-xs">✅ Memory optimization</p>
+              <p className="text-xs">Graceful error handling</p>
+              <p className="text-xs">Timeout protection</p>
+              <p className="text-xs">Memory optimization</p>
             </div>
           </HighlightBox>
         </div>
 
         <CodeBlock title="Key Metrics" className="mt-4">
-{`📊 System Performance (Updated):
-• Response Time: 1-4s (most queries) 
-• Memory Usage: ~25% token reduction via optimization
-• Follow-up Accuracy: 95% pronoun resolution
-• Validation Pipeline: Consolidated from 5+ files to 3 core modules
-• Feedback Learning: Persistent user preferences with session memory
-• Context Relevance: Smart checking prevents hallucinated responses
-• Error Types: 6 persona-aware error categories (off-topic, rate-limit, etc.)`}
+{`System notes:
+• Streaming responses so replies feel fast
+• Leaner prompts to cut token use
+• Follow-ups resolve pronouns from conversation history
+• Validation consolidated into a few core modules
+• Session memory keeps context across a conversation
+• Context checks reduce hallucinated answers
+• Persona-aware error handling for off-topic or rate-limited cases`}
         </CodeBlock>
       </DocSection>
-    </div>
+    </DocPageLayout>
   );
 }

@@ -13,15 +13,11 @@ export function DocSection({ title, subtitle, icon: Icon, children, className = 
   return (
     <section className={`space-y-4 ${className}`}>
       {(title || subtitle || Icon) && (
-        <div className="flex items-center gap-3 mb-4">
-          {Icon && (
-            <div className="rounded-md bg-primary/10 p-2">
-              <Icon className="w-5 h-5 text-primary" />
-            </div>
-          )}
+        <div className="flex items-center gap-3 mb-2">
+          {Icon && <Icon className="w-5 h-5 text-foreground" strokeWidth={1.5} />}
           <div>
-            {title && <h2 className="text-2xl font-semibold">{title}</h2>}
-            {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
+            {title && <h2 className="text-xl md:text-2xl font-medium tracking-tight">{title}</h2>}
+            {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
           </div>
         </div>
       )}

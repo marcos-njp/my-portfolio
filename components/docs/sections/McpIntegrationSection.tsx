@@ -1,6 +1,7 @@
-import { Code, CheckCircle, ExternalLink, Plug, Server, Zap } from "lucide-react";
+import { ExternalLink, Plug } from "lucide-react";
 import { 
-  DocSection, 
+  DocSection,
+  DocPageLayout,
   AlertBox, 
   StepList, 
   CodeBlock,
@@ -8,44 +9,19 @@ import {
   HighlightBox,
   Tabs 
 } from "@/components/docs/common";
+import { mcpFlow as mcpFlowData, mcpMetrics } from "@/data/docs";
 
 export function McpIntegrationSection() {
-  const mcpFlow = [
-    {
-      title: "Client Request",
-      description: "Claude Desktop or other MCP client sends HTTP POST to https://m-njp.vercel.app/api/mcp"
-    },
-    {
-      title: "Transport Layer", 
-      description: "MCP handler validates request format, extracts tool calls, and forwards to chat API",
-      content: <code className="text-xs bg-muted px-2 py-1 rounded">app/api/[transport]/route.ts</code>
-    },
-    {
-      title: "Chat Processing",
-      description: "Consolidated pipeline: typo correction → feedback detection → validation → RAG search → persona-aware AI generation"
-    },
-    {
-      title: "Response Formatting",
-      description: "Convert streaming AI response to MCP protocol format with proper tool result structure"
-    },
-    {
-      title: "Client Delivery",
-      description: "Structured JSON response sent back to Claude Desktop with conversation context"
-    }
-  ];
-
-  const mcpMetrics = [
-    { label: "Protocol", value: "HTTP", description: "RESTful communication" },
-    { label: "Endpoint", value: "/api/mcp", description: "Single route handler" },
-    { label: "Deployment", value: "Vercel Edge", description: "Global distribution" },
-    { label: "Transport", value: "JSON", description: "Structured messaging" }
-  ];
+  const mcpFlow = mcpFlowData.map((step, index) => 
+    index === 1 
+      ? { ...step, content: <code className="text-xs bg-muted px-2 py-1 rounded">app/api/[transport]/route.ts</code> }
+      : step
+  );
 
   const setupTabs = [
     {
       id: "configuration", 
       label: "Configuration",
-      icon: Code,
       content: (
         <div className="space-y-4">
           <CodeBlock title="Claude Desktop Configuration">
@@ -63,8 +39,8 @@ export function McpIntegrationSection() {
 
           <HighlightBox type="info" title="Quick Setup">
             <p className="text-xs mb-2">Add the server configuration to your Claude Desktop settings:</p>
-            <p className="text-xs">📁 ~/.config/claude-desktop/config.json (macOS/Linux)</p>
-            <p className="text-xs">📁 %APPDATA%/Claude/config.json (Windows)</p>
+            <p className="text-xs">~/.config/claude-desktop/config.json (macOS/Linux)</p>
+            <p className="text-xs">%APPDATA%/Claude/config.json (Windows)</p>
           </HighlightBox>
         </div>
       )
@@ -72,7 +48,6 @@ export function McpIntegrationSection() {
     {
       id: "tools",
       label: "Available Tools", 
-      icon: Plug,
       content: (
         <div className="space-y-4">
           <HighlightBox type="success" title="chat_with_digital_twin">
@@ -94,7 +69,7 @@ chat_with_digital_twin({
 
 // Which returns structured response:
 {
-  "response": "I built an AI-Powered Portfolio with RAG using Next.js 15...",
+  "response": "I built an AI-Powered Portfolio with RAG using Next.js 16...",
   "mood": "professional",
   "sessionId": "session_xyz",
   "context": "AI Projects, Technical Implementation"
@@ -106,7 +81,6 @@ chat_with_digital_twin({
     {
       id: "testing",
       label: "Testing & Validation",
-      icon: CheckCircle,
       content: (
         <div className="space-y-4">
           <HighlightBox type="tip" title="Manual Testing">
@@ -129,14 +103,14 @@ chat_with_digital_twin({
 
           <div className="grid md:grid-cols-2 gap-4">
             <HighlightBox type="success" title="Expected Response">
-              <p className="text-xs">✅ Structured JSON with AI response</p>
-              <p className="text-xs">✅ Proper MCP protocol formatting</p>
-              <p className="text-xs">✅ Session continuity maintained</p>
+              <p className="text-xs">Structured JSON with AI response</p>
+              <p className="text-xs">Proper MCP protocol formatting</p>
+              <p className="text-xs">Session continuity maintained</p>
             </HighlightBox>
             <HighlightBox type="warning" title="Error Handling">
-              <p className="text-xs">⚠️ Persona-aware error responses</p>
-              <p className="text-xs">⚠️ Rate limiting protection</p>
-              <p className="text-xs">⚠️ Graceful timeout handling</p>
+              <p className="text-xs">Persona-aware error responses</p>
+              <p className="text-xs">Rate limiting protection</p>
+              <p className="text-xs">Graceful timeout handling</p>
             </HighlightBox>
           </div>
         </div>
@@ -145,14 +119,10 @@ chat_with_digital_twin({
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-3">MCP Integration</h1>
-        <p className="text-xl text-muted-foreground">
-          Model Context Protocol implementation enabling AI agents to interact with the digital twin seamlessly.
-        </p>
-      </div>
-
+    <DocPageLayout
+      title="MCP Integration"
+      subtitle="Model Context Protocol implementation enabling AI agents to interact with the digital twin seamlessly."
+    >
       <AlertBox type="info" icon={Plug} title="What is MCP?">
         <p>
           The Model Context Protocol (MCP) is an open standard that enables AI applications to communicate with 
@@ -161,11 +131,11 @@ chat_with_digital_twin({
         </p>
       </AlertBox>
 
-      <DocSection title="System Overview" icon={Server}>
+      <DocSection title="System Overview">
         <MetricGrid metrics={mcpMetrics} columns={4} />
       </DocSection>
 
-      <DocSection title="MCP Server Architecture" icon={Code}>
+      <DocSection title="MCP Server Architecture">
         <CodeBlock title="Request Flow">
           <StepList steps={mcpFlow} />
         </CodeBlock>
@@ -188,7 +158,7 @@ chat_with_digital_twin({
         </HighlightBox>
       </DocSection>
 
-      <DocSection title="Setup & Configuration" icon={Zap}>
+      <DocSection title="Setup & Configuration">
         <Tabs items={setupTabs} defaultTab="configuration" />
       </DocSection>
 
@@ -258,6 +228,6 @@ export async function POST(request: Request) {
           </a>
         </div>
       </DocSection>
-    </div>
+    </DocPageLayout>
   );
 }

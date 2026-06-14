@@ -1,6 +1,6 @@
-import { Database, CheckCircle, Zap, Search, Brain, Shield } from "lucide-react";
 import { 
-  DocSection, 
+  DocSection,
+  DocPageLayout,
   AlertBox, 
   ComparisonGrid, 
   StepList, 
@@ -9,88 +9,21 @@ import {
   HighlightBox,
   Tabs
 } from "@/components/docs/common";
+import { architectureFlow, systemMetrics, validationPatterns } from "@/data/docs";
 
 export function RagArchitectureSection() {
-  const architectureFlow = [
-    {
-      title: "Query Preprocessing",
-      description: "Typo correction, fuzzy matching, and query normalization for better search accuracy"
-    },
-    {
-      title: "Semantic Query Validation", 
-      description: "Dynamic regex patterns detect professional queries with errorType returns for persona-aware responses",
-      content: (
-        <code className="text-xs bg-muted px-2 py-1 rounded">
-          validation.errorType // Returns: unrelated, too_short, manipulation, etc.
-        </code>
-      )
-    },
-    {
-      title: "Vector Search",
-      description: "Semantic search in Upstash Vector with topK=2-3, minScore=0.75 (75% relevance threshold)",
-      content: (
-        <code className="text-xs bg-muted px-2 py-1 rounded">
-          const results = await vectorIndex.query(embedding, {`{topK: 3, minScore: 0.75}`})
-        </code>
-      )
-    },
-    {
-      title: "Context Assembly",
-      description: "Session memory + RAG results + personality rules combined for comprehensive context"
-    },
-    {
-      title: "AI Generation",
-      description: "Groq AI streaming with personality validation and error handling"
-    },
-    {
-      title: "Response Validation",
-      description: "Quality checks and persona consistency verification before delivery"
-    }
-  ];
-
-  const systemMetrics = [
-    { label: "AI Model", value: "Groq AI", description: "llama-3.1-8b-instant" },
-    { label: "Vector DB", value: "Upstash", description: "Serverless semantic search" },
-    { label: "Response Time", value: "<2s", description: "Streaming support" },
-    { label: "Relevance Score", value: "0.75+", description: "75% threshold" }
-  ];
-
-  const validationPatterns = [
-    {
-      name: "Professional Queries",
-      pattern: "/(experience|project|skill|tech|background)/i",
-      result: "Valid - proceeds to RAG search"
-    },
-    {
-      name: "Too Short/Unclear",
-      pattern: "/^.{1,10}$/",
-      result: "too_short - persona-aware error response"
-    },
-    {
-      name: "Unrelated Content", 
-      pattern: "/(weather|recipe|movie|game)/i",
-      result: "unrelated - polite redirection"
-    },
-    {
-      name: "Manipulation Attempts",
-      pattern: "/(ignore|forget|pretend|roleplay)/i", 
-      result: "manipulation - firm boundary response"
-    }
-  ];
-
   const ragComponents = [
     {
       id: "groq",
       label: "Groq AI",
-      icon: Brain,
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Model Configuration">
-            <p className="text-xs mb-2">llama-3.1-8b-instant - Optimized for speed and accuracy</p>
+            <p className="text-xs mb-2">llama-3.3-70b-versatile - Optimized for speed and accuracy</p>
             <div className="space-y-1">
-              <p>• Temperature: 0.7 (Professional) / 0.9 (GenZ)</p>
-              <p>• Max tokens: 1000</p>
-              <p>• Streaming: Enabled for real-time response</p>
+              <p>• Temperature: 0.7 (Professional) / 0.9 (Casual)</p>
+              <p>• Length: guided by the prompt, no hard token cap</p>
+              <p>• Streaming: enabled for real-time response</p>
             </div>
           </HighlightBox>
           
@@ -99,7 +32,7 @@ export function RagArchitectureSection() {
 const groq = createGroq({ apiKey: process.env.GROQ_API_KEY });
 
 const { textStream } = await streamText({
-  model: groq('llama-3.1-8b-instant'),
+  model: groq('llama-3.3-70b-versatile'),
   messages: [systemPrompt, ...conversationHistory, userMessage],
   temperature: mood === 'professional' ? 0.7 : 0.9
 });`}
@@ -110,30 +43,30 @@ const { textStream } = await streamText({
     {
       id: "vector",
       label: "Upstash Vector", 
-      icon: Database,
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Vector Database Setup">
-            <p className="text-xs mb-2">Serverless vector database for semantic search</p>
+            <p className="text-xs mb-2">Serverless vector database with hosted embeddings</p>
             <div className="space-y-1">
-              <p>• Embedding model: text-embedding-3-small</p>
-              <p>• Dimensions: 1536</p>
+              <p>• Embedding model: BGE-large (Upstash hosted)</p>
+              <p>• Dimensions: 1024</p>
               <p>• Distance metric: Cosine similarity</p>
             </div>
           </HighlightBox>
-          
+
           <CodeBlock title="Search Implementation">
 {`const vectorIndex = new Index({
   url: process.env.UPSTASH_VECTOR_REST_URL,
   token: process.env.UPSTASH_VECTOR_REST_TOKEN
 });
 
+// Upstash auto-embeds the text, no manual vector needed
 const results = await vectorIndex.query({
-  vector: embedding,
+  data: query,
   topK: 3,
-  minScore: 0.75,
-  includeMetadata: true
-});`}
+  includeMetadata: true,
+});
+// then keep score >= 0.75, else fall back to top 2 >= 0.65`}
           </CodeBlock>
         </div>
       )
@@ -141,7 +74,6 @@ const results = await vectorIndex.query({
     {
       id: "validation",
       label: "Semantic Validation",
-      icon: Shield, 
       content: (
         <div className="space-y-4">
           <HighlightBox type="warning" title="Query Pattern Detection">
@@ -166,15 +98,11 @@ const results = await vectorIndex.query({
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-3">RAG Architecture</h1>
-        <p className="text-xl text-muted-foreground">
-          Technical deep dive into the Retrieval-Augmented Generation system powering the AI digital twin.
-        </p>
-      </div>
-
-      <DocSection title="System Overview" icon={Database}>
+    <DocPageLayout
+      title="Retrieval & Response Flow"
+      subtitle="Technical deep dive into the retrieval, validation, and streaming pipeline powering the AI digital twin."
+    >
+      <DocSection title="System Overview">
         <p className="text-sm text-muted-foreground mb-4">
           The RAG system combines real-time vector search with large language model generation to provide accurate, 
           context-aware responses about professional background, skills, and experience.
@@ -183,7 +111,7 @@ const results = await vectorIndex.query({
         <MetricGrid metrics={systemMetrics} columns={4} />
       </DocSection>
 
-      <DocSection title="Request Flow" icon={Zap}>
+      <DocSection title="Request Flow">
         <CodeBlock title="Complete Pipeline">
           <StepList steps={architectureFlow} />
         </CodeBlock>
@@ -193,7 +121,7 @@ const results = await vectorIndex.query({
         <Tabs items={ragComponents} defaultTab="groq" />
       </DocSection>
 
-      <DocSection title="Semantic Validation System" icon={Search}>
+      <DocSection title="Semantic Validation System">
         <p className="text-sm text-muted-foreground mb-4">
           Advanced query validation replaces hardcoded keyword matching with intelligent pattern detection 
           for context-sensitive error handling.
@@ -241,19 +169,19 @@ if (validation.errorType) {
         </CodeBlock>
       </DocSection>
 
-      <DocSection title="Performance & Accuracy" icon={CheckCircle}>
+      <DocSection title="Performance & Accuracy">
         <div className="grid md:grid-cols-2 gap-4">
           <HighlightBox type="success" title="Search Accuracy">
             <p className="text-xs">75% relevance threshold with 65% fallback ensures high-quality results</p>
           </HighlightBox>
-          <HighlightBox type="success" title="Response Speed">
-            <p className="text-xs">Streaming responses with &lt;2s initial token delivery</p>
+          <HighlightBox type="success" title="Streaming">
+            <p className="text-xs">Responses stream token by token, so text appears as it is generated</p>
           </HighlightBox>
           <HighlightBox type="success" title="Context Quality">
             <p className="text-xs">Dual storage system optimizes both AI context and user experience</p>
           </HighlightBox>
           <HighlightBox type="success" title="Error Handling">
-            <p className="text-xs">6 error types with persona-aware responses maintain consistency</p>
+            <p className="text-xs">Persona-aware error responses keep the voice consistent across error states</p>
           </HighlightBox>
         </div>
 
@@ -261,11 +189,11 @@ if (validation.errorType) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
             <div>
               <p className="font-medium">Vector Dimensions</p>
-              <p>1536 (OpenAI embedding)</p>
+              <p>1024 (BGE-large)</p>
             </div>
             <div>
               <p className="font-medium">Search TopK</p>
-              <p>2-3 results</p>
+              <p>3 results</p>
             </div>
             <div>
               <p className="font-medium">Min Score</p>
@@ -278,6 +206,6 @@ if (validation.errorType) {
           </div>
         </AlertBox>
       </DocSection>
-    </div>
+    </DocPageLayout>
   );
 }

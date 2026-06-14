@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Check, X } from "lucide-react";
 
 interface ComparisonCardProps {
   title: string;
@@ -9,23 +10,18 @@ interface ComparisonCardProps {
 
 export function ComparisonCard({ title, type = "before", items, className = "" }: ComparisonCardProps) {
   const isAfter = type === "after";
-  
+
   return (
-    <div className={`rounded-lg border p-4 ${className}`}>
-      <h4 className="font-semibold mb-2 text-sm flex items-center gap-2">
-        {isAfter ? (
-          <span className="w-4 h-4 text-green-500">✓</span>
-        ) : (
-          <span className="w-4 h-4 text-red-500">✗</span>
-        )}
+    // Full border around the entire card — no single-side accent border.
+    <div className={`rounded-md border-2 ${isAfter ? "border-foreground" : "border-primary"} bg-card p-4 ${className}`}>
+      <h4 className="font-medium mb-3 text-sm flex items-center gap-2">
+        {isAfter ? <Check className="w-4 h-4" strokeWidth={2} /> : <X className="w-4 h-4 text-primary" strokeWidth={2} />}
         {title}
       </h4>
-      <ul className="space-y-1 text-xs text-muted-foreground">
+      <ul className="space-y-1.5 text-xs text-muted-foreground">
         {items.map((item, index) => (
           <li key={index} className="flex items-start gap-2">
-            <span className={isAfter ? "text-green-500" : "text-red-500"}>
-              {isAfter ? "✅" : "❌"}
-            </span>
+            <span className={`font-mono mt-px ${isAfter ? "text-foreground" : "text-primary"}`}>{isAfter ? "+" : "−"}</span>
             {typeof item === "string" ? item : <div>{item}</div>}
           </li>
         ))}

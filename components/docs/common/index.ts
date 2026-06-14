@@ -1,4 +1,5 @@
 export { DocSection } from "./DocSection";
+export { DocPageLayout } from "./DocPageLayout";
 export { CodeBlock } from "./CodeBlock"; 
 export { AlertBox } from "./AlertBox";
 export { StepList } from "./StepList";
@@ -9,3 +10,6 @@ export { HighlightBox } from "./HighlightBox";
 export { MobileNav } from "./MobileNav";
 export { StarCard } from "./StarCard";
 export { TroubleshootCard } from "./TroubleshootCard";
+export { GithubProjectCard } from "./GithubProjectCard";
+export { ErrorTypeCard } from "./ErrorTypeCard";
+export { ModuleReferenceCard } from "./ModuleReferenceCard";

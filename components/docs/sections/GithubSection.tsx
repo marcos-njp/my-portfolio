@@ -1,93 +1,14 @@
 import Link from "next/link";
 import { Github, ExternalLink, Star, Code, Globe } from "lucide-react";
+import { DocPageLayout, GithubProjectCard } from "@/components/docs/common";
+import { githubProjects } from "@/data/docs";
 
 export function GithubSection() {
-  const projects = [
-    {
-      name: "RAG Digital Twin Portfolio",
-      description: "Digital twin portfolio with RAG, MCP integration, and intelligent conversation system featuring personality modes, session memory, and semantic search.",
-      tech: ["Next.js 15", "TypeScript", "Groq AI", "Upstash Vector", "Upstash Redis", "Vercel AI SDK", "Tailwind CSS"],
-      github: "https://github.com/marcos-njp/my-portfolio-main-project",
-      demo: "https://m-njp.vercel.app",
-      highlights: [
-        "38 embedded knowledge chunks with STAR methodology",
-        "MCP server for Claude Desktop integration",
-        "Professional & GenZ personality modes",
-        "~25% token optimization (1k-2.5k per request)",
-        "Follow-up question understanding with pronouns",
-        "Copy & feedback mechanisms for UX"
-      ]
-    },
-    {
-      name: "Person Search with Authentication",
-      description: "Full-stack person directory with OAuth authentication, advanced filtering, sorting, and secure data management using PostgreSQL.",
-      tech: ["Next.js", "TypeScript", "OAuth 2.0", "PostgreSQL", "Prisma ORM", "NextAuth.js", "Tailwind CSS"],
-      github: "https://github.com/marcos-njp/person-search",
-      demo: "https://m-njp-person-search.vercel.app/",
-      highlights: [
-        "OAuth 2.0 authentication flow",
-        "Advanced search with multiple filters",
-        "Real-time sorting and pagination",
-        "Secure session management",
-        "Responsive design with accessibility",
-        "Database schema with relationships"
-      ]
-    },
-    {
-      name: "Base Prototype CV",
-      description: "Responsive portfolio showcasing projects, skills, and experience with dark mode support and smooth animations.",
-      tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
-      github: "https://github.com/marcos-njp/my-cv",
-      demo: "https://m-njp-simple.vercel.app/",
-      highlights: [
-        "Smooth scroll animations with Framer Motion",
-        "Dark/light theme toggle",
-        "Project showcase with modals",
-        "Contact form with validation",
-        "Fully responsive design",
-        "Optimized performance (90+ Lighthouse)"
-      ]
-    },
-    {
-      name: "AI Agent Development Setup",
-      description: "Comprehensive development environment setup with MCP server integration, AI tools, and automated workflows for agent development.",
-      tech: ["Python", "Node.js", "Docker", "MCP", "Claude AI", "VS Code Extensions"],
-      github: "https://github.com/marcos-njp/ai-agent-dev-setup-marcosnjp",
-      demo: null,
-      highlights: [
-        "MCP server configuration templates",
-        "Docker containerization for consistency",
-        "VS Code workspace settings",
-        "AI tool integration guides",
-        "Automated testing workflows",
-        "Documentation and best practices"
-      ]
-    },
-    {
-      name: "Prototype Movie Review",
-      description: "Movie review prototype built with Laravel framework, featuring Blade templating, MySQL database, and Tailwind CSS for styling.",
-      tech: ["Laravel", "PHP", "Blade", "MySQL", "Tailwind CSS"],
-      github: "https://github.com/marcos-njp/movie-app",
-      demo: null,
-      highlights: [
-        "Laravel Blade templating engine",
-        "MySQL database integration",
-        "Tailwind CSS for responsive design",
-        "MVC architecture pattern",
-        "Server-side rendering",
-        "PHP-based backend logic"
-      ]
-    }
-  ];
-
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight mb-3">GitHub Repositories</h1>
-        <p className="text-xl text-muted-foreground">
-          Comprehensive showcase of projects demonstrating full-stack development, AI integration, and modern web technologies.
-        </p>
-      </div>
+    <DocPageLayout
+      title="GitHub Repositories"
+      subtitle="Comprehensive showcase of projects demonstrating full-stack development, AI integration, and modern web technologies."
+    >
 
       {/* GitHub Profile Stats */}
       <section>
@@ -97,24 +18,24 @@ export function GithubSection() {
             <h2 className="text-2xl font-semibold">GitHub Profile</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            <div className="rounded-md bg-muted p-4 text-center">
-              <Star className="w-5 h-5 mx-auto mb-2 text-yellow-500" />
-              <p className="text-2xl font-bold">5+</p>
+            <div className="rounded-md bg-secondary p-4 text-center">
+              <Star className="w-5 h-5 mx-auto mb-2 text-foreground" strokeWidth={1.75} />
+              <p className="text-2xl font-medium">5+</p>
               <p className="text-xs text-muted-foreground">Public Repositories</p>
             </div>
-            <div className="rounded-md bg-muted p-4 text-center">
-              <Code className="w-5 h-5 mx-auto mb-2 text-blue-500" />
-              <p className="text-2xl font-bold">TypeScript</p>
+            <div className="rounded-md bg-secondary p-4 text-center">
+              <Code className="w-5 h-5 mx-auto mb-2 text-foreground" strokeWidth={1.75} />
+              <p className="text-2xl font-medium">TypeScript</p>
               <p className="text-xs text-muted-foreground">Primary Language</p>
             </div>
-            <div className="rounded-md bg-muted p-4 text-center">
-              <Globe className="w-5 h-5 mx-auto mb-2 text-green-500" />
-              <p className="text-2xl font-bold">3</p>
+            <div className="rounded-md bg-secondary p-4 text-center">
+              <Globe className="w-5 h-5 mx-auto mb-2 text-foreground" strokeWidth={1.75} />
+              <p className="text-2xl font-medium">3</p>
               <p className="text-xs text-muted-foreground">Live Deployments</p>
             </div>
-            <div className="rounded-md bg-muted p-4 text-center">
-              <Github className="w-5 h-5 mx-auto mb-2" />
-              <a 
+            <div className="rounded-md bg-secondary p-4 text-center">
+              <Github className="w-5 h-5 mx-auto mb-2" strokeWidth={1.75} />
+              <a
                 href="https://github.com/marcos-njp" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -132,68 +53,8 @@ export function GithubSection() {
       <section>
         <h2 className="text-2xl font-semibold mb-4">Featured Projects</h2>
         <div className="space-y-6">
-          {projects.map((project, index) => (
-            <div key={index} className="rounded-lg border p-6 hover:border-primary transition-colors">
-              <div className="mb-4">
-                <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
-                <p className="text-sm text-muted-foreground">{project.description}</p>
-              </div>
-
-              {/* Tech Stack */}
-              <div className="mb-4">
-                <p className="text-xs font-semibold text-muted-foreground mb-2">TECH STACK</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="text-xs px-2 py-1 rounded-md bg-primary/10 text-primary"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Highlights */}
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground mb-2">KEY FEATURES</p>
-                <ul className="grid md:grid-cols-2 gap-2 text-sm">
-                  {project.highlights.map((highlight, highlightIndex) => (
-                    <li key={highlightIndex} className="flex items-start gap-2">
-                      <span className="text-primary mt-0.5">•</span>
-                      <span className="text-muted-foreground">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Links */}
-              <div className="flex gap-3 mt-4 pt-4 border-t">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-primary hover:underline flex items-center gap-1"
-                >
-                  <Github className="w-4 h-4" />
-                  View Code
-                </a>
-                {project.demo && (
-                  <>
-                    <span className="text-muted-foreground">•</span>
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-primary hover:underline flex items-center gap-1"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                  </>
-                )}
-              </div>
-            </div>
+          {githubProjects.map((project, index) => (
+            <GithubProjectCard key={index} {...project} />
           ))}
         </div>
       </section>
@@ -205,7 +66,7 @@ export function GithubSection() {
           <div className="rounded-lg border p-4">
             <h3 className="font-semibold mb-3 text-sm">Frontend</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
-              <li>• Next.js 15 (App Router)</li>
+              <li>• Next.js 16 (App Router)</li>
               <li>• React with TypeScript</li>
               <li>• Tailwind CSS</li>
               <li>• Framer Motion</li>
@@ -216,22 +77,22 @@ export function GithubSection() {
           <div className="rounded-lg border p-4">
             <h3 className="font-semibold mb-3 text-sm">Backend & AI</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
-              <li>• Groq AI (llama-3.1-8b-instant)</li>
+              <li>• Groq AI (llama-3.3-70b-versatile)</li>
               <li>• Upstash Vector (RAG)</li>
               <li>• Upstash Redis (Sessions)</li>
-              <li>• PostgreSQL with Prisma</li>
-              <li>• OAuth 2.0 & NextAuth.js</li>
+              <li>• Firebase & NoSQL</li>
+              <li>• MCP server integration</li>
             </ul>
           </div>
 
           <div className="rounded-lg border p-4">
             <h3 className="font-semibold mb-3 text-sm">DevOps & Tools</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
-              <li>• Vercel Edge Runtime</li>
-              <li>• Docker Containerization</li>
-              <li>• Git Version Control</li>
-              <li>• MCP Protocol Integration</li>
-              <li>• VS Code Extensions</li>
+              <li>• Vercel deployment</li>
+              <li>• Cloudflare R2 storage</li>
+              <li>• Laravel Cloud</li>
+              <li>• Git & GitHub</li>
+              <li>• Agentic AI tooling</li>
             </ul>
           </div>
         </div>
@@ -307,6 +168,6 @@ export function GithubSection() {
           </div>
         </div>
       </section>
-    </div>
+    </DocPageLayout>
   );
 }
