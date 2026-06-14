@@ -28,16 +28,37 @@ interface Message {
   content: string;
 }
 
-// Initialize Groq AI
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY || '',
-});
+let groqClient: ReturnType<typeof createGroq> | null = null;
+let vectorIndex: Index | null = null;
 
-// Initialize Upstash Vector
-const vectorIndex = new Index({
-  url: process.env.UPSTASH_VECTOR_REST_URL || '',
-  token: process.env.UPSTASH_VECTOR_REST_TOKEN || '',
-});
+function getGroqClient() {
+  if (!process.env.GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY is missing');
+  }
+
+  if (!groqClient) {
+    groqClient = createGroq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
+  }
+
+  return groqClient;
+}
+
+function getVectorIndex() {
+  if (!process.env.UPSTASH_VECTOR_REST_URL || !process.env.UPSTASH_VECTOR_REST_TOKEN) {
+    throw new Error('Upstash Vector environment variables are missing');
+  }
+
+  if (!vectorIndex) {
+    vectorIndex = new Index({
+      url: process.env.UPSTASH_VECTOR_REST_URL,
+      token: process.env.UPSTASH_VECTOR_REST_TOKEN,
+    });
+  }
+
+  return vectorIndex;
+}
 
 // System prompt - personality-first, concise. Tone details come from personality.json via mood config.
 const SYSTEM_PROMPT = `You are Niño Justin Marcos's AI digital twin. Speak in first person as Niño ("I", "my", "me").
@@ -134,7 +155,7 @@ export async function POST(req: Request) {
     const faqContextHints = faqMatches.length > 0 ? buildContextHints(faqMatches) : '';
 
     // Vector search with RAG
-    const ragContext = await searchVectorContext(vectorIndex, searchQuery, {
+    const ragContext = await searchVectorContext(getVectorIndex(), searchQuery, {
       topK: RAG_THRESHOLDS.topK,
       minScore: RAG_THRESHOLDS.routeMinScore,
       includeMetadata: true,
@@ -184,7 +205,7 @@ export async function POST(req: Request) {
     const startTime = Date.now();
     
     const result = streamText({
-      model: groq('llama-3.3-70b-versatile'),
+      model: getGroqClient()('llama-3.3-70b-versatile'),
       system: finalSystemPrompt,
       messages,
       temperature: moodConfig.temperature,
