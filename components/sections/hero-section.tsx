@@ -1,62 +1,65 @@
-import { Button } from "@/components/ui/button"
-import { Github, Linkedin, Mail } from "lucide-react"
-import Link from "next/link"
+"use client"
+
 import Image from "next/image"
+import Link from "next/link"
+import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react"
+
+const LINKS = [
+  { href: "https://github.com/marcos-njp", label: "Github", icon: Github },
+  { href: "https://www.linkedin.com/in/niño-marcos/", label: "LinkedIn", icon: Linkedin },
+]
 
 export default function HeroSection() {
   return (
-    <section id="about" className="relative py-12 md:py-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-          {/* Photo - Compact Size */}
-          <div className="flex-shrink-0">
-            <div className="relative w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-border/50 shadow-sm">
-              <Image
-                src="/images/profile-photo.jpg"
-                alt="Niño Marcos"
-                fill
-                className="object-cover"
-                priority
-              />
+    <section id="about" className="relative overflow-hidden">
+      <div className="absolute inset-0 dot-grid-fine dark:dot-grid-fine-red opacity-50 pointer-events-none" />
+
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="grid md:grid-cols-[1fr_240px] gap-10 md:gap-14 items-center">
+          {/* Identity */}
+          <div>
+            <div className="flex items-center gap-2.5 mb-6">
+              <span className="nm-led nm-led-blink" />
+              <span className="nm-label-hero">Agentic AI Developer · Automation &amp; Project Management</span>
+            </div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[0.95] text-balance">
+              Niño Justin Marcos
+            </h1>
+
+            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-md leading-relaxed font-body">
+              Obsessed with the details. A perfectionist who can&apos;t unsee an inconsistency, and builds systems that hold up to it.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-2.5">
+              {LINKS.map(({ href, label, icon: Icon }) => (
+                <Link key={label} href={href} target="_blank" rel="noopener noreferrer" className="nm-link nm-hover">
+                  <Icon className="w-3.5 h-3.5" /> {label} <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
+              ))}
+              <Link href="mailto:justinpmarcos@gmail.com" className="nm-link nm-link-accent">
+                <Mail className="w-3.5 h-3.5" /> Email <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="flex-1 text-center md:text-left space-y-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
-                Niño Marcos
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Full Stack Developer
-              </p>
-            </div>
-
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl">
-              Building digital experiences with modern technologies. Focused on creating elegant solutions to
-              complex problems.
-            </p>
-
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-              <Link href="https://github.com/marcos-njp" target="_blank">
-                <Button variant="outline" size="sm" className="h-8 px-3">
-                  <Github className="h-3.5 w-3.5 mr-1.5" />
-                  <span className="text-xs">GitHub</span>
-                </Button>
-              </Link>
-              <Link href="https://www.linkedin.com/in/niño-marcos/" target="_blank">
-                <Button variant="outline" size="sm" className="h-8 px-3">
-                  <Linkedin className="h-3.5 w-3.5 mr-1.5" />
-                  <span className="text-xs">LinkedIn</span>
-                </Button>
-              </Link>
-              <Link href="mailto:justinpmarcos@gmail.com">
-                <Button variant="outline" size="sm" className="h-8 px-3">
-                  <Mail className="h-3.5 w-3.5 mr-1.5" />
-                  <span className="text-xs">Email</span>
-                </Button>
-              </Link>
-            </div>
+          {/* Portrait */}
+          <div className="relative w-44 md:w-full max-w-[240px] mx-auto aspect-[4/5] nm-panel">
+            <Image
+              src="/images/profile-photo.jpg"
+              alt="Niño Justin Marcos"
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Corner marks in red (visible in both modes) */}
+            <span className="pointer-events-none absolute -top-px -left-px w-3 h-3 border-t border-l border-primary" />
+            <span className="pointer-events-none absolute -top-px -right-px w-3 h-3 border-t border-r border-primary" />
+            <span className="pointer-events-none absolute -bottom-px -left-px w-3 h-3 border-b border-l border-primary" />
+            <span className="pointer-events-none absolute -bottom-px -right-px w-3 h-3 border-b border-r border-primary" />
+            <span className="absolute bottom-0 inset-x-0 bg-background/85 backdrop-blur-sm border-t border-border py-1.5 text-center nm-label-sm">
+              ID · 001
+            </span>
           </div>
         </div>
       </div>

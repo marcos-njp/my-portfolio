@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +15,7 @@ export function ChatFeaturesModal() {
     {
       icon: Bot,
       title: "AI-Powered Responses",
-      description: "Uses Groq AI with llama-3.1-8b-instant model for fast, intelligent responses about my background, skills, and projects.",
+      description: "Uses Groq AI with llama-3.3-70b-versatile model for fast, intelligent responses about my background, skills, and projects.",
     },
     {
       icon: Sparkles,
@@ -25,8 +24,8 @@ export function ChatFeaturesModal() {
     },
     {
       icon: MessageSquare,
-      title: "RAG Architecture",
-      description: "Retrieval-Augmented Generation with Upstash Vector Database searches 38 knowledge chunks with 75% relevance threshold.",
+      title: "Retrieval & Response Flow",
+      description: "Retrieval-Augmented Generation with Upstash Vector searches the knowledge base with a 75% relevance threshold.",
     },
     {
       icon: Zap,
@@ -58,14 +57,9 @@ export function ChatFeaturesModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-7 text-xs gap-1 hover:bg-primary/20 hover:text-primary dark:hover:bg-primary/30 dark:hover:text-primary-foreground transition-colors"
-        >
-          <Info className="h-3.5 w-3.5" />
-          Features
-        </Button>
+        <button className="nm-link nm-hover">
+          <Info className="w-3.5 h-3.5" /> features
+        </button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
@@ -88,8 +82,8 @@ export function ChatFeaturesModal() {
                   key={index}
                   className="flex gap-3 p-3 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
-                    <feature.icon className="h-4 w-4 text-primary" />
+                  <div className="flex-shrink-0 w-8 h-8 rounded-md bg-secondary flex items-center justify-center">
+                    <feature.icon className="h-4 w-4 text-foreground" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-sm mb-1">{feature.title}</h4>
@@ -121,16 +115,16 @@ export function ChatFeaturesModal() {
             <div className="flex flex-wrap gap-2">
               {[
                 "Groq AI",
-                "llama-3.1-8b-instant",
+                "llama-3.3-70b-versatile",
                 "Upstash Vector",
                 "Upstash Redis",
                 "Vercel AI SDK",
-                "Next.js 15",
+                "Next.js 16",
                 "TypeScript",
               ].map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-medium"
+                  className="font-mono text-[11px] tracking-wide border border-border rounded-full px-3 py-1"
                 >
                   {tech}
                 </span>
@@ -140,7 +134,7 @@ export function ChatFeaturesModal() {
 
           {/* Usage Tips */}
           <div className="p-3 rounded-lg bg-muted/50 border">
-            <h3 className="font-semibold mb-2 text-sm">💡 Tips for Best Results</h3>
+            <h3 className="font-semibold mb-2 text-sm">Tips for Best Results</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
               <li>• Use smart suggested questions for guided conversation flow</li>
               <li>• Try personality modes - error messages adapt to selected mood</li>

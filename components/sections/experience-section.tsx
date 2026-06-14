@@ -1,78 +1,140 @@
-import { Briefcase, Trophy, ExternalLink } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowUpRight } from "lucide-react"
 
-const experiences = [
+interface ExperienceLink {
+  label: string
+  href: string
+}
+
+interface Experience {
+  period: string
+  label: string
+  accent?: boolean
+  title: string
+  organization: string
+  location?: string
+  description: string
+  image?: string
+  imageAlt?: string
+  imageFit?: "cover" | "contain"
+  links?: ExperienceLink[]
+}
+
+const experiences: Experience[] = [
   {
-    type: "education",
-    title: "IT Student",
-    organization: "School of Information Technology and Engineering",
-    period: "Present",
-    description: "Pursuing Bachelor of Science in Information Technology with focus on Web Development",
-    icon: Briefcase
+    period: "Since Sep 2024",
+    label: "Organization",
+    accent: true,
+    title: "Vice President of External Affairs",
+    organization: "Junior Philippine Computer Society · SPUP Chapter",
+    location: "St. Paul University Philippines",
+    description:
+      "I lead external affairs for the student developer community, handling partnerships, sponsorships, and outreach with organizations beyond the campus.",
+    links: [{ label: "JPCS SPUP", href: "https://www.facebook.com/SPUPJPCSofficial" }],
   },
   {
-    type: "competition",
-    title: "4th Place - Programming Skills Excellence",
-    organization: "STEAM International Challenge 2018 (Competition)",
-    period: "November 2018",
-    location: "Shenzhen, China",
-    description: "International Robotics Competition - Represented Team Philippines among 118 teams from 5 countries",
-    icon: Trophy,
-    proofLink: "https://www.facebook.com/StPaulUniversityPhilippines/posts/caritas-christi-urget-nos-spup-beu-robotics-team-clinches-international-awards-b/1909122265809145/"
+    period: "Sep to Dec 2025",
+    label: "Internship",
+    title: "Fullstack & Agentic AI Developer",
+    organization: "Industry Project Internship · Employability Advantage",
+    location: "with AusBiz Consulting (Australia)",
+    description:
+      "A 10-week hands-on industry engagement building production fullstack and agentic AI features, mentored by industry experts. Worked through real project requirements end to end, from setup to delivery.",
+    links: [
+      { label: "Verify credential", href: "https://www.credential.net/1d20c9dd-811a-4fa9-9e6d-66dbda7969d8" },
+      { label: "Certificate", href: "/pdf/statement-of-completion.pdf" },
+    ],
   },
   {
-    type: "competition",
-    title: "5th Place - Excellence Award",
-    organization: "6th Robothon National Competition (Competition)",
-    period: "October 2018",
-    location: "Quezon City, Philippines",
-    description: "National Robotics Competition - Represented St. Paul University Philippines among 43 schools",
-    icon: Trophy,
-    proofLink: "https://www.facebook.com/StPaulUniversityPhilippines/posts/caritas-christi-urget-nos-spup-beu-secures-victory-in-robothon-national-competit/1867646416623397/"
-  }
+    period: "2025",
+    label: "Competition",
+    title: "Semi-Finalist · Group Stage 4",
+    organization: "CodeChum National Programming Challenge 2025, Season 2",
+    description:
+      "Advanced to the semi-finals of a national competitive programming challenge, solving timed algorithmic problems against teams across the country.",
+    image: "/images/codechum-m-njp.png",
+    imageAlt: "CodeChum National Programming Challenge 2025 certificate",
+    imageFit: "contain",
+    links: [{ label: "View certificate", href: "https://app.codechum.com/certificates/19945" }],
+  },
+  {
+    period: "Nov 2018",
+    label: "International",
+    title: "Programming Skills Excellence · 4th of 118 teams",
+    organization: "2018 STEAM International Challenge (国际挑战赛), Robotics",
+    location: "Shenzhen, Guangdong, China",
+    description:
+      "Represented Team Philippines at 14 years old. The time-attack event was co-organized by the Hong Kong Vocational Technical School and joined by 118 teams from China, Indonesia, the Philippines, Thailand, South Korea, and Vietnam, across three subcategories: Physical Programming, Virtual Programming, and VEX IQ Controller Teamwork.",
+    image: "/images/main-pic-china-robotics-intl-competition.jpg",
+    imageAlt: "STEAM International Challenge 2018 in Shenzhen, China",
+    imageFit: "cover",
+  },
+  {
+    period: "Oct 2018",
+    label: "National",
+    title: "Excellence Award · 5th of 43 schools",
+    organization: "6th Robothon National Competition",
+    location: "Trinity University of Asia, Quezon City",
+    description:
+      "Represented the St. Paul University Philippines Basic Education Unit Robotics Team at 14, competing against 43 schools nationwide in robotics programming challenges.",
+    image: "/images/trinity-univ-of-asia-natl-competition.jpg",
+    imageAlt: "6th Robothon National Competition at Trinity University of Asia",
+    imageFit: "cover",
+  },
 ]
 
 export default function ExperienceSection() {
   return (
-    <div className="space-y-3">
-      {experiences.map((exp, index) => (
-        <div key={index} className="rounded-lg border bg-card p-4 hover:shadow-md transition-shadow">
-          <div className="flex items-start gap-3">
-            {/* Icon */}
-            <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${
-              exp.type === 'competition' ? 'bg-yellow-500/10' : 'bg-primary/10'
-            }`}>
-              <exp.icon className={`h-5 w-5 ${
-                exp.type === 'competition' ? 'text-yellow-600 dark:text-yellow-500' : 'text-primary'
-              }`} />
-            </div>
-            
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between gap-2 mb-1">
-                <h3 className="font-semibold text-sm">{exp.title}</h3>
-                <span className="text-xs text-muted-foreground whitespace-nowrap">{exp.period}</span>
+    <div className="border-t border-border">
+      {experiences.map((exp, i) => (
+        <div key={i} className="grid md:grid-cols-[150px_1fr] gap-3 md:gap-6 py-7 border-b border-border">
+          <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-2.5">
+            <span className="nm-label">{exp.period}</span>
+            <span
+              className={`nm-label-sm rounded-full px-2.5 py-1 border ${
+                exp.accent ? "text-primary border-primary" : "text-muted-foreground border-border"
+              }`}
+            >
+              {exp.label}
+            </span>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-medium tracking-tight">{exp.title}</h3>
+            <p className="mt-1.5 nm-label">
+              {exp.organization}
+              {exp.location ? ` · ${exp.location}` : ""}
+            </p>
+            <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed max-w-2xl">{exp.description}</p>
+
+            {exp.image && (
+              <div className="mt-4 relative w-full max-w-md aspect-[16/10] nm-panel overflow-hidden">
+                <Image
+                  src={exp.image}
+                  alt={exp.imageAlt ?? exp.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 448px"
+                  className={exp.imageFit === "contain" ? "object-contain p-3 bg-card" : "object-cover"}
+                />
               </div>
-              <p className="text-xs text-muted-foreground mb-2">
-                {exp.organization}{exp.location ? ` • ${exp.location}` : ''}
-              </p>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
-                {exp.description}
-              </p>
-              
-              {/* Proof Link */}
-              {exp.proofLink && (
-                <Link 
-                  href={exp.proofLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-                >
-                  <ExternalLink className="h-3 w-3" />
-                  View Article
-                </Link>
-              )}
-            </div>
+            )}
+
+            {exp.links && exp.links.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2.5">
+                {exp.links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nm-link nm-hover"
+                  >
+                    {l.label} <ArrowUpRight className="w-3.5 h-3.5" />
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       ))}
