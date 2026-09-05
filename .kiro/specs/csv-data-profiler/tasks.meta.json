@@ -1,0 +1,588 @@
+{
+  "pbtResults": {
+    "3.5 Write property test for row accounting": {
+      "status": "passed",
+      "lastRunTimestamp": 1788595185080
+    },
+    "2.6 Write property test for type inference row-order independence": {
+      "status": "passed",
+      "lastRunTimestamp": 1788595216523
+    },
+    "3.6 Write property test for quartile ordering": {
+      "status": "passed",
+      "lastRunTimestamp": 1788595274720
+    },
+    "3.7 Write property test for correlation bounds": {
+      "status": "passed",
+      "lastRunTimestamp": 1788595544800
+    },
+    "3.8 Write property test for profiling determinism and non-mutation": {
+      "status": "passed",
+      "lastRunTimestamp": 1788595549722
+    },
+    "6.3 Write property test for quality score arithmetic": {
+      "status": "passed",
+      "lastRunTimestamp": 1788612815611
+    },
+    "6.4 Write property test for the clean-dataset score": {
+      "status": "passed",
+      "lastRunTimestamp": 1788612836267
+    },
+    "8.4 Write property test for CSV parse round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1788614671343
+    }
+  },
+  "executionHistory": {
+    "1.1 Install pinned dependencies with pnpm": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590027769
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590057491
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590398427
+      }
+    ],
+    "1.2 Add `vitest.config.ts` and one-shot test scripts": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590027902
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590412445
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590678176
+      }
+    ],
+    "1.3 Create `lib/data-profiler/types.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028011
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590064291
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590404514
+      }
+    ],
+    "1.4 Create `lib/data-profiler/constants.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028096
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590065351
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590405835
+      }
+    ],
+    "2.1 Implement `lib/data-profiler/values.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028190
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590413566
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590683911
+      }
+    ],
+    "2.2 Write unit tests for `values.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028319
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590690604
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590944408
+      }
+    ],
+    "2.3 Create the fast-check arbitraries in `lib/data-profiler/__tests__/generators.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028437
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590963030
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788591567484
+      }
+    ],
+    "2.4 Implement `lib/data-profiler/type-inference.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028556
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590691988
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590951978
+      }
+    ],
+    "2.5 Write unit tests for `type-inference.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028701
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590960605
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788591559473
+      }
+    ],
+    "3.1 Implement `lib/data-profiler/stats.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028794
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590693190
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590953081
+      }
+    ],
+    "3.2 Write unit tests for `stats.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028871
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590961587
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788591568313
+      }
+    ],
+    "3.3 Implement `lib/data-profiler/profiler.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590028948
+      },
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788591576594
+      },
+      {
+        "executionId": "bd849d5e-e762-4f34-9eee-22249fac8cf3",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788592367458
+      }
+    ],
+    "3.4 Write unit tests for `profiler.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029029
+      },
+      {
+        "executionId": "bd849d5e-e762-4f34-9eee-22249fac8cf3",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788592375643
+      },
+      {
+        "executionId": "bd849d5e-e762-4f34-9eee-22249fac8cf3",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788592869922
+      }
+    ],
+    "4. Checkpoint - analysis core": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029164
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595044928
+      }
+    ],
+    "5.1 Implement `lib/data-profiler/chart-recommender.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029245
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595053046
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595437962
+      }
+    ],
+    "5.2 Write unit tests for `chart-recommender.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029330
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595448090
+      }
+    ],
+    "6.1 Implement `lib/data-profiler/quality-scorer.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029418
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595054041
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595438995
+      }
+    ],
+    "6.2 Write unit tests for `quality-scorer.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029569
+      },
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595448221
+      }
+    ],
+    "7. Checkpoint - recommendation and scoring": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029669
+      }
+    ],
+    "8.1 Implement `lib/data-profiler/csv-serialize.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029766
+      }
+    ],
+    "8.2 Implement `lib/data-profiler/csv-parse.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029866
+      }
+    ],
+    "8.3 Write unit tests for `csv-parse.ts` and `csv-serialize.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590029950
+      }
+    ],
+    "8.5 Add the sample CSV assets and their index": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030047
+      }
+    ],
+    "8.6 Implement `lib/data-profiler/sample-loader.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030148
+      }
+    ],
+    "8.7 Implement `lib/data-profiler/download.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030280
+      }
+    ],
+    "9.1 Implement `lib/data-profiler/insight-schema.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030401
+      }
+    ],
+    "9.2 Implement `lib/data-profiler/insight-payload.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030486
+      }
+    ],
+    "9.3 Write unit tests for payload construction": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030576
+      }
+    ],
+    "9.4 Implement `lib/rate-limit.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030663
+      }
+    ],
+    "9.5 Implement `app/api/profile-insights/route.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030757
+      }
+    ],
+    "9.6 Write tests for `/api/profile-insights`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590030855
+      }
+    ],
+    "9.7 Implement `lib/data-profiler/insight-client.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031048
+      }
+    ],
+    "10. Checkpoint - server boundary": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031150
+      }
+    ],
+    "11.1 Implement `lib/data-profiler/report-exporter.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031248
+      }
+    ],
+    "11.2 Write unit tests for `report-exporter.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031457
+      }
+    ],
+    "12.1 Implement `lib/data-profiler/use-profiler.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031643
+      }
+    ],
+    "12.2 Write tests for `use-profiler.ts`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031732
+      }
+    ],
+    "13.1 Create the `ProgressBar` primitive at `components/ui/progress-bar.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031825
+      }
+    ],
+    "13.2 Build `intake-panel.tsx` and `parse-progress.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590031935
+      }
+    ],
+    "13.3 Build `profile-summary.tsx`, `column-profile-table.tsx`, and `correlation-list.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032078
+      }
+    ],
+    "13.4 Build `chart-grid.tsx`, `chart-card.tsx`, and `chart-text-alternative.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032163
+      }
+    ],
+    "13.6 Build `quality-panel.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032253
+      }
+    ],
+    "13.7 Build `insight-panel.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032349
+      }
+    ],
+    "13.8 Build `export-controls.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032476
+      }
+    ],
+    "13.9 Build `profiler-explainer.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032614
+      }
+    ],
+    "14.1 Create `app/playground/layout.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032708
+      }
+    ],
+    "14.2 Create `app/playground/data-profiler/page.tsx` and `content.tsx`": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032794
+      }
+    ],
+    "14.3 Write no-transmission tests for the composed page": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032887
+      }
+    ],
+    "16. Final checkpoint": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590032980
+      }
+    ],
+    "1. Scaffolding: dependencies, test harness, shared types and constants": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788590678274
+      }
+    ],
+    "2. Value classification and column type inference": [
+      {
+        "executionId": "6466bbc7-6edb-4a80-89c7-1310bdc1ff4f",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788591567589
+      }
+    ],
+    "3. Statistical profiling": [
+      {
+        "executionId": "bd849d5e-e762-4f34-9eee-22249fac8cf3",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788592870066
+      }
+    ],
+    "2.6 Write property test for type inference row-order independence": [
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595427275
+      }
+    ],
+    "3.5 Write property test for row accounting": [
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595435517
+      }
+    ],
+    "3.6 Write property test for quartile ordering": [
+      {
+        "executionId": "aa9a5563-e110-4568-8444-e1e5e7a2cf4e",
+        "chatSessionId": "sess_f70985f5-3109-4c93-9986-2b0481ae9518",
+        "timestamp": 1788595436441
+      }
+    ]
+  }
+}

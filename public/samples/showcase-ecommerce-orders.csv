@@ -1,0 +1,453 @@
+order_id,order_date,shipped_at,city,product_category,payment_method,quantity,unit_price,revenue,discount_pct,customer_rating,delivery_notes,tracking_ref,customer_ref
+ORD-00001,2024-01-01,,Iloilo City,Beauty,GCash,3,818.45,pending,58.4,4,,,+63 917 000 0001
+ORD-00002,2024-01-01,2024-01-04T17:41:00+08:00,Muntinlupa,Sports,Bank Transfer,9,3254.36,26717.51,8.1,,,,WALK-IN
+ORD-00003,2024-01-02,2024-01-04T13:31:00+08:00,Las Piñas,Sports,Cash on Delivery,1,541.56,433.82,19.4,4,Barangay hall pickup,,
+ORD-00004,2024-01-03,2024-01-08T10:20:00+08:00,Quezon City,Groceries,Cash on Delivery,3,878.37,2536.62,,,Barangay hall pickup,trk00004,CUST-0004
+,2024-04-12,2024-04-17T10:18:00+08:00,Quezon City,Home & Kitchen,GCash,5,547.31,,8.6,1,Attempt #0110 — rider note D155,PH-00110-X,cust.0110@mail.test
+ORD-00005,2024-01-04,2024-01-07T17:21:00+08:00,Baguio,Beauty,Credit Card,11,629.08,6746.73,5.2,5,,,WALK-IN
+,2024-07-17,2024-07-22T12:50:00+08:00,Parañaque,Apparel,Bank Transfer,6,588.41,3083.68,,,,PENDING-ASSIGN,cust.0212@mail.test
+ORD-00006,2024-01-05,2024-01-09T12:24:00+08:00,Cagayan de Oro,Beauty,Credit Card,10,931.51,8781.29,5.5,,,trk00006,
+,2024-10-22,,Dasmariñas,Sports,Cash on Delivery,1,458.93,401.3,11.3,,Attempt #0314 — rider note A236,trk00314,CUST-0314
+ORD-00007,2024-01-06,2024-01-07T06:50:00+08:00,Quezon City,Toys,Maya,4,555.85,2115.81,2.6,5,,trk00007,+63 917 000 0007
+,2024-01-07,2024-01-11T18:22:00Z,Baguio,Electronics,GCash,5,349.5,1643.13,,2,,PENDING-ASSIGN,+63 917 000 0008
+ORD-00009,2024-01-08,,Muntinlupa,Apparel,Maya,180,816.56,131667.43,10.4,1,,,+63 917 000 0009
+ORD-00010,2024-01-09,2024-01-13T18:09:00+08:00,Cagayan de Oro,Sports,Cash on Delivery,12,4390.24,42558.19,19.9,4,Attempt #0010 — rider note D437,PH-00010-X,CUST-0010
+ORD-00011,2024-01-10,,Baguio,Apparel,Bank Transfer,4,563.58,2014.67,8,3,,TRK-2024-00011,WALK-IN
+ORD-00012,,,Cagayan de Oro,Groceries,GCash,5,449.18,1951.16,15.3,,Attempt #0012 — rider note B883,trk00012,
+ORD-00013,2024-01-12,2024-01-16T07:53:00+08:00,Muntinlupa,Books,Bank Transfer,3,554.72,1512.8,8.6,,Attempt #0013 — rider note D305,trk00013,
+ORD-00014,2024-01-13,2024-01-14T08:35:00Z,Zamboanga,Toys,Credit Card,11,794.18,8464.95,2.3,5,Attempt #0014 — rider note C147,trk00014,cust.0014@mail.test
+ORD-00015,2024-01-14,2024-01-19T09:27:00+08:00,,Toys,Cash on Delivery,11,666.97,6250.92,,4,Barangay hall pickup,trk00015,cust.0015@mail.test
+ORD-00016,2024-01-15,2024-01-17T07:23:00+08:00,Cebu City,Beauty,Cash on Delivery,7,389.58,2244.31,18.6,,,trk00016,
+ORD-00017,2024-01-16,2024-01-18T14:20:00Z,Parañaque,Books,Bank Transfer,8,645.28,4280.65,16.7,2,Attempt #0017 — rider note C267,,WALK-IN
+ORD-00018,2024-01-17,2024-01-21T13:34:00+08:00,Baguio,Groceries,,169,,107556.84,,1,,TRK-2024-00018,cust.0018@mail.test
+ORD-00019,2024-01-17,,,Apparel,Credit Card,10,779.37,N/A,5,4,Attempt #0019 — rider note A396,trk00019,WALK-IN
+ORD-00020,2024-01-18,2024-01-20T10:31:00+08:00,Baguio,Electronics,Bank Transfer,3,812.89,2053.32,17.8,,,trk00020,cust.0020@mail.test
+ORD-00021,2024-01-19,2024-01-22T17:54:00+08:00,Baguio,Toys,Maya,10,,4467.21,0.5,2,Attempt #0021 — rider note B578,,
+ORD-00022,2024-01-20,2024-01-24T12:33:00+08:00,Davao City,Groceries,Cash on Delivery,11,801.38,8696.77,,5,Attempt #0022 — rider note D742,,cust.0022@mail.test
+ORD-00023,2024-01-21,2024-01-26T08:37:00+08:00,Muntinlupa,Home & Kitchen,Maya,10,399.08,3533.73,9,1,Attempt #0023 — rider note A690,trk00023,cust.0023@mail.test
+ORD-00024,2024-01-22,,Cebu City,Home & Kitchen,Maya,11,474.6,4426.13,,2,,PH-00024-X,
+,2024-03-11,2024-03-14T09:10:00+08:00,Parañaque,Apparel,Maya,2,,767.67,7.9,4,,PH-00076-X,WALK-IN
+,2024-01-23,,Dasmariñas,Apparel,Cash on Delivery,293,432.52,114553.41,,5,Contact before arrival,PENDING-ASSIGN,
+,2024-06-15,2024-06-16T12:04:00Z,Davao City,Books,,7,379.37,817.79,68.7,2,,trk00178,+63 917 000 0178
+ORD-00026,2024-01-24,,Zamboanga,,Cash on Delivery,371,470.79,158854.78,10.1,,Attempt #0026 — rider note A385,,CUST-0026
+,2024-09-20,,Davao City,Beauty,Maya,,326.33,1146.52,60.2,4,"Buyer said ""urgent"" delivery",trk00280,WALK-IN
+ORD-00027,2024-01-25,2024-01-27T19:57:00+08:00,Iloilo City,Apparel,Cash on Delivery,12,331.23,3922.47,,,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,WALK-IN
+ORD-00028,,2024-01-28T06:58:00+08:00,Muntinlupa,Apparel,Cash on Delivery,9,918.11,6964.06,,,,PENDING-ASSIGN,
+ORD-00029,2024-01-27,,Iloilo City,Groceries,,8,708.8,4769.39,17.6,,Attempt #0029 — rider note B202,PH-00029-X,cust.0029@mail.test
+ORD-00030,2024-01-28,2024-01-31T11:52:00+08:00,Muntinlupa,Apparel,Cash on Delivery,8,784.11,5584.22,8.4,5,,PENDING-ASSIGN,CUST-0030
+ORD-00031,2024-01-29,2024-01-30T10:43:00+08:00,Iloilo City,Apparel,GCash,213,422.14,34347.48,61.8,1,,PENDING-ASSIGN,WALK-IN
+ORD-00032,2024-01-30,,Dasmariñas,Groceries,Cash on Delivery,5,404.43,1766.25,,,,trk00032,
+ORD-00033,2024-01-31,,,Sports,Cash on Delivery,4,727.83,2891.67,2.7,5,Contact before arrival,PENDING-ASSIGN,
+ORD-00034,2024-02-01,2024-02-03T07:16:00+08:00,Davao City,Home & Kitchen,Maya,12,878.59,10476.62,1.6,,,TRK-2024-00034,CUST-0034
+ORD-00035,,,Baguio,Toys,Credit Card,7,3759.13,26004.67,3.1,3,Attempt #0035 — rider note A533,TRK-2024-00035,CUST-0035
+ORD-00036,2024-02-03,,Quezon City,Groceries,Bank Transfer,8,659.27,,10.2,,,PENDING-ASSIGN,WALK-IN
+ORD-00037,2024-02-03,2024-02-05T08:45:00+08:00,Iloilo City,Apparel,Credit Card,2,823.79,392.05,76.8,2,,,CUST-0037
+ORD-00038,2024-02-04,,Dasmariñas,Apparel,Bank Transfer,11,3536.08,32000.03,19.3,4,Attempt #0038 — rider note B704,PH-00038-X,CUST-0038
+ORD-00039,2024-02-05,,Iloilo City,Electronics,Cash on Delivery,3,382.83,1033.86,,2,Attempt #0039 — rider note C303,TRK-2024-00039,cust.0039@mail.test
+ORD-00040,2024-02-06,,Baguio,Sports,GCash,1,501.8,436.82,13.5,4,"Gift wrap requested, no invoice inside",PENDING-ASSIGN,cust.0040@mail.test
+ORD-00041,2024-02-07,2024-02-10T18:57:00Z,Baguio,,Bank Transfer,5,770.87,,10.5,5,Attempt #0041 — rider note B997,trk00041,CUST-0041
+,2024-02-08,,Cagayan de Oro,Beauty,Credit Card,2,605.28,285.31,75.9,,,TRK-2024-00042,
+ORD-00043,2024-02-09,,,Home & Kitchen,Bank Transfer,2,,pending,5.3,3,,PENDING-ASSIGN,CUST-0043
+ORD-00044,2024-02-10,2024-02-11T06:32:00+08:00,Iloilo City,,Credit Card,6,512.51,,,3,,TRK-2024-00044,WALK-IN
+,2024-02-08,,Cagayan de Oro,Beauty,Credit Card,2,605.28,285.31,75.9,,,TRK-2024-00042,
+ORD-00045,2024-02-11,2024-02-15T06:50:00+08:00,Cagayan de Oro,Apparel,Cash on Delivery,2,484.57,856.44,14.2,,,PH-00045-X,+63 917 000 0045
+,2024-05-14,2024-05-15T07:17:00Z,Cebu City,Beauty,Maya,6,629.57,3055.87,16.9,3,"Gift wrap requested, no invoice inside",PH-00144-X,
+ORD-00046,,,Iloilo City,Books,GCash,9,705.92,6119.13,6.4,1,,PH-00046-X,+63 917 000 0046
+,2024-08-19,2024-08-24T17:32:00+08:00,Dasmariñas,Electronics,Credit Card,169,781.78,116824.73,13,3,配達済み — 玄関前に置いた,PENDING-ASSIGN,CUST-0246
+ORD-00047,2024-02-13,,,Groceries,,4,,1521.81,,1,Attempt #0047 — rider note A450,,
+,2024-12-09,2024-12-12T16:29:00+08:00,Zamboanga,Apparel,Maya,11,807.53,2126.57,,1,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,cust.0365@mail.test
+ORD-00048,2024-02-14,2024-02-15T09:08:00Z,Davao City,Groceries,Credit Card,4,554.65,1790.35,17.5,1,Attempt #0048 — rider note A922,PENDING-ASSIGN,CUST-0048
+ORD-00049,2024-02-15,2024-02-18T06:01:00Z,Parañaque,,GCash,10,640.65,5656.5,10.2,3,,,
+ORD-00050,2024-02-16,2024-02-20T08:26:00+08:00,,Sports,Bank Transfer,3,671.3,1735.97,14.8,5,,trk00050,
+ORD-00051,2024-02-17,,,Beauty,Credit Card,8,706.01,5238.32,9.6,3,,PENDING-ASSIGN,cust.0051@mail.test
+ORD-00052,2024-02-18,2024-02-21T11:15:00+08:00,Las Piñas,Apparel,Bank Transfer,11,862.94,7973.98,,1,Barangay hall pickup,,
+ORD-00053,2024-02-19,,Parañaque,Sports,GCash,12,,1736.37,69,5,Attempt #0053 — rider note B104,PH-00053-X,
+ORD-00054,2024-02-19,,Cagayan de Oro,Books,Maya,3,673.4,1966.52,4.5,,"Leave at gate, ring twice",PH-00054-X,
+ORD-00055,2024-02-20,2024-02-21T17:48:00+08:00,Zamboanga,Home & Kitchen,Credit Card,6,337.27,1660.61,17.2,,,PH-00055-X,
+ORD-00056,2024-02-21,2024-02-26T10:02:00Z,Iloilo City,Apparel,GCash,7,377.96,2118.63,,1,Attempt #0056 — rider note B769,TRK-2024-00056,+63 917 000 0056
+ORD-00057,2024-02-22,2024-02-23T14:01:00Z,Muntinlupa,Beauty,Credit Card,12,3504.47,,,4,"Gift wrap requested, no invoice inside",PH-00057-X,
+ORD-00058,2024-02-23,,Quezon City,Home & Kitchen,Bank Transfer,6,469.07,2578.51,10.4,5,Barangay hall pickup,PH-00058-X,cust.0058@mail.test
+,2024-02-24,not shipped,Las Piñas,,Bank Transfer,10,849.19,7366.77,11.1,5,Attempt #0059 — rider note C441,,cust.0059@mail.test
+ORD-00060,2024-02-25,,Cagayan de Oro,Books,Maya,7,543.8,3370.21,12.9,1,Attempt #0060 — rider note B389,PH-00060-X,WALK-IN
+ORD-00061,2024-02-26,2024-03-02T13:08:00Z,Cagayan de Oro,Toys,GCash,12,,1399.13,,,,PH-00061-X,+63 917 000 0061
+ORD-00062,2024-02-27,2024-03-01T16:39:00Z,Iloilo City,Electronics,Cash on Delivery,3,675.4,1869.71,5.6,3,,PH-00062-X,+63 917 000 0062
+ORD-00063,2024-02-28,2024-03-02T14:22:00+08:00,Cagayan de Oro,Books,Credit Card,9,775.8,2036.33,70.1,3,,PH-00063-X,+63 917 000 0063
+ORD-00064,2024-02-29,,Quezon City,Apparel,Bank Transfer,1,4338.64,1798.99,,2,Attempt #0064 — rider note B888,trk00064,cust.0064@mail.test
+,2024-01-07,2024-01-11T18:22:00Z,Baguio,Electronics,GCash,5,349.5,1643.13,,2,,PENDING-ASSIGN,+63 917 000 0008
+ORD-00065,2024-03-01,,Iloilo City,Books,Credit Card,12,712.74,7845.53,6.8,5,"Buyer said ""urgent"" delivery",TRK-2024-00065,CUST-0065
+,2024-04-12,2024-04-17T10:18:00+08:00,Quezon City,Home & Kitchen,GCash,5,547.31,,8.6,1,Attempt #0110 — rider note D155,PH-00110-X,cust.0110@mail.test
+ORD-00066,2024-03-02,,Davao City,Beauty,Cash on Delivery,4,647.22,592.11,76.7,1,,PH-00066-X,CUST-0066
+,2024-07-17,2024-07-22T12:50:00+08:00,Parañaque,Apparel,Bank Transfer,6,588.41,3083.68,,,,PENDING-ASSIGN,cust.0212@mail.test
+ORD-00067,2024-03-03,2024-03-08T16:55:00+08:00,Bacoor,Books,Maya,5,508.05,443.22,82.5,2,Attempt #0067 — rider note D158,,cust.0067@mail.test
+,2024-11-07,2024-11-08T12:34:00+08:00,Baguio,Books,GCash,426,934.73,145869.74,64.1,5,,TRK-2024-00331,
+ORD-00068,2024-03-04,2024-03-05T15:19:00+08:00,Cagayan de Oro,Groceries,Credit Card,9,4243.15,15325.68,60.7,2,,PENDING-ASSIGN,+63 917 000 0068
+ORD-00069,2024-03-05,2024-03-10T17:57:00+08:00,Dasmariñas,Beauty,Bank Transfer,2,4021,8093.66,1.2,2,Attempt #0069 — rider note D118,TRK-2024-00069,
+ORD-00070,2024-03-06,,Quezon City,Apparel,GCash,1,460.78,411.65,9.3,5,,PENDING-ASSIGN,cust.0070@mail.test
+ORD-00071,2024-03-07,2024-03-12T07:01:00+08:00,Dasmariñas,Sports,Bank Transfer,,521.51,4376.25,,1,Attempt #0071 — rider note D926,PENDING-ASSIGN,
+ORD-00072,2024-03-07,,Las Piñas,Toys,Maya,325,3723.11,1092074.01,7.9,1,Contact before arrival,PH-00072-X,WALK-IN
+ORD-00073,2024-03-08,2024-03-11T14:47:00+08:00,,Sports,Maya,8,728.93,5274.22,10.9,3,,PENDING-ASSIGN,+63 917 000 0073
+ORD-00074,2024-03-09,2024-03-13T17:36:00+08:00,Davao City,Books,Credit Card,1,723.52,198.29,73.1,1,,PH-00074-X,WALK-IN
+ORD-00075,2024-03-10,,Zamboanga,Books,Maya,9,914.69,7445.23,7.4,4,,TRK-2024-00075,CUST-0075
+,2024-03-11,2024-03-14T09:10:00+08:00,Parañaque,Apparel,Maya,2,,767.67,7.9,4,,PH-00076-X,WALK-IN
+ORD-00077,2024-03-12,,Bacoor,Books,Credit Card,407,,172850.26,1.5,5,"Leave at gate, ring twice",trk00077,CUST-0077
+ORD-00078,2024-03-13,2024-03-17T09:16:00+08:00,Iloilo City,Home & Kitchen,Maya,11,822.06,918.13,89.7,,"Leave at gate, ring twice",,WALK-IN
+ORD-00079,2024-03-14,,Quezon City,Home & Kitchen,Credit Card,5,498.02,2486.43,0.2,5,,TRK-2024-00079,+63 917 000 0079
+ORD-00080,,2024-03-20T17:38:00+08:00,Davao City,Beauty,Bank Transfer,7,510.3,3359.99,,,,trk00080,cust.0080@mail.test
+ORD-00081,2024-03-16,2024-03-18T19:15:00Z,Cebu City,Groceries,Cash on Delivery,11,744.86,6807.37,,,Attempt #0081 — rider note B692,PENDING-ASSIGN,
+ORD-00082,2024-03-17,2024-03-22T16:18:00+08:00,Cebu City,,Bank Transfer,4,874.83,2943.33,13.5,1,,TRK-2024-00082,WALK-IN
+ORD-00083,2024-03-18,,Cebu City,Apparel,Cash on Delivery,2,518.68,1018.54,,1,Attempt #0083 — rider note A651,,CUST-0083
+ORD-00084,2024-03-19,,Muntinlupa,Home & Kitchen,Cash on Delivery,2,568.63,1063.37,7.3,2,Attempt #0084 — rider note B763,PENDING-ASSIGN,cust.0084@mail.test
+ORD-00085,2024-03-20,,Parañaque,Apparel,GCash,10,912.74,7491.99,,,,PH-00085-X,+63 917 000 0085
+,2024-03-11,2024-03-14T09:10:00+08:00,Parañaque,Apparel,Maya,2,,767.67,7.9,4,,PH-00076-X,WALK-IN
+ORD-00086,2024-03-21,2024-03-25T07:50:00+08:00,,Books,Credit Card,512,4383.76,2053355.99,10.7,1,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,WALK-IN
+,2024-06-15,2024-06-16T12:04:00Z,Davao City,Books,,7,379.37,817.79,68.7,2,,trk00178,+63 917 000 0178
+ORD-00087,2024-03-22,,Dasmariñas,Groceries,Credit Card,8,879.15,6950.8,0.6,5,"Leave at gate, ring twice",,+63 917 000 0087
+,2024-10-06,2024-10-07T12:35:00+08:00,Parañaque,Electronics,GCash,11,939.98,8458.37,,4,Attempt #0297 — rider note B741,trk00297,WALK-IN
+ORD-00088,2024-03-23,,Quezon City,,Cash on Delivery,11,753.11,6842.91,19.8,,Attempt #0088 — rider note C149,trk00088,+63 917 000 0088
+ORD-00089,2024-03-23,,Quezon City,Sports,Maya,5,480.3,1874.59,19.8,5,"Gift wrap requested, no invoice inside",,
+ORD-00090,2024-03-24,2024-03-26T13:59:00+08:00,Dasmariñas,Home & Kitchen,Credit Card,5,731.28,2955.98,18.3,1,,TRK-2024-00090,WALK-IN
+ORD-00091,2024-03-25,,Bacoor,Toys,Cash on Delivery,7,331.77,1933.37,,2,Attempt #0091 — rider note B547,trk00091,+63 917 000 0091
+ORD-00092,2024-03-26,2024-03-27T10:19:00+08:00,Parañaque,Apparel,Credit Card,12,,4061.42,,1,Attempt #0092 — rider note C823,,cust.0092@mail.test
+,2024-03-27,,Bacoor,Toys,Bank Transfer,295,686.59,189734.58,7.8,4,Contact before arrival,TRK-2024-00093,cust.0093@mail.test
+ORD-00094,2024-03-28,,Davao City,Toys,Maya,9,649.69,4698.79,18.9,4,,PH-00094-X,WALK-IN
+ORD-00095,2024-03-29,2024-03-31T19:36:00+08:00,Quezon City,Apparel,Bank Transfer,4,4383.21,16485.96,4.1,,Attempt #0095 — rider note A484,,CUST-0095
+ORD-00096,2024-03-30,2024-04-04T16:43:00+08:00,Quezon City,,GCash,12,769.57,7725.06,14.3,,,PENDING-ASSIGN,
+ORD-00097,2024-03-31,2024-04-02T07:29:00+08:00,Iloilo City,Sports,Maya,11,913.24,10184.09,,4,Attempt #0097 — rider note C682,PENDING-ASSIGN,CUST-0097
+ORD-00098,2024-04-01,2024-04-06T13:31:00+08:00,Davao City,Apparel,GCash,12,341.46,1171.09,72.2,5,,TRK-2024-00098,cust.0098@mail.test
+ORD-00099,2024-04-02,,Bacoor,Books,Cash on Delivery,4,394.04,1293.6,18.5,,Attempt #0099 — rider note B996,PH-00099-X,CUST-0099
+ORD-00100,2024-04-03,,Las Piñas,Toys,Maya,12,413.36,2025.33,59.3,,Attempt #0100 — rider note D310,TRK-2024-00100,WALK-IN
+ORD-00101,2024-04-04,2024-04-06T07:50:00Z,Zamboanga,,Maya,305,900.59,222726.17,19.8,5,,PENDING-ASSIGN,WALK-IN
+ORD-00102,2024-04-05,2024-04-07T10:03:00+08:00,Parañaque,Apparel,Cash on Delivery,4,723.57,2834.99,3.9,5,"Gift wrap requested, no invoice inside",PH-00102-X,CUST-0102
+ORD-00103,2024-04-06,2024-04-11T11:20:00+08:00,Bacoor,Electronics,Bank Transfer,4,629.83,2383.98,4.5,3,Attempt #0103 — rider note C694,PENDING-ASSIGN,+63 917 000 0103
+ORD-00104,2024-04-07,2024-04-09T12:12:00+08:00,Parañaque,Apparel,GCash,11,408.62,4271.61,5.3,,,PENDING-ASSIGN,+63 917 000 0104
+ORD-00105,2024-04-08,,Zamboanga,Toys,Cash on Delivery,8,361.9,1050.74,63.8,4,Attempt #0105 — rider note A328,PH-00105-X,cust.0105@mail.test
+,2024-02-08,,Cagayan de Oro,Beauty,Credit Card,2,605.28,285.31,75.9,,,TRK-2024-00042,
+ORD-00106,2024-04-09,2024-04-10T09:57:00+08:00,Davao City,Home & Kitchen,Credit Card,2,842.64,1516.08,,2,Attempt #0106 — rider note B879,trk00106,WALK-IN
+,2024-05-14,2024-05-15T07:17:00Z,Cebu City,Beauty,Maya,6,629.57,3055.87,16.9,3,"Gift wrap requested, no invoice inside",PH-00144-X,
+ORD-00107,2024-04-09,2024-04-14T14:30:00+08:00,,Books,Bank Transfer,12,379.2,3775.37,17.7,5,,PH-00107-X,WALK-IN
+,2024-09-04,2024-09-05T06:45:00+08:00,Dasmariñas,Groceries,Credit Card,6,460.57,2426.49,10.2,,Contact before arrival,PH-00263-X,+63 917 000 0263
+ORD-00108,2024-04-10,,Cagayan de Oro,Beauty,GCash,12,933.13,10025.04,,1,,trk00108,+63 917 000 0108
+,2024-12-09,2024-12-12T16:29:00+08:00,Zamboanga,Apparel,Maya,11,807.53,2126.57,,1,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,cust.0365@mail.test
+ORD-00109,2024-04-11,,Muntinlupa,Electronics,Cash on Delivery,7,394.67,956.06,64.6,2,"Leave at gate, ring twice",trk00109,CUST-0109
+,2024-04-12,2024-04-17T10:18:00+08:00,Quezon City,Home & Kitchen,GCash,5,547.31,,8.6,1,Attempt #0110 — rider note D155,PH-00110-X,cust.0110@mail.test
+ORD-00111,2024-04-13,2024-04-14T13:38:00+08:00,Davao City,Electronics,Credit Card,10,404.18,3363.91,17.1,1,Attempt #0111 — rider note D645,PH-00111-X,
+ORD-00112,2024-04-14,2024-04-15T14:21:00Z,Muntinlupa,Toys,GCash,6,330.5,1830.54,7.7,,,,cust.0112@mail.test
+ORD-00113,2024-04-15,2024-04-17T15:50:00+08:00,Zamboanga,Electronics,Maya,9,393.73,3102.57,13.9,1,,trk00113,+63 917 000 0113
+ORD-00114,2024-04-16,,Zamboanga,Books,Bank Transfer,6,648.99,3722.56,7.1,,Attempt #0114 — rider note D649,trk00114,
+ORD-00115,2024-04-17,,Cagayan de Oro,Apparel,Bank Transfer,359,643.06,210175.08,,2,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,+63 917 000 0115
+ORD-00116,2024-04-18,2024-04-21T08:53:00+08:00,Muntinlupa,Beauty,Maya,5,656.38,2653.51,,1,Attempt #0116 — rider note B695,PENDING-ASSIGN,CUST-0116
+ORD-00117,2024-04-19,2024-04-20T09:59:00Z,Muntinlupa,Groceries,GCash,2,825.16,1511.76,5.7,1,,,CUST-0117
+ORD-00118,2024-04-20,2024-04-22T14:00:00+08:00,,Sports,GCash,192,501.56,12745.73,86.6,4,Attempt #0118 — rider note B757,TRK-2024-00118,CUST-0118
+ORD-00119,2024-04-21,2024-04-22T17:52:00+08:00,,Sports,GCash,7,756.92,4693.81,11.9,3,,TRK-2024-00119,cust.0119@mail.test
+ORD-00120,2024-04-22,2024-04-24T18:27:00+08:00,Parañaque,Electronics,GCash,8,804.25,6139.16,,,Barangay hall pickup,PH-00120-X,
+ORD-00121,2024-04-23,2024-04-27T09:16:00+08:00,Cebu City,Apparel,Maya,1,637.6,528.99,17.3,4,,trk00121,
+ORD-00122,2024-04-24,TBD,Las Piñas,Home & Kitchen,Bank Transfer,5,607.06,2767.69,,,配達済み — 玄関前に置いた,TRK-2024-00122,WALK-IN
+ORD-00123,2024-04-25,2024-04-27T15:37:00+08:00,Bacoor,Apparel,,11,515.99,5180.19,10.4,,Barangay hall pickup,TRK-2024-00123,CUST-0123
+ORD-00124,2024-04-25,2024-04-26T12:57:00+08:00,Zamboanga,Apparel,Bank Transfer,7,830.08,5231.83,9.9,,,trk00124,cust.0124@mail.test
+ORD-00125,2024-04-26,2024-04-28T11:29:00+08:00,Bacoor,Toys,Bank Transfer,5,4154.75,19837.77,6.6,,"Buyer said ""urgent"" delivery",PH-00125-X,CUST-0125
+,2024-01-07,2024-01-11T18:22:00Z,Baguio,Electronics,GCash,5,349.5,1643.13,,2,,PENDING-ASSIGN,+63 917 000 0008
+ORD-00126,2024-04-27,,Las Piñas,Home & Kitchen,Cash on Delivery,1,534.61,67.01,87.3,5,Barangay hall pickup,TRK-2024-00126,
+,2024-04-12,2024-04-17T10:18:00+08:00,Quezon City,Home & Kitchen,GCash,5,547.31,,8.6,1,Attempt #0110 — rider note D155,PH-00110-X,cust.0110@mail.test
+,2024-04-28,2024-04-29T15:05:00+08:00,,Sports,Maya,10,753.24,6332.17,,4,,trk00127,
+,2024-08-03,2024-08-05T06:34:00+08:00,Muntinlupa,Toys,Cash on Delivery,8,930.35,7119.54,5.7,3,Attempt #0229 — rider note D635,trk00229,WALK-IN
+ORD-00128,2024-04-29,,Bacoor,Home & Kitchen,Maya,10,785.84,6858.25,14.6,1,Attempt #0128 — rider note D311,trk00128,cust.0128@mail.test
+,2024-11-07,2024-11-08T12:34:00+08:00,Baguio,Books,GCash,426,934.73,145869.74,64.1,5,,TRK-2024-00331,
+ORD-00129,2024-04-30,,Las Piñas,Apparel,Credit Card,1,937.05,887.01,6.7,,,PH-00129-X,+63 917 000 0129
+ORD-00130,2024-05-01,,Iloilo City,Toys,Maya,7,477.86,2962.19,,1,Contact before arrival,PH-00130-X,
+ORD-00131,2024-05-02,2024-05-05T13:34:00+08:00,Zamboanga,Toys,GCash,587,499.36,267790.81,7.2,1,"Buyer said ""urgent"" delivery",PH-00131-X,
+ORD-00132,2024-05-03,2024-05-04T11:12:00+08:00,Cagayan de Oro,Sports,Credit Card,5,882.83,3910,9.2,1,,PH-00132-X,+63 917 000 0132
+ORD-00133,2024-05-04,2024-05-08T10:29:00+08:00,Muntinlupa,Books,Bank Transfer,12,393.69,4415.14,9,,Attempt #0133 — rider note D516,TRK-2024-00133,WALK-IN
+ORD-00134,2024-05-05,,Bacoor,Home & Kitchen,Cash on Delivery,,4254.62,,16.7,,,TRK-2024-00134,cust.0134@mail.test
+ORD-00135,2024-05-06,,Iloilo City,,Bank Transfer,2,329.09,519.96,,3,,,WALK-IN
+ORD-00136,2024-05-07,,Quezon City,Beauty,Credit Card,12,490.57,1754.87,,2,Attempt #0136 — rider note B155,TRK-2024-00136,CUST-0136
+ORD-00137,2024-05-08,2024-05-11T11:43:00Z,Bacoor,Electronics,Maya,11,329.45,1355.93,,4,Attempt #0137 — rider note A198,PENDING-ASSIGN,+63 917 000 0137
+ORD-00138,2024-05-09,,Muntinlupa,Books,Credit Card,9,579.86,4281.22,,1,,trk00138,CUST-0138
+ORD-00139,2024-05-10,,Muntinlupa,Toys,Bank Transfer,12,623.06,6126.88,18.6,1,Attempt #0139 — rider note B535,trk00139,
+ORD-00140,,,Las Piñas,Apparel,Cash on Delivery,354,671.78,200246.71,13.4,2,Barangay hall pickup,PH-00140-X,
+ORD-00141,2024-05-12,,Bacoor,Beauty,Cash on Delivery,8,353.82,2868.31,1.5,2,配達済み — 玄関前に置いた,trk00141,CUST-0141
+ORD-00142,2024-05-12,2024-05-14T18:28:00+08:00,Cagayan de Oro,Beauty,GCash,12,908.09,9194.78,,,,trk00142,+63 917 000 0142
+ORD-00143,2024-05-13,2024-05-15T14:49:00Z,Iloilo City,Toys,GCash,7,4408.47,27534.58,11.8,4,,PENDING-ASSIGN,
+,2024-05-14,2024-05-15T07:17:00Z,Cebu City,Beauty,Maya,6,629.57,3055.87,16.9,3,"Gift wrap requested, no invoice inside",PH-00144-X,
+ORD-00145,2024-05-15,2024-05-16T13:04:00+08:00,Cebu City,Books,GCash,1,593.1,549.23,6.7,1,Attempt #0145 — rider note C154,PENDING-ASSIGN,cust.0145@mail.test
+ORD-00146,2024-05-16,2024-05-17T07:46:00+08:00,Las Piñas,Apparel,Maya,11,897.45,8219.29,,,Attempt #0146 — rider note A531,trk00146,cust.0146@mail.test
+,2024-03-11,2024-03-14T09:10:00+08:00,Parañaque,Apparel,Maya,2,,767.67,7.9,4,,PH-00076-X,WALK-IN
+ORD-00147,2024-05-17,2024-05-19T18:27:00Z,Bacoor,Home & Kitchen,GCash,5,347.68,1670.75,,4,,PENDING-ASSIGN,
+,2024-07-01,2024-07-02T09:05:00+08:00,Cebu City,Electronics,Maya,252,527.01,124501.45,6.9,2,Contact before arrival,PH-00195-X,WALK-IN
+ORD-00148,2024-05-18,2024-05-22T09:17:00+08:00,Las Piñas,Beauty,Bank Transfer,9,917.94,8320.33,0.7,3,,TRK-2024-00148,+63 917 000 0148
+,2024-10-06,2024-10-07T12:35:00+08:00,Parañaque,Electronics,GCash,11,939.98,8458.37,,4,Attempt #0297 — rider note B741,trk00297,WALK-IN
+ORD-00149,2024-05-19,2024-05-22T12:24:00+08:00,,Toys,Cash on Delivery,8,913.98,pending,19.2,,Attempt #0149 — rider note B939,trk00149,
+ORD-00150,2024-05-20,2024-05-25T09:44:00+08:00,Baguio,Books,Cash on Delivery,10,583.75,5129.78,10,,Attempt #0150 — rider note A986,TRK-2024-00150,cust.0150@mail.test
+ORD-00151,2024-05-21,2024-05-23T15:47:00+08:00,Zamboanga,Home & Kitchen,GCash,12,623.77,6390.36,15.9,4,,PENDING-ASSIGN,
+ORD-00152,2024-05-22,,Iloilo City,Sports,GCash,12,534.68,5335.63,16.8,,Barangay hall pickup,trk00152,WALK-IN
+ORD-00153,2024-05-23,2024-05-24T06:55:00+08:00,Davao City,,Bank Transfer,12,,5925.59,,3,,PH-00153-X,cust.0153@mail.test
+ORD-00154,2024-05-24,2024-05-28T10:03:00+08:00,,Apparel,Cash on Delivery,2,584.7,295.33,75.3,4,,trk00154,WALK-IN
+ORD-00155,2024-05-25,2024-05-30T08:52:00Z,Bacoor,Apparel,Credit Card,8,849.1,,7.4,5,"Gift wrap requested, no invoice inside",TRK-2024-00155,WALK-IN
+ORD-00156,2024-05-26,,Las Piñas,Beauty,Cash on Delivery,8,718.16,,,3,,PENDING-ASSIGN,cust.0156@mail.test
+ORD-00157,2024-05-27,2024-05-29T07:53:00+08:00,Las Piñas,Apparel,Cash on Delivery,4,417.9,1464.4,,5,Attempt #0157 — rider note C648,TRK-2024-00157,CUST-0157
+ORD-00158,2024-05-28,2024-06-01T17:41:00+08:00,Cagayan de Oro,Groceries,Credit Card,12,929.97,10716.81,,,Attempt #0158 — rider note B489,PH-00158-X,WALK-IN
+ORD-00159,2024-05-28,2024-06-01T08:06:00+08:00,Parañaque,Electronics,Maya,5,581.43,627.77,,5,,TRK-2024-00159,CUST-0159
+ORD-00160,2024-05-29,,Las Piñas,,Cash on Delivery,2,496.03,853.76,13.4,2,Attempt #0160 — rider note B345,PH-00160-X,
+,2024-05-30,2024-06-01T19:51:00+08:00,Davao City,Apparel,Credit Card,3,714.22,443.24,,5,"Leave at gate, ring twice",,CUST-0161
+ORD-00162,2024-05-31,2024-06-03T11:40:00+08:00,Dasmariñas,Apparel,Maya,11,639.62,7016.33,1.6,,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,cust.0162@mail.test
+ORD-00163,2024-06-01,,,Electronics,GCash,1,665.48,647.59,2.8,4,Attempt #0163 — rider note A501,TRK-2024-00163,cust.0163@mail.test
+ORD-00164,2024-06-02,2024-06-05T15:51:00+08:00,Davao City,Home & Kitchen,Maya,2,696.83,1399.91,2,2,,PH-00164-X,cust.0164@mail.test
+ORD-00165,2024-06-03,,,Electronics,Maya,10,,6656.7,3.4,5,,PH-00165-X,
+ORD-00166,2024-06-04,,,Toys,GCash,6,409.66,1113.73,55.8,1,Attempt #0166 — rider note D517,,cust.0166@mail.test
+,2024-02-08,,Cagayan de Oro,Beauty,Credit Card,2,605.28,285.31,75.9,,,TRK-2024-00042,
+ORD-00167,2024-06-05,2024-06-09T11:36:00+08:00,Cebu City,Sports,,11,713.23,2885.89,62.3,2,,TRK-2024-00167,
+,2024-05-30,2024-06-01T19:51:00+08:00,Davao City,Apparel,Credit Card,3,714.22,443.24,,5,"Leave at gate, ring twice",,CUST-0161
+ORD-00168,2024-06-06,2024-06-08T14:12:00+08:00,Cebu City,Electronics,Maya,1,341.68,288.78,17.8,3,,TRK-2024-00168,CUST-0168
+,2024-09-04,2024-09-05T06:45:00+08:00,Dasmariñas,Groceries,Credit Card,6,460.57,2426.49,10.2,,Contact before arrival,PH-00263-X,+63 917 000 0263
+ORD-00169,2024-06-07,,Dasmariñas,Toys,Maya,8,674.99,5151.83,,,,TRK-2024-00169,
+,2024-12-09,2024-12-12T16:29:00+08:00,Zamboanga,Apparel,Maya,11,807.53,2126.57,,1,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,cust.0365@mail.test
+ORD-00170,2024-06-08,,Las Piñas,Groceries,Credit Card,11,897.99,7897.57,,,Attempt #0170 — rider note A117,,CUST-0170
+ORD-00171,2024-06-09,,Zamboanga,Electronics,Cash on Delivery,3,933.03,2395.18,16.9,2,Attempt #0171 — rider note D409,,+63 917 000 0171
+ORD-00172,2024-06-10,2024-06-12T11:23:00+08:00,Quezon City,Books,Credit Card,482,767.64,355405.81,,4,Attempt #0172 — rider note A678,PH-00172-X,+63 917 000 0172
+ORD-00173,2024-06-11,2024-06-16T13:57:00+08:00,Quezon City,Sports,Cash on Delivery,10,711.3,2572.19,64.6,3,,trk00173,+63 917 000 0173
+ORD-00174,2024-06-12,,Quezon City,Electronics,Bank Transfer,2,574.79,1138.91,2.4,,,trk00174,
+ORD-00175,2024-06-13,2024-06-14T09:39:00+08:00,,Electronics,Bank Transfer,4,634.98,N/A,4.7,1,,TRK-2024-00175,WALK-IN
+ORD-00176,2024-06-14,,Baguio,Home & Kitchen,Credit Card,9,447.93,3868.07,5.2,4,,TRK-2024-00176,WALK-IN
+ORD-00177,2024-06-14,2024-06-17T17:12:00+08:00,Baguio,Books,Cash on Delivery,418,925.49,348696.16,11.1,,,TRK-2024-00177,CUST-0177
+,2024-06-15,2024-06-16T12:04:00Z,Davao City,Books,,7,379.37,817.79,68.7,2,,trk00178,+63 917 000 0178
+ORD-00179,2024-06-16,2024-06-18T09:10:00+08:00,Baguio,Electronics,Cash on Delivery,479,872.8,349082.15,,,Attempt #0179 — rider note D112,PENDING-ASSIGN,
+ORD-00180,2024-06-17,2024-06-20T12:26:00+08:00,Quezon City,Toys,Credit Card,4,435.45,1685.09,1.1,3,Attempt #0180 — rider note D285,TRK-2024-00180,CUST-0180
+ORD-00181,2024-06-18,,Baguio,Beauty,Credit Card,12,4219.5,51470.71,0.8,,,PENDING-ASSIGN,WALK-IN
+ORD-00182,2024-06-19,2024-06-21T09:39:00+08:00,Iloilo City,Books,Cash on Delivery,2,925.22,N/A,11.2,4,Attempt #0182 — rider note B127,trk00182,+63 917 000 0182
+ORD-00183,,2024-06-25T06:24:00+08:00,Cagayan de Oro,Sports,,7,879.61,,,2,,PH-00183-X,
+ORD-00184,2024-06-21,2024-06-25T13:26:00+08:00,Quezon City,Groceries,GCash,10,368.98,3648.4,2.9,1,,PENDING-ASSIGN,
+ORD-00185,2024-06-22,2024-06-25T13:20:00+08:00,,Home & Kitchen,Bank Transfer,1,3843.68,1514.44,59.5,4,,trk00185,cust.0185@mail.test
+ORD-00186,2024-06-23,2024-06-26T08:53:00+08:00,Muntinlupa,Books,,9,542.14,3950.87,16.8,5,,TRK-2024-00186,cust.0186@mail.test
+,2024-01-07,2024-01-11T18:22:00Z,Baguio,Electronics,GCash,5,349.5,1643.13,,2,,PENDING-ASSIGN,+63 917 000 0008
+ORD-00187,2024-06-24,2024-06-27T14:50:00+08:00,Bacoor,Beauty,GCash,8,611.69,4346.06,11.6,,,trk00187,cust.0187@mail.test
+,2024-04-28,2024-04-29T15:05:00+08:00,,Sports,Maya,10,753.24,6332.17,,4,,trk00127,
+ORD-00188,2024-06-25,2024-06-29T17:23:00+08:00,Baguio,Home & Kitchen,Maya,5,3782.95,3886.52,,,,PENDING-ASSIGN,
+,2024-08-03,2024-08-05T06:34:00+08:00,Muntinlupa,Toys,Cash on Delivery,8,930.35,7119.54,5.7,3,Attempt #0229 — rider note D635,trk00229,WALK-IN
+ORD-00189,2024-06-26,2024-06-27T07:02:00+08:00,Iloilo City,Home & Kitchen,Maya,8,637.31,4874.72,2.2,,配達済み — 玄関前に置いた,PH-00189-X,cust.0189@mail.test
+,2024-11-07,2024-11-08T12:34:00+08:00,Baguio,Books,GCash,426,934.73,145869.74,64.1,5,,TRK-2024-00331,
+ORD-00190,2024-06-27,,Baguio,Electronics,,10,648.96,6313.06,3.7,,Attempt #0190 — rider note B230,TRK-2024-00190,cust.0190@mail.test
+ORD-00191,2024-06-28,2024-06-30T18:07:00+08:00,Las Piñas,Sports,Credit Card,2,600.09,1105.56,7.9,,Attempt #0191 — rider note B483,PENDING-ASSIGN,CUST-0191
+ORD-00192,2024-06-29,2024-06-30T09:01:00+08:00,Muntinlupa,Electronics,Maya,12,710.88,6936.29,,5,Attempt #0192 — rider note B486,TRK-2024-00192,+63 917 000 0192
+ORD-00193,2024-06-30,2024-07-04T16:31:00Z,Quezon City,Home & Kitchen,GCash,2,725.07,,,,Contact before arrival,trk00193,
+ORD-00194,2024-07-01,,Cebu City,,Maya,7,,2064.66,57.7,,,PH-00194-X,CUST-0194
+,2024-07-01,2024-07-02T09:05:00+08:00,Cebu City,Electronics,Maya,252,527.01,124501.45,6.9,2,Contact before arrival,PH-00195-X,WALK-IN
+ORD-00196,2024-07-02,,Cebu City,Beauty,Bank Transfer,2,369.05,,,1,Attempt #0196 — rider note A504,,cust.0196@mail.test
+ORD-00197,2024-07-03,,Las Piñas,,Bank Transfer,2,637.69,1086.92,16.5,5,,TRK-2024-00197,+63 917 000 0197
+ORD-00198,2024-07-04,2024-07-09T12:49:00+08:00,Zamboanga,Beauty,Bank Transfer,2,800.44,1271.13,,,,,
+ORD-00199,2024-07-05,2024-07-09T19:06:00Z,Davao City,Electronics,Maya,9,4670.13,35486.4,,2,,trk00199,WALK-IN
+ORD-00200,2024-07-06,2024-07-07T14:45:00+08:00,,Electronics,Bank Transfer,5,426.03,257.69,88,1,,PENDING-ASSIGN,+63 917 000 0200
+ORD-00201,2024-07-07,2024-07-09T08:06:00+08:00,,Electronics,Bank Transfer,9,3420.07,29704.27,,,,PH-00201-X,
+ORD-00202,2024-07-08,2024-07-12T08:03:00+08:00,Cebu City,Books,Credit Card,303,806.2,212675.25,12,1,Attempt #0202 — rider note A167,TRK-2024-00202,cust.0202@mail.test
+ORD-00203,2024-07-09,,Cagayan de Oro,Home & Kitchen,GCash,4,837.31,2976.84,11.9,3,Barangay hall pickup,PH-00203-X,+63 917 000 0203
+ORD-00204,2024-07-10,,Bacoor,Apparel,Credit Card,245,332.51,79630.49,,3,,,cust.0204@mail.test
+ORD-00205,2024-07-11,2024-07-14T07:56:00+08:00,Las Piñas,Beauty,Maya,,376.9,N/A,14.6,,Attempt #0205 — rider note C956,,+63 917 000 0205
+ORD-00206,2024-07-12,,Quezon City,Groceries,GCash,12,4174.01,43069.79,11.6,3,,PENDING-ASSIGN,CUST-0206
+ORD-00207,2024-07-13,2024-07-17T15:09:00+08:00,Dasmariñas,Electronics,Bank Transfer,1,706.95,608.93,15.6,3,,PH-00207-X,CUST-0207
+,2024-03-27,,Bacoor,Toys,Bank Transfer,295,686.59,189734.58,7.8,4,Contact before arrival,TRK-2024-00093,cust.0093@mail.test
+ORD-00208,2024-07-14,2024-07-16T07:12:00+08:00,Cagayan de Oro,Beauty,Cash on Delivery,186,763.33,121363.9,,3,,,cust.0208@mail.test
+,2024-07-01,2024-07-02T09:05:00+08:00,Cebu City,Electronics,Maya,252,527.01,124501.45,6.9,2,Contact before arrival,PH-00195-X,WALK-IN
+ORD-00209,2024-07-15,2024-07-20T10:06:00+08:00,Cebu City,Home & Kitchen,GCash,5,640.9,3188.55,1.8,,Attempt #0209 — rider note C328,TRK-2024-00209,WALK-IN
+,2024-10-06,2024-10-07T12:35:00+08:00,Parañaque,Electronics,GCash,11,939.98,8458.37,,4,Attempt #0297 — rider note B741,trk00297,WALK-IN
+ORD-00210,2024-07-16,2024-07-18T14:03:00Z,Davao City,Home & Kitchen,Cash on Delivery,4,,,,5,,trk00210,
+ORD-00211,2024-07-17,2024-07-21T13:46:00Z,Zamboanga,Sports,Bank Transfer,3,3717.14,8974.16,,2,,trk00211,+63 917 000 0211
+,2024-07-17,2024-07-22T12:50:00+08:00,Parañaque,Apparel,Bank Transfer,6,588.41,3083.68,,,,PENDING-ASSIGN,cust.0212@mail.test
+ORD-00213,2024-07-18,,,Apparel,Cash on Delivery,,856.47,163871.99,64.5,5,Attempt #0213 — rider note C296,,+63 917 000 0213
+ORD-00214,2024-07-19,,Davao City,Groceries,Credit Card,4,874,3227.08,10.2,1,Attempt #0214 — rider note C781,PH-00214-X,cust.0214@mail.test
+ORD-00215,2024-07-20,2024-07-23T17:21:00Z,Zamboanga,Sports,Bank Transfer,6,613.47,3570,4.1,2,,PH-00215-X,cust.0215@mail.test
+ORD-00216,2024-07-21,2024-07-23T17:52:00+08:00,Zamboanga,Electronics,Credit Card,3,3979.3,10066.92,,4,,,WALK-IN
+ORD-00217,2024-07-22,,Iloilo City,Electronics,Maya,5,796.39,3784.73,5.5,,Attempt #0217 — rider note B932,PH-00217-X,
+ORD-00218,2024-07-23,2024-07-28T07:46:00Z,Parañaque,Sports,GCash,512,4156.08,2110169.85,1.7,,Attempt #0218 — rider note D938,PH-00218-X,WALK-IN
+ORD-00219,2024-07-24,2024-07-27T13:48:00+08:00,,Books,Maya,4,618.7,2110.12,,4,Attempt #0219 — rider note D360,trk00219,WALK-IN
+ORD-00220,2024-07-25,2024-07-26T08:06:00Z,Quezon City,Beauty,Cash on Delivery,3,691.17,,10.5,5,配達済み — 玄関前に置いた,,+63 917 000 0220
+ORD-00221,,2024-07-31T07:59:00+08:00,Zamboanga,Toys,Credit Card,12,579.73,5802.87,16.8,3,"Buyer said ""urgent"" delivery",,+63 917 000 0221
+ORD-00222,2024-07-27,2024-08-01T07:26:00+08:00,Cebu City,Toys,Bank Transfer,12,920.15,10758.85,2.5,4,"Buyer said ""urgent"" delivery",trk00222,CUST-0222
+ORD-00223,2024-07-28,2024-07-29T08:47:00+08:00,Muntinlupa,Sports,Maya,10,354.05,3097.14,12.1,3,,,
+ORD-00224,2024-07-29,,Quezon City,Electronics,Credit Card,3,707.39,1781.07,15.6,,,trk00224,+63 917 000 0224
+ORD-00225,2024-07-30,2024-08-01T07:03:00+08:00,,Toys,Cash on Delivery,11,584.76,6388,,,,TRK-2024-00225,cust.0225@mail.test
+ORD-00226,2024-07-31,2024-08-05T17:52:00+08:00,Las Piñas,Books,Maya,1,522.16,523.87,2.1,,,trk00226,
+ORD-00227,2024-08-01,,Iloilo City,Toys,GCash,498,4470.03,1898282.92,15.8,,Attempt #0227 — rider note D482,trk00227,WALK-IN
+,2024-02-24,not shipped,Las Piñas,,Bank Transfer,10,849.19,7366.77,11.1,5,Attempt #0059 — rider note C441,,cust.0059@mail.test
+ORD-00228,2024-08-02,2024-08-04T06:54:00Z,,Apparel,Cash on Delivery,336,442.13,N/A,18.1,,Attempt #0228 — rider note A658,,cust.0228@mail.test
+,2024-05-30,2024-06-01T19:51:00+08:00,Davao City,Apparel,Credit Card,3,714.22,443.24,,5,"Leave at gate, ring twice",,CUST-0161
+,2024-08-03,2024-08-05T06:34:00+08:00,Muntinlupa,Toys,Cash on Delivery,8,930.35,7119.54,5.7,3,Attempt #0229 — rider note D635,trk00229,WALK-IN
+,2024-09-04,2024-09-05T06:45:00+08:00,Dasmariñas,Groceries,Credit Card,6,460.57,2426.49,10.2,,Contact before arrival,PH-00263-X,+63 917 000 0263
+ORD-00230,2024-08-03,,Davao City,Books,Credit Card,12,851.01,9624.08,,,,PH-00230-X,+63 917 000 0230
+ORD-00231,2024-08-04,,,Toys,Credit Card,9,852.77,6995.15,11.5,3,,PENDING-ASSIGN,
+ORD-00232,,2024-08-09T12:53:00+08:00,Zamboanga,Home & Kitchen,Credit Card,8,866.27,6330.12,,1,Attempt #0232 — rider note A538,,cust.0232@mail.test
+ORD-00233,2024-08-06,,Bacoor,Toys,Cash on Delivery,7,611.22,1644.76,60.6,,,trk00233,cust.0233@mail.test
+ORD-00234,2024-08-07,2024-08-10T07:01:00+08:00,Cebu City,Books,GCash,4,464.4,,88.8,,Attempt #0234 — rider note A674,PENDING-ASSIGN,
+ORD-00235,2024-08-08,,Iloilo City,,GCash,4,369.33,1331.02,12.4,,配達済み — 玄関前に置いた,PENDING-ASSIGN,
+ORD-00236,2024-08-09,2024-08-10T14:15:00+08:00,Cagayan de Oro,Electronics,Maya,316,399.01,103173.37,18.8,1,配達済み — 玄関前に置いた,PH-00236-X,+63 917 000 0236
+ORD-00237,2024-08-10,,Zamboanga,Beauty,GCash,1,680.69,660.2,0.8,1,Attempt #0237 — rider note B627,,+63 917 000 0237
+ORD-00238,2024-08-11,2024-08-13T09:28:00+08:00,Parañaque,Beauty,,11,4285.01,44201.66,,5,"Buyer said ""urgent"" delivery",trk00238,
+ORD-00239,2024-08-12,2024-08-15T12:19:00+08:00,Dasmariñas,Home & Kitchen,Cash on Delivery,7,574.39,3972.28,3.9,5,Contact before arrival,PENDING-ASSIGN,+63 917 000 0239
+ORD-00240,2024-08-13,,Dasmariñas,Sports,Cash on Delivery,352,387.72,135909.53,1,3,Attempt #0240 — rider note C411,PH-00240-X,cust.0240@mail.test
+ORD-00241,2024-08-14,,Quezon City,Sports,Credit Card,11,884.12,1679.1,82.9,,"Gift wrap requested, no invoice inside",PENDING-ASSIGN,
+ORD-00242,2024-08-15,2024-08-16T16:42:00+08:00,Las Piñas,Sports,Maya,10,323.77,2656.82,17.5,,"Gift wrap requested, no invoice inside",trk00242,WALK-IN
+ORD-00243,2024-08-16,,Las Piñas,,Maya,8,922.53,,,2,,PENDING-ASSIGN,
+ORD-00244,2024-08-17,2024-08-20T11:12:00+08:00,Muntinlupa,Books,,11,323.9,1305.39,62.8,5,Attempt #0244 — rider note A310,PENDING-ASSIGN,+63 917 000 0244
+ORD-00245,2024-08-18,2024-08-22T14:42:00+08:00,Bacoor,Toys,Maya,7,737.28,4928.79,,3,Attempt #0245 — rider note B679,PENDING-ASSIGN,+63 917 000 0245
+,2024-08-19,2024-08-24T17:32:00+08:00,Dasmariñas,Electronics,Credit Card,169,781.78,116824.73,13,3,配達済み — 玄関前に置いた,PENDING-ASSIGN,CUST-0246
+ORD-00247,2024-08-19,,Muntinlupa,Sports,Maya,6,483.3,978.09,,4,Attempt #0247 — rider note C428,PENDING-ASSIGN,+63 917 000 0247
+,2024-01-23,,Dasmariñas,Apparel,Cash on Delivery,293,432.52,114553.41,,5,Contact before arrival,PENDING-ASSIGN,
+ORD-00248,2024-08-20,2024-08-25T16:14:00Z,Parañaque,Books,Bank Transfer,8,481.45,951.24,75.2,,Contact before arrival,,CUST-0248
+,2024-04-28,2024-04-29T15:05:00+08:00,,Sports,Maya,10,753.24,6332.17,,4,,trk00127,
+ORD-00249,2024-08-21,2024-08-26T16:34:00+08:00,Iloilo City,Electronics,Credit Card,6,661.95,3321.54,,,Attempt #0249 — rider note A565,,cust.0249@mail.test
+,2024-08-03,2024-08-05T06:34:00+08:00,Muntinlupa,Toys,Cash on Delivery,8,930.35,7119.54,5.7,3,Attempt #0229 — rider note D635,trk00229,WALK-IN
+ORD-00250,2024-08-22,2024-08-27T09:06:00+08:00,Bacoor,Electronics,Bank Transfer,1,650.43,256.28,60.1,4,Attempt #0250 — rider note A675,trk00250,cust.0250@mail.test
+,2024-11-23,2024-11-25T19:32:00Z,Davao City,Home & Kitchen,,3,737.69,,,3,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,WALK-IN
+ORD-00251,2024-08-23,,Las Piñas,Apparel,GCash,4,407.46,1509.04,7,2,Attempt #0251 — rider note D630,PH-00251-X,CUST-0251
+ORD-00252,2024-08-24,2024-08-25T10:47:00+08:00,Parañaque,Home & Kitchen,Credit Card,1,377.21,353.17,7.2,,,,+63 917 000 0252
+ORD-00253,2024-08-25,2024-08-29T11:03:00Z,Davao City,Toys,Cash on Delivery,443,500.08,192978.93,14.5,,,PH-00253-X,+63 917 000 0253
+ORD-00254,2024-08-26,2024-08-29T12:29:00+08:00,Baguio,Toys,Credit Card,5,826.13,1257.04,70.1,2,,PENDING-ASSIGN,+63 917 000 0254
+ORD-00255,2024-08-27,2024-08-29T15:57:00+08:00,Dasmariñas,Sports,GCash,8,677.32,4674.07,14.3,1,,TRK-2024-00255,cust.0255@mail.test
+ORD-00256,2024-08-28,,Cebu City,Toys,,444,499.23,30820.79,86.4,4,,PH-00256-X,cust.0256@mail.test
+ORD-00257,2024-08-29,2024-09-03T06:48:00+08:00,Parañaque,Home & Kitchen,Cash on Delivery,1,788.96,171.49,,,,TRK-2024-00257,cust.0257@mail.test
+ORD-00258,2024-08-30,2024-09-01T09:18:00+08:00,Bacoor,Electronics,Maya,11,433.32,4359.88,10.6,1,,,+63 917 000 0258
+ORD-00259,2024-08-31,TBD,Muntinlupa,Groceries,Maya,12,496.48,5307.9,10.3,3,Attempt #0259 — rider note D303,TRK-2024-00259,cust.0259@mail.test
+ORD-00260,2024-09-01,,Cagayan de Oro,Toys,Cash on Delivery,1,550.54,444.9,,,Contact before arrival,TRK-2024-00260,WALK-IN
+ORD-00261,2024-09-02,2024-09-05T16:31:00Z,Cagayan de Oro,Beauty,GCash,2,506.66,861.79,17.1,,,,
+ORD-00262,2024-09-03,2024-09-05T10:10:00Z,Bacoor,Electronics,Credit Card,12,806.18,8898.24,5.7,,Attempt #0262 — rider note D571,TRK-2024-00262,CUST-0262
+,2024-09-04,2024-09-05T06:45:00+08:00,Dasmariñas,Groceries,Credit Card,6,460.57,2426.49,10.2,,Contact before arrival,PH-00263-X,+63 917 000 0263
+ORD-00264,2024-09-05,2024-09-10T07:34:00+08:00,Las Piñas,Books,GCash,2,634.21,1197.63,4.1,5,,trk00264,
+ORD-00265,2024-09-05,,Cebu City,Sports,Maya,10,,7173.08,15.5,1,,,cust.0265@mail.test
+ORD-00266,2024-09-06,,Cebu City,Home & Kitchen,GCash,1,808.8,670.32,18.9,,Attempt #0266 — rider note C866,TRK-2024-00266,+63 917 000 0266
+ORD-00267,2024-09-07,2024-09-10T07:48:00+08:00,,Toys,Maya,2,448.35,810.95,9.7,,Attempt #0267 — rider note A950,trk00267,CUST-0267
+ORD-00268,2024-09-08,2024-09-09T17:39:00+08:00,Davao City,Toys,Bank Transfer,9,541.6,4325.32,9,4,Attempt #0268 — rider note D335,PENDING-ASSIGN,CUST-0268
+,2024-03-27,,Bacoor,Toys,Bank Transfer,295,686.59,189734.58,7.8,4,Contact before arrival,TRK-2024-00093,cust.0093@mail.test
+ORD-00269,2024-09-09,2024-09-11T11:29:00+08:00,Muntinlupa,Electronics,Bank Transfer,9,342.1,415.68,86.3,3,Attempt #0269 — rider note A716,,
+,2024-07-01,2024-07-02T09:05:00+08:00,Cebu City,Electronics,Maya,252,527.01,124501.45,6.9,2,Contact before arrival,PH-00195-X,WALK-IN
+ORD-00270,2024-09-10,2024-09-15T15:29:00+08:00,Dasmariñas,Home & Kitchen,Bank Transfer,10,814.86,1449.5,82.7,2,,PH-00270-X,WALK-IN
+,2024-10-22,,Dasmariñas,Sports,Cash on Delivery,1,458.93,401.3,11.3,,Attempt #0314 — rider note A236,trk00314,CUST-0314
+ORD-00271,2024-09-11,2024-09-13T16:01:00+08:00,Davao City,Electronics,Maya,7,720.29,1299.51,74.2,5,,TRK-2024-00271,+63 917 000 0271
+ORD-00272,2024-09-12,2024-09-14T12:18:00+08:00,Quezon City,Home & Kitchen,Bank Transfer,2,796.53,1379.41,,5,,TRK-2024-00272,
+ORD-00273,2024-09-13,2024-09-16T13:24:00Z,Davao City,Sports,,4,569.62,2154.47,2.6,,"Leave at gate, ring twice",trk00273,CUST-0273
+ORD-00274,2024-09-14,2024-09-18T14:02:00+08:00,Parañaque,Toys,Maya,4,839.79,2758.32,17.4,,,trk00274,cust.0274@mail.test
+ORD-00275,2024-09-15,2024-09-19T19:58:00+08:00,Cagayan de Oro,Apparel,GCash,6,800.61,1067.19,77.3,,,PENDING-ASSIGN,cust.0275@mail.test
+ORD-00276,2024-09-16,2024-09-21T15:35:00Z,Cebu City,Electronics,Credit Card,2,335.09,91.4,86.1,2,Attempt #0276 — rider note A257,,
+ORD-00277,2024-09-17,2024-09-22T19:06:00+08:00,Dasmariñas,Home & Kitchen,Maya,11,630.42,1243.64,82,2,"Leave at gate, ring twice",PH-00277-X,cust.0277@mail.test
+ORD-00278,2024-09-18,2024-09-22T13:53:00+08:00,Iloilo City,Toys,Maya,2,560,966.01,12.6,1,,trk00278,
+ORD-00279,2024-09-19,2024-09-23T16:23:00Z,Cagayan de Oro,Sports,Credit Card,9,352.72,2958.28,7.8,5,Attempt #0279 — rider note C229,PH-00279-X,
+,2024-09-20,,Davao City,Beauty,Maya,,326.33,1146.52,60.2,4,"Buyer said ""urgent"" delivery",trk00280,WALK-IN
+ORD-00281,2024-09-21,,Dasmariñas,Apparel,GCash,456,649.01,242175.78,15.9,3,配達済み — 玄関前に置いた,PENDING-ASSIGN,CUST-0281
+ORD-00282,2024-09-21,2024-09-25T08:44:00+08:00,,Electronics,Maya,11,756.65,7288.4,,3,,trk00282,+63 917 000 0282
+ORD-00283,2024-09-22,,Dasmariñas,Books,GCash,1,619.55,542.69,12.5,,,TRK-2024-00283,+63 917 000 0283
+ORD-00284,2024-09-23,2024-09-25T13:38:00+08:00,Muntinlupa,Apparel,Maya,7,3856.68,23668.75,11,,Attempt #0284 — rider note D759,trk00284,
+ORD-00285,2024-09-24,2024-09-29T07:19:00+08:00,Iloilo City,Beauty,Maya,10,363.52,1387.22,62,,Contact before arrival,,CUST-0285
+ORD-00286,2024-09-25,2024-09-27T16:24:00+08:00,Dasmariñas,Apparel,Cash on Delivery,12,499.6,N/A,5,3,Attempt #0286 — rider note D782,PH-00286-X,
+ORD-00287,2024-09-26,2024-09-29T09:00:00+08:00,Zamboanga,Sports,Credit Card,1,831.52,718.57,,2,配達済み — 玄関前に置いた,TRK-2024-00287,cust.0287@mail.test
+ORD-00288,2024-09-27,2024-09-29T19:32:00+08:00,Iloilo City,Toys,GCash,8,930.16,6688.63,,2,,PH-00288-X,WALK-IN
+,2024-02-24,not shipped,Las Piñas,,Bank Transfer,10,849.19,7366.77,11.1,5,Attempt #0059 — rider note C441,,cust.0059@mail.test
+ORD-00289,2024-09-28,2024-09-29T09:34:00Z,,Electronics,Bank Transfer,5,369.99,1600.81,,3,Attempt #0289 — rider note A702,PH-00289-X,CUST-0289
+,2024-05-30,2024-06-01T19:51:00+08:00,Davao City,Apparel,Credit Card,3,714.22,443.24,,5,"Leave at gate, ring twice",,CUST-0161
+ORD-00290,2024-09-29,,Bacoor,Electronics,Maya,8,902.51,6657.77,5,3,Contact before arrival,,
+,2024-09-20,,Davao City,Beauty,Maya,,326.33,1146.52,60.2,4,"Buyer said ""urgent"" delivery",trk00280,WALK-IN
+ORD-00291,2024-09-30,2024-10-02T10:06:00+08:00,Cebu City,Home & Kitchen,GCash,4,538.92,1983.2,8.8,,,PH-00291-X,cust.0291@mail.test
+ORD-00292,2024-10-01,2024-10-04T10:09:00+08:00,Zamboanga,Apparel,Maya,1,665.92,558.42,14.2,4,,PENDING-ASSIGN,+63 917 000 0292
+ORD-00293,2024-10-02,2024-10-03T14:16:00+08:00,,Sports,GCash,173,597.37,87362.89,14.3,,Attempt #0293 — rider note B771,TRK-2024-00293,+63 917 000 0293
+ORD-00294,2024-10-03,2024-10-07T07:01:00Z,Baguio,Beauty,Bank Transfer,2,426.18,825.88,1.2,3,Attempt #0294 — rider note C486,PENDING-ASSIGN,+63 917 000 0294
+ORD-00295,2024-10-04,2024-10-08T19:01:00+08:00,Parañaque,Electronics,Bank Transfer,9,756.54,6667.29,1.3,,Attempt #0295 — rider note B787,PH-00295-X,
+ORD-00296,2024-10-05,,Iloilo City,Toys,Bank Transfer,11,337.75,3421.1,6.3,2,Attempt #0296 — rider note B616,,cust.0296@mail.test
+,2024-10-06,2024-10-07T12:35:00+08:00,Parañaque,Electronics,GCash,11,939.98,8458.37,,4,Attempt #0297 — rider note B741,trk00297,WALK-IN
+ORD-00298,2024-10-07,2024-10-11T17:22:00+08:00,Bacoor,Toys,GCash,8,889.4,6598.82,4.6,5,Attempt #0298 — rider note D493,PH-00298-X,
+ORD-00299,2024-10-08,2024-10-12T18:20:00+08:00,Iloilo City,Home & Kitchen,Maya,2,453.12,918.9,0.3,2,Attempt #0299 — rider note A772,PENDING-ASSIGN,cust.0299@mail.test
+ORD-00300,2024-10-08,2024-10-12T19:58:00Z,Parañaque,Home & Kitchen,Cash on Delivery,5,330.67,,14.9,4,"Leave at gate, ring twice",PH-00300-X,cust.0300@mail.test
+ORD-00301,2024-10-09,2024-10-12T17:58:00Z,Baguio,Books,Maya,277,4579.48,1045712.24,15.5,5,"Leave at gate, ring twice",trk00301,
+ORD-00302,2024-10-10,2024-10-11T10:48:00+08:00,Cebu City,Groceries,Maya,10,529.62,5216.27,,5,,PENDING-ASSIGN,CUST-0302
+ORD-00303,2024-10-11,2024-10-15T15:07:00+08:00,Parañaque,Home & Kitchen,Cash on Delivery,6,770.51,4625.53,2.8,1,"Leave at gate, ring twice",,
+ORD-00304,2024-10-12,2024-10-13T12:51:00+08:00,Quezon City,Beauty,Maya,11,412.2,3632.49,19.4,4,,,+63 917 000 0304
+ORD-00305,2024-10-13,2024-10-18T08:59:00Z,Bacoor,Electronics,Credit Card,3,462.51,1354.27,4.1,3,Attempt #0305 — rider note A230,PH-00305-X,+63 917 000 0305
+ORD-00306,2024-10-14,2024-10-17T19:41:00+08:00,Quezon City,Apparel,GCash,5,508.98,2234.57,11.9,2,Barangay hall pickup,TRK-2024-00306,WALK-IN
+ORD-00307,2024-10-15,,Muntinlupa,Beauty,Cash on Delivery,11,422.96,4068.26,12,,Attempt #0307 — rider note C356,PH-00307-X,
+ORD-00308,2024-10-16,2024-10-18T14:38:00+08:00,Las Piñas,Beauty,Maya,4,,2916.48,10.1,4,Attempt #0308 — rider note C531,PH-00308-X,cust.0308@mail.test
+,2024-01-23,,Dasmariñas,Apparel,Cash on Delivery,293,432.52,114553.41,,5,Contact before arrival,PENDING-ASSIGN,
+ORD-00309,2024-10-17,,Dasmariñas,Sports,Credit Card,504,680.11,144902.77,57.2,3,,,
+,2024-04-28,2024-04-29T15:05:00+08:00,,Sports,Maya,10,753.24,6332.17,,4,,trk00127,
+ORD-00310,2024-10-18,2024-10-23T08:43:00+08:00,Cebu City,Sports,Bank Transfer,8,361.52,2804.21,5.5,5,Attempt #0310 — rider note B641,PH-00310-X,CUST-0310
+,2024-08-19,2024-08-24T17:32:00+08:00,Dasmariñas,Electronics,Credit Card,169,781.78,116824.73,13,3,配達済み — 玄関前に置いた,PENDING-ASSIGN,CUST-0246
+ORD-00311,2024-10-19,,Cebu City,Toys,Bank Transfer,4,481.65,,5.8,1,Attempt #0311 — rider note D843,PH-00311-X,
+,2024-11-23,2024-11-25T19:32:00Z,Davao City,Home & Kitchen,,3,737.69,,,3,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,WALK-IN
+ORD-00312,2024-10-20,2024-10-24T16:38:00+08:00,Bacoor,Beauty,Credit Card,7,561.26,3825.46,,2,Attempt #0312 — rider note D629,trk00312,+63 917 000 0312
+ORD-00313,2024-10-21,2024-10-24T16:09:00+08:00,Parañaque,Toys,Cash on Delivery,517,930.18,430784.12,10.5,,,trk00313,CUST-0313
+,2024-10-22,,Dasmariñas,Sports,Cash on Delivery,1,458.93,401.3,11.3,,Attempt #0314 — rider note A236,trk00314,CUST-0314
+ORD-00315,2024-10-23,2024-10-26T07:25:00+08:00,Zamboanga,Home & Kitchen,Bank Transfer,171,740.83,44619.75,64.4,1,,PH-00315-X,WALK-IN
+ORD-00316,2024-10-24,2024-10-26T11:42:00Z,Bacoor,Electronics,Cash on Delivery,6,878.71,5026.2,5.7,2,Attempt #0316 — rider note C313,TRK-2024-00316,
+ORD-00317,2024-10-24,2024-10-25T10:52:00+08:00,Cebu City,Apparel,GCash,6,709.37,4203.09,4.1,2,Contact before arrival,PH-00317-X,CUST-0317
+ORD-00318,2024-10-25,,Cebu City,Sports,Maya,6,410.82,2128.32,13.6,,Attempt #0318 — rider note D664,TRK-2024-00318,WALK-IN
+ORD-00319,2024-10-26,2024-10-29T17:39:00+08:00,Davao City,Toys,Maya,4,,,17.7,3,,,+63 917 000 0319
+ORD-00320,2024-10-27,2024-10-29T07:58:00Z,Iloilo City,Electronics,Bank Transfer,7,888.23,5527.63,10,,Contact before arrival,PENDING-ASSIGN,+63 917 000 0320
+ORD-00321,2024-10-28,2024-11-02T17:49:00+08:00,Davao City,Beauty,GCash,4,322.25,1114.15,,,Attempt #0321 — rider note A913,PENDING-ASSIGN,WALK-IN
+ORD-00322,2024-10-29,2024-10-30T10:50:00+08:00,Las Piñas,Groceries,Cash on Delivery,6,521.77,2984.47,7.2,3,,TRK-2024-00322,
+ORD-00323,2024-10-30,2024-11-01T09:45:00+08:00,Zamboanga,Beauty,Bank Transfer,10,,6481.08,,2,,PH-00323-X,CUST-0323
+ORD-00324,2024-10-31,,Bacoor,Beauty,Credit Card,5,724.12,3609.98,,1,,TRK-2024-00324,+63 917 000 0324
+ORD-00325,2024-11-01,2024-11-02T16:41:00+08:00,Bacoor,Beauty,Credit Card,499,780.77,326993.18,,5,Attempt #0325 — rider note D213,PENDING-ASSIGN,WALK-IN
+ORD-00326,2024-11-02,2024-11-06T16:28:00+08:00,Bacoor,Electronics,,2,641.54,1136.56,,1,,trk00326,CUST-0326
+ORD-00327,2024-11-03,2024-11-08T06:40:00+08:00,Parañaque,Sports,Credit Card,12,758.95,7891.87,,2,,TRK-2024-00327,+63 917 000 0327
+ORD-00328,2024-11-04,2024-11-09T08:03:00+08:00,Quezon City,Sports,Credit Card,7,417.72,2845.19,4.3,5,"Leave at gate, ring twice",,
+ORD-00329,2024-11-05,2024-11-10T09:20:00+08:00,Zamboanga,Apparel,GCash,413,676.83,277959.36,3.3,,Attempt #0329 — rider note C829,PENDING-ASSIGN,CUST-0329
+,2024-03-27,,Bacoor,Toys,Bank Transfer,295,686.59,189734.58,7.8,4,Contact before arrival,TRK-2024-00093,cust.0093@mail.test
+ORD-00330,2024-11-06,,Quezon City,Books,Maya,326,446.27,129144.73,9.3,1,"Buyer said ""urgent"" delivery",,
+,2024-07-17,2024-07-22T12:50:00+08:00,Parañaque,Apparel,Bank Transfer,6,588.41,3083.68,,,,PENDING-ASSIGN,cust.0212@mail.test
+,2024-11-07,2024-11-08T12:34:00+08:00,Baguio,Books,GCash,426,934.73,145869.74,64.1,5,,TRK-2024-00331,
+,2024-10-22,,Dasmariñas,Sports,Cash on Delivery,1,458.93,401.3,11.3,,Attempt #0314 — rider note A236,trk00314,CUST-0314
+ORD-00332,2024-11-08,,,Beauty,GCash,2,669.02,1090.15,17.8,4,Attempt #0332 — rider note D615,PH-00332-X,
+ORD-00333,2024-11-09,2024-11-11T13:16:00Z,Parañaque,Apparel,,7,4496.62,29064.25,9.3,1,,PENDING-ASSIGN,+63 917 000 0333
+ORD-00334,2024-11-10,,,Beauty,Bank Transfer,10,640.53,6271.52,3.3,3,,PENDING-ASSIGN,cust.0334@mail.test
+ORD-00335,2024-11-10,2024-11-12T19:01:00Z,Las Piñas,Home & Kitchen,Credit Card,6,897.6,4715.49,14.6,1,,,cust.0335@mail.test
+ORD-00336,2024-11-11,2024-11-14T11:00:00+08:00,Iloilo City,Groceries,Maya,2,553.49,997.68,7.2,5,"Gift wrap requested, no invoice inside",TRK-2024-00336,
+ORD-00337,2024-11-12,,Las Piñas,Books,Credit Card,5,911.43,3780.12,18.3,3,Contact before arrival,PH-00337-X,
+ORD-00338,2024-11-13,2024-11-18T06:31:00+08:00,Dasmariñas,,GCash,9,878.98,2295.16,,4,Attempt #0338 — rider note D317,,CUST-0338
+ORD-00339,,,,Groceries,Cash on Delivery,4,531.95,1969.68,6.8,3,,PENDING-ASSIGN,cust.0339@mail.test
+ORD-00340,2024-11-15,2024-11-19T09:23:00+08:00,Zamboanga,Electronics,Credit Card,465,790.92,300458.08,17.3,1,配達済み — 玄関前に置いた,TRK-2024-00340,+63 917 000 0340
+ORD-00341,2024-11-16,2024-11-19T13:49:00+08:00,Las Piñas,Toys,Cash on Delivery,2,393.98,670.65,13.2,1,Attempt #0341 — rider note C808,,cust.0341@mail.test
+ORD-00342,2024-11-17,2024-11-18T12:02:00+08:00,Davao City,Books,Bank Transfer,2,502.14,848.39,,1,"Gift wrap requested, no invoice inside",,+63 917 000 0342
+ORD-00343,2024-11-18,2024-11-22T10:39:00Z,,Groceries,Cash on Delivery,12,683.97,7000.3,,,"Leave at gate, ring twice",trk00343,cust.0343@mail.test
+ORD-00344,2024-11-19,,Bacoor,Toys,Credit Card,10,932.19,8907.88,,,Attempt #0344 — rider note B403,PH-00344-X,
+ORD-00345,2024-11-20,,Bacoor,Electronics,Maya,9,392.19,3310.21,8.6,4,Barangay hall pickup,,
+ORD-00346,2024-11-21,2024-11-24T17:38:00+08:00,Dasmariñas,Apparel,Credit Card,11,660.93,6934.37,,1,Barangay hall pickup,trk00346,
+ORD-00347,2024-11-22,2024-11-26T06:33:00+08:00,Zamboanga,Electronics,Bank Transfer,10,749.92,7192.21,6.2,2,Attempt #0347 — rider note A364,PH-00347-X,CUST-0347
+,2024-11-23,2024-11-25T19:32:00Z,Davao City,Home & Kitchen,,3,737.69,,,3,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,WALK-IN
+ORD-00349,2024-11-24,2024-11-25T19:56:00+08:00,Cagayan de Oro,Toys,Maya,466,667.59,267775.6,13,5,"Leave at gate, ring twice",PH-00349-X,
+,2024-02-24,not shipped,Las Piñas,,Bank Transfer,10,849.19,7366.77,11.1,5,Attempt #0059 — rider note C441,,cust.0059@mail.test
+ORD-00350,2024-11-25,,Parañaque,Home & Kitchen,GCash,3,477.4,1432.96,2.5,,"Gift wrap requested, no invoice inside",PH-00350-X,CUST-0350
+,2024-06-15,2024-06-16T12:04:00Z,Davao City,Books,,7,379.37,817.79,68.7,2,,trk00178,+63 917 000 0178
+ORD-00351,2024-11-26,2024-11-27T06:39:00Z,Quezon City,Apparel,Maya,12,610.84,1274.64,,1,Attempt #0351 — rider note C683,,cust.0351@mail.test
+,2024-09-20,,Davao City,Beauty,Maya,,326.33,1146.52,60.2,4,"Buyer said ""urgent"" delivery",trk00280,WALK-IN
+ORD-00352,2024-11-26,,Las Piñas,Apparel,GCash,12,748.76,8540.67,7,2,Attempt #0352 — rider note A868,,
+ORD-00353,2024-11-27,2024-12-02T09:19:00+08:00,Iloilo City,Home & Kitchen,Credit Card,1,585.21,490.64,,1,Attempt #0353 — rider note B729,,WALK-IN
+ORD-00354,2024-11-28,2024-11-29T19:47:00+08:00,Parañaque,Electronics,Maya,3,595.56,1534.99,12.2,5,Attempt #0354 — rider note D886,PENDING-ASSIGN,+63 917 000 0354
+ORD-00355,2024-11-29,2024-12-01T17:20:00+08:00,,Beauty,Maya,,930.32,1030.69,77.6,1,Attempt #0355 — rider note D161,TRK-2024-00355,
+ORD-00356,2024-11-30,not shipped,Cagayan de Oro,Apparel,Cash on Delivery,4,674.7,2248.32,,,Attempt #0356 — rider note C132,trk00356,CUST-0356
+ORD-00357,2024-12-01,2024-12-02T17:37:00+08:00,Quezon City,Books,Maya,5,357.98,1737.2,3.4,3,"Gift wrap requested, no invoice inside",TRK-2024-00357,
+ORD-00358,2024-12-02,2024-12-03T07:20:00+08:00,Iloilo City,,Cash on Delivery,,754.37,3774.43,2.4,,Attempt #0358 — rider note B355,,cust.0358@mail.test
+ORD-00359,2024-12-03,2024-12-07T08:23:00Z,Quezon City,Groceries,Credit Card,12,544.24,6423.52,3.3,5,,,cust.0359@mail.test
+ORD-00360,2024-12-04,2024-12-07T08:46:00+08:00,,Electronics,Bank Transfer,7,370.62,,11.4,,,PENDING-ASSIGN,
+ORD-00361,2024-12-05,2024-12-06T06:37:00+08:00,Baguio,Groceries,Bank Transfer,6,583.33,2878.73,18.6,4,,,cust.0361@mail.test
+ORD-00362,2024-12-06,2024-12-08T18:17:00+08:00,Cebu City,Sports,Credit Card,2,715.25,,15.6,5,Attempt #0362 — rider note A885,TRK-2024-00362,
+ORD-00363,2024-12-07,2024-12-11T08:17:00+08:00,Davao City,Toys,Credit Card,6,735.47,,,,Attempt #0363 — rider note A158,trk00363,+63 917 000 0363
+ORD-00364,2024-12-08,2024-12-12T08:45:00+08:00,,Electronics,Bank Transfer,10,744.71,6799.97,6,5,Attempt #0364 — rider note A705,TRK-2024-00364,cust.0364@mail.test
+,2024-12-09,2024-12-12T16:29:00+08:00,Zamboanga,Apparel,Maya,11,807.53,2126.57,,1,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,cust.0365@mail.test
+ORD-00366,2024-12-10,2024-12-12T11:16:00Z,Dasmariñas,Beauty,Maya,9,4325.6,34361.39,,5,,trk00366,+63 917 000 0366
+ORD-00367,2024-12-11,2024-12-14T10:06:00+08:00,Iloilo City,Books,Bank Transfer,333,561.25,160889.22,13.5,,Attempt #0367 — rider note C497,,WALK-IN
+ORD-00368,2024-12-12,2024-12-16T10:58:00Z,Davao City,Groceries,Bank Transfer,2,413.25,714.47,14.6,,Attempt #0368 — rider note C409,TRK-2024-00368,cust.0368@mail.test
+ORD-00369,2024-12-13,2024-12-17T07:21:00Z,Zamboanga,Books,GCash,9,341.87,2625.59,,2,,trk00369,+63 917 000 0369
+,2024-01-23,,Dasmariñas,Apparel,Cash on Delivery,293,432.52,114553.41,,5,Contact before arrival,PENDING-ASSIGN,
+ORD-00370,2024-12-13,2024-12-14T08:10:00+08:00,Cagayan de Oro,Home & Kitchen,Credit Card,7,796.62,4759.91,13.2,,Attempt #0370 — rider note D359,,+63 917 000 0370
+,2024-05-14,2024-05-15T07:17:00Z,Cebu City,Beauty,Maya,6,629.57,3055.87,16.9,3,"Gift wrap requested, no invoice inside",PH-00144-X,
+ORD-00371,2024-12-14,,Muntinlupa,Beauty,,1,759.81,759.21,2.6,,Attempt #0371 — rider note C358,TRK-2024-00371,
+,2024-08-19,2024-08-24T17:32:00+08:00,Dasmariñas,Electronics,Credit Card,169,781.78,116824.73,13,3,配達済み — 玄関前に置いた,PENDING-ASSIGN,CUST-0246
+ORD-00372,2024-12-15,2024-12-18T17:11:00+08:00,,,GCash,7,638.58,4314.56,5.4,1,,,CUST-0372
+,2024-11-23,2024-11-25T19:32:00Z,Davao City,Home & Kitchen,,3,737.69,,,3,"Buyer said ""urgent"" delivery",PENDING-ASSIGN,WALK-IN
+ORD-00373,2024-12-16,2024-12-20T10:39:00+08:00,,Beauty,Maya,198,512.83,92729.8,,3,,PENDING-ASSIGN,
+ORD-00374,2024-12-17,2024-12-20T08:08:00+08:00,Las Piñas,Toys,Maya,10,,6935.57,,2,Attempt #0374 — rider note A682,PH-00374-X,WALK-IN
+ORD-00375,2024-12-18,,Muntinlupa,Sports,Maya,,664.06,1848.09,9.5,,Attempt #0375 — rider note C250,PH-00375-X,cust.0375@mail.test
+ORD-00376,2024-12-19,2024-12-20T06:16:00+08:00,Davao City,Electronics,Bank Transfer,4,3631.99,12252.83,17.1,1,Attempt #0376 — rider note A213,PH-00376-X,+63 917 000 0376
+ORD-00377,2024-12-20,,Davao City,Home & Kitchen,Maya,6,751.25,4189.11,9,2,,PENDING-ASSIGN,+63 917 000 0377
+ORD-00378,2024-12-21,2024-12-22T19:45:00Z,Iloilo City,Apparel,Bank Transfer,2,3879.48,6153.9,19.6,1,Contact before arrival,PH-00378-X,CUST-0378
+ORD-00379,2024-12-22,2024-12-27T11:11:00+08:00,Cagayan de Oro,Beauty,Maya,11,593.74,1059.55,,3,,,+63 917 000 0379
+ORD-00380,2024-12-23,,Cebu City,Groceries,Credit Card,2,413.09,,7.4,,配達済み — 玄関前に置いた,TRK-2024-00380,+63 917 000 0380
+ORD-00381,2024-12-24,2024-12-28T12:08:00Z,,Toys,Credit Card,9,735.41,1232.95,80.8,4,Barangay hall pickup,PH-00381-X,CUST-0381
+ORD-00382,2024-12-25,,Davao City,Beauty,Credit Card,2,,1490.69,,1,Attempt #0382 — rider note B100,PENDING-ASSIGN,cust.0382@mail.test
+ORD-00383,2024-12-26,2024-12-28T17:56:00+08:00,Muntinlupa,Sports,Bank Transfer,388,4448.82,,87.1,3,"Buyer said ""urgent"" delivery",PH-00383-X,+63 917 000 0383
+ORD-00384,2024-12-27,2024-12-28T08:01:00Z,Las Piñas,Groceries,Maya,11,362.11,3361.13,,4,,TRK-2024-00384,WALK-IN
+ORD-00385,2024-12-28,2024-12-29T14:40:00+08:00,Baguio,Beauty,Cash on Delivery,10,611.54,pending,0.6,,,trk00385,
+ORD-00386,2024-12-29,2025-01-02T12:53:00+08:00,Parañaque,Sports,GCash,8,716.55,pending,59.4,,,trk00386,WALK-IN
