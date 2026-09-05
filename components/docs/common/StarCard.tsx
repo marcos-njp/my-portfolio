@@ -9,7 +9,7 @@ interface StarCardProps {
 export function StarCard({ letter, title, children }: StarCardProps) {
   return (
     <div className="flex items-start gap-3">
-      <div className="w-8 h-8 rounded-full border border-foreground flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 rounded-sm border border-foreground flex items-center justify-center flex-shrink-0">
         <span className="nm-display text-sm leading-none">{letter}</span>
       </div>
       <div className="flex-1">

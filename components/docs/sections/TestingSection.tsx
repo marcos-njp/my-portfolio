@@ -40,7 +40,7 @@ export function TestingSection() {
 setTimeout(() => abortController.abort(), 12000);
 
 const result = await streamText({
-  model: groq('llama-3.3-70b-versatile'),
+  model: groq('openai/gpt-oss-120b'),
   signal: abortController.signal
 });`}
           </CodeBlock>

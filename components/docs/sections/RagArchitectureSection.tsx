@@ -19,7 +19,7 @@ export function RagArchitectureSection() {
       content: (
         <div className="space-y-4">
           <HighlightBox type="info" title="Model Configuration">
-            <p className="text-xs mb-2">llama-3.3-70b-versatile - Optimized for speed and accuracy</p>
+            <p className="text-xs mb-2">openai/gpt-oss-120b on Groq - Optimized for speed and accuracy</p>
             <div className="space-y-1">
               <p>• Temperature: 0.7 (Professional) / 0.9 (Casual)</p>
               <p>• Length: guided by the prompt, no hard token cap</p>
@@ -32,7 +32,7 @@ export function RagArchitectureSection() {
 const groq = createGroq({ apiKey: process.env.GROQ_API_KEY });
 
 const { textStream } = await streamText({
-  model: groq('llama-3.3-70b-versatile'),
+  model: groq('openai/gpt-oss-120b'),
   messages: [systemPrompt, ...conversationHistory, userMessage],
   temperature: mood === 'professional' ? 0.7 : 0.9
 });`}
@@ -48,8 +48,8 @@ const { textStream } = await streamText({
           <HighlightBox type="info" title="Vector Database Setup">
             <p className="text-xs mb-2">Serverless vector database with hosted embeddings</p>
             <div className="space-y-1">
-              <p>• Embedding model: BGE-large (Upstash hosted)</p>
-              <p>• Dimensions: 1024</p>
+              <p>• Embedding model: text-embedding-3-small (Upstash hosted)</p>
+              <p>• Dimensions: 1536</p>
               <p>• Distance metric: Cosine similarity</p>
             </div>
           </HighlightBox>
@@ -82,7 +82,7 @@ const results = await vectorIndex.query({
           
           <div className="space-y-3">
             {validationPatterns.map((pattern, index) => (
-              <div key={index} className="rounded-lg border p-3">
+              <div key={index} className="rounded-md border p-3">
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="font-medium text-sm">{pattern.name}</h4>
                   <span className="text-xs bg-muted px-2 py-1 rounded">{pattern.result.split(' - ')[0]}</span>
@@ -189,7 +189,7 @@ if (validation.errorType) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
             <div>
               <p className="font-medium">Vector Dimensions</p>
-              <p>1024 (BGE-large)</p>
+              <p>1536 (text-embedding-3-small)</p>
             </div>
             <div>
               <p className="font-medium">Search TopK</p>

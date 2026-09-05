@@ -26,9 +26,9 @@ export const architectureFlow = [
 ];
 
 export const systemMetrics = [
-  { label: "AI Model", value: "Groq", description: "llama-3.3-70b-versatile" },
+  { label: "AI Model", value: "Groq", description: "openai/gpt-oss-120b" },
   { label: "Vector DB", value: "Upstash", description: "Serverless, cosine" },
-  { label: "Embedding", value: "1024-dim", description: "BGE-large, auto-embedded" },
+  { label: "Embedding", value: "1536-dim", description: "text-embedding-3-small, auto-embedded" },
   { label: "Relevance", value: "0.75", description: "Min score, 0.65 fallback" },
 ];
 

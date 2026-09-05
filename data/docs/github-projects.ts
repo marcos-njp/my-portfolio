@@ -3,7 +3,7 @@ export const githubProjects = [
     name: "AI Digital Twin Portfolio",
     description: "This portfolio. A Next.js site with a RAG-powered AI digital twin, plus an MCP server so AI agents can query it.",
     tech: ["Next.js 16", "TypeScript", "Groq", "Upstash Vector", "Upstash Redis", "MCP", "Tailwind CSS"],
-    github: "https://github.com/marcos-njp/my-portfolio",
+    github: "https://github.com/drSabine/my-portfolio",
     demo: "https://m-njp.vercel.app",
     highlights: [
       "RAG pipeline with semantic search and reranking",
@@ -17,7 +17,7 @@ export const githubProjects = [
     name: "Academic Information System (Capstone)",
     description: "An ongoing academic information system with data analytics for the Junior High School department at St. Paul University Philippines.",
     tech: ["Web", "Databases", "Data Analytics"],
-    github: "https://github.com/marcos-njp",
+    github: "https://github.com/drSabine",
     demo: null,
     highlights: [
       "Streamlined student academic records",
@@ -30,7 +30,7 @@ export const githubProjects = [
     name: "Nihilita",
     description: "An Android app built with Flutter and Firebase, where I got hands-on with mobile development and NoSQL data.",
     tech: ["Flutter", "Dart", "Firebase", "NoSQL", "Android"],
-    github: "https://github.com/marcos-njp",
+    github: "https://github.com/drSabine",
     demo: null,
     highlights: [
       "Cross-platform UI with Flutter",

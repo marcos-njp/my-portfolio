@@ -13,7 +13,7 @@ export function ComparisonCard({ title, type = "before", items, className = "" }
 
   return (
     // Full border around the entire card — no single-side accent border.
-    <div className={`rounded-md border-2 ${isAfter ? "border-foreground" : "border-primary"} bg-card p-4 ${className}`}>
+    <div className={`rounded-md border ${isAfter ? "border-foreground" : "border-line-strong"} bg-card p-4 ${className}`}>
       <h4 className="font-medium mb-3 text-sm flex items-center gap-2">
         {isAfter ? <Check className="w-4 h-4" strokeWidth={2} /> : <X className="w-4 h-4 text-primary" strokeWidth={2} />}
         {title}

@@ -27,7 +27,7 @@ export function MobileNav() {
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden" onClick={() => setIsOpen(false)} />
           <nav className="fixed top-14 left-0 right-0 bg-background border-b border-border z-50 md:hidden max-h-[calc(100vh-3.5rem)] overflow-y-auto">
             <div className="px-4 py-4 space-y-0.5">
-              <p className="nm-label px-3 mb-2">documentation</p>
+              <p className="nm-label px-3 mb-2">Documentation</p>
               {docsNav.map((item) => {
                 const isActive = isDocActive(item.href, pathname, section);
                 return (
@@ -37,11 +37,11 @@ export function MobileNav() {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-3 px-3 py-3 text-sm rounded-md border transition-colors ${
                       isActive
-                        ? "border-primary bg-secondary text-foreground font-medium"
+                        ? "border-border bg-secondary text-foreground font-medium"
                         : "border-transparent text-muted-foreground hover:text-foreground hover:bg-secondary/60"
                     }`}
                   >
-                    <span className="nm-display text-primary text-base w-7 text-right leading-none">{item.index}</span>
+                    <span className="nm-display text-muted-foreground text-base w-7 text-right leading-none">{item.index}</span>
                     <span>{item.name}</span>
                   </Link>
                 );
@@ -53,7 +53,7 @@ export function MobileNav() {
                   onClick={() => setIsOpen(false)}
                   className="nm-label flex items-center gap-2 px-3 py-3 hover:text-foreground transition-colors"
                 >
-                  ← back to portfolio
+                  Back to portfolio
                 </Link>
               </div>
             </div>

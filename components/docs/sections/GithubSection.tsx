@@ -12,7 +12,7 @@ export function GithubSection() {
 
       {/* GitHub Profile Stats */}
       <section>
-        <div className="rounded-lg border p-6">
+        <div className="rounded-md border p-6">
           <div className="flex items-center gap-3 mb-4">
             <Github className="w-6 h-6" />
             <h2 className="text-2xl font-semibold">GitHub Profile</h2>
@@ -36,12 +36,12 @@ export function GithubSection() {
             <div className="rounded-md bg-secondary p-4 text-center">
               <Github className="w-5 h-5 mx-auto mb-2" strokeWidth={1.75} />
               <a
-                href="https://github.com/marcos-njp" 
+                href="https://github.com/drSabine" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-sm font-semibold text-primary hover:underline"
               >
-                @marcos-njp
+                @drSabine
               </a>
               <p className="text-xs text-muted-foreground">GitHub Profile</p>
             </div>
@@ -63,7 +63,7 @@ export function GithubSection() {
       <section>
         <h2 className="text-2xl font-semibold mb-4">Technology Overview</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="rounded-lg border p-4">
+          <div className="rounded-md border p-4">
             <h3 className="font-semibold mb-3 text-sm">Frontend</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
               <li>• Next.js 16 (App Router)</li>
@@ -74,10 +74,10 @@ export function GithubSection() {
             </ul>
           </div>
 
-          <div className="rounded-lg border p-4">
+          <div className="rounded-md border p-4">
             <h3 className="font-semibold mb-3 text-sm">Backend & AI</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
-              <li>• Groq AI (llama-3.3-70b-versatile)</li>
+              <li>• Groq AI (openai/gpt-oss-120b)</li>
               <li>• Upstash Vector (RAG)</li>
               <li>• Upstash Redis (Sessions)</li>
               <li>• Firebase & NoSQL</li>
@@ -85,7 +85,7 @@ export function GithubSection() {
             </ul>
           </div>
 
-          <div className="rounded-lg border p-4">
+          <div className="rounded-md border p-4">
             <h3 className="font-semibold mb-3 text-sm">DevOps & Tools</h3>
             <ul className="space-y-1 text-xs text-muted-foreground">
               <li>• Vercel deployment</li>
@@ -101,7 +101,7 @@ export function GithubSection() {
       {/* Contribution Activity */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">Development Activity</h2>
-        <div className="rounded-lg border p-6">
+        <div className="rounded-md border p-6">
           <p className="text-sm text-muted-foreground mb-4">
             Active development across multiple projects with consistent commits, documentation, and iterative improvements.
           </p>
@@ -130,7 +130,7 @@ export function GithubSection() {
 
           <div className="mt-4 pt-4 border-t">
             <a
-              href="https://github.com/marcos-njp/my-portfolio-main-project/commits/main/"
+              href="https://github.com/drSabine/my-portfolio-main-project/commits/main/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-primary hover:underline flex items-center gap-1"
@@ -144,14 +144,14 @@ export function GithubSection() {
 
       {/* Contact */}
       <section>
-        <div className="rounded-lg border bg-muted/50 p-6 text-center">
+        <div className="rounded-md border bg-muted/50 p-6 text-center">
           <h3 className="font-semibold mb-2">Interested in Collaboration?</h3>
           <p className="text-sm text-muted-foreground mb-4">
             Explore the repositories, try the live demos, or reach out to discuss potential projects.
           </p>
           <div className="flex justify-center gap-4">
             <a
-              href="https://github.com/marcos-njp"
+              href="https://github.com/drSabine"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm"

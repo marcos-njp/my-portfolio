@@ -18,7 +18,7 @@ export function OperationsSection() {
           Each issue includes context, diagnosis, solution, and prevention strategies derived from 
           commit messages and pull requests in the{" "}
           <a 
-            href="https://github.com/marcos-njp/my-portfolio-main-project/commits/main/" 
+            href="https://github.com/drSabine/my-portfolio-main-project/commits/main/" 
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
@@ -216,7 +216,7 @@ AI: "The AI-Powered Portfolio uses Next.js 16, TypeScript,
           Best Practices Learned
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="rounded-lg border p-4">
+          <div className="rounded-md border p-4">
             <h3 className="font-semibold mb-3 text-sm">Development</h3>
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li className="flex items-start gap-2">
@@ -238,7 +238,7 @@ AI: "The AI-Powered Portfolio uses Next.js 16, TypeScript,
             </ul>
           </div>
 
-          <div className="rounded-lg border p-4">
+          <div className="rounded-md border p-4">
             <h3 className="font-semibold mb-3 text-sm">AI Systems</h3>
             <ul className="space-y-2 text-xs text-muted-foreground">
               <li className="flex items-start gap-2">
@@ -265,7 +265,7 @@ AI: "The AI-Powered Portfolio uses Next.js 16, TypeScript,
       {/* Monitoring */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">Ongoing Monitoring</h2>
-        <div className="rounded-lg border p-6">
+        <div className="rounded-md border p-6">
           <p className="text-sm text-muted-foreground mb-4">
             Current monitoring setup for proactive issue detection:
           </p>

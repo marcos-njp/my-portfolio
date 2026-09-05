@@ -11,7 +11,7 @@ export function DocsSidebar() {
 
   return (
     <nav className="space-y-0.5 py-6">
-      <p className="nm-label px-3 mb-3">documentation</p>
+      <p className="nm-label px-3 mb-3">Documentation</p>
       {docsNav.map((item) => {
         const isActive = isDocActive(item.href, pathname, section);
         return (
@@ -20,11 +20,11 @@ export function DocsSidebar() {
             href={item.href}
             className={`flex items-center gap-3 px-3 py-2 text-sm rounded-md border transition-colors ${
               isActive
-                ? "border-primary bg-secondary text-foreground font-medium"
+                ? "border-border bg-secondary text-foreground font-medium"
                 : "border-transparent text-muted-foreground hover:text-foreground hover:bg-secondary/60"
             }`}
           >
-            <span className="nm-display text-primary text-base w-7 text-right leading-none">{item.index}</span>
+            <span className="nm-display text-muted-foreground text-base w-7 text-right leading-none">{item.index}</span>
             <span>{item.name}</span>
           </Link>
         );
@@ -32,7 +32,7 @@ export function DocsSidebar() {
 
       <div className="pt-4 mt-4 border-t border-border">
         <Link href="/" className="nm-label flex items-center gap-2 px-3 py-2 hover:text-foreground transition-colors">
-          ← back to portfolio
+          Back to portfolio
         </Link>
       </div>
     </nav>

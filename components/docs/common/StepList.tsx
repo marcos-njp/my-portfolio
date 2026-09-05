@@ -15,7 +15,7 @@ export function StepList({ steps, className = "" }: StepListProps) {
     <div className={`space-y-3 ${className}`}>
       {steps.map((step, index) => (
         <div key={index} className="flex items-start gap-3">
-          <div className="rounded-full border border-foreground w-6 h-6 flex items-center justify-center flex-shrink-0">
+          <div className="rounded-sm border border-foreground w-6 h-6 flex items-center justify-center flex-shrink-0">
             <span className="nm-display text-xs leading-none">{step.number ?? index + 1}</span>
           </div>
           <div className="flex-1">

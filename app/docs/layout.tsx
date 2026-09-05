@@ -27,7 +27,7 @@ export default function DocsLayout({
                 </Link>
                 <span className="hidden sm:inline nm-label-sm">/</span>
                 <Link href="/docs" className="hidden sm:inline nm-label hover:text-foreground transition-colors">
-                  documentation
+                  Documentation
                 </Link>
               </div>
             </div>

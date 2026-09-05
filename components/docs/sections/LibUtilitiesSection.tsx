@@ -78,14 +78,15 @@ const fullHistory = await loadChatHistory(sessionId);`}
           </HighlightBox>
 
           <CodeBlock title="Flow">
-{`import { preprocessQuery } from '@/lib/query-preprocessor';
-import { validateQuery, enhanceQuery } from '@/lib/query-validator';
+{`import { preprocessQuery, resolveFollowUpQuery } from '@/lib/query-preprocessor';
+import { validateQuery } from '@/lib/query-validator';
 
 const { corrected } = preprocessQuery(userMessage);
 const result = validateQuery(corrected);
 if (!result.isValid) return getPersonaResponse(result.errorType, mood);
 
-const searchQuery = enhanceQuery(corrected);`}
+// Resolve "it" / "that first one" against history before embedding
+const { searchQuery } = resolveFollowUpQuery(corrected, sessionHistory);`}
           </CodeBlock>
         </div>
       ),
@@ -98,16 +99,16 @@ const searchQuery = enhanceQuery(corrected);`}
           <HighlightBox type="success" title="Vector search and context">
             <p className="text-xs mb-2">Upstash auto-embeds the query, then results are filtered by score.</p>
             <div className="space-y-1 text-xs">
-              <p>• topK 3, minScore 0.75 with a 0.65 fallback</p>
+              <p>• topK 6, minimum score 0.60</p>
               <p>• Builds the context block for the prompt</p>
-              <p>• Checks the context actually answers the question</p>
+              <p>• Flags retrieval failure so it is never mistaken for &quot;no answer&quot;</p>
             </div>
           </HighlightBox>
 
           <CodeBlock title="Pipeline">
 {`import { searchVectorContext, buildContextPrompt } from '@/lib/rag-utils';
 
-const rag = await searchVectorContext(vectorIndex, query, { topK: 3 });
+const rag = await searchVectorContext(vectorIndex, searchQuery, { topK: 6 });
 const context = buildContextPrompt(rag);`}
           </CodeBlock>
         </div>
@@ -118,23 +119,22 @@ const context = buildContextPrompt(rag);`}
       label: "Response Tools",
       content: (
         <div className="space-y-4">
-          <HighlightBox type="tip" title="Length, persona, and feedback">
-            <p className="text-xs mb-2">Keep replies short, on-persona, and adapt to feedback.</p>
+          <HighlightBox type="tip" title="Feedback preferences">
+            <p className="text-xs mb-2">Adapts replies to feedback given mid-conversation.</p>
             <div className="space-y-1 text-xs">
-              <p>• Length guidance added to the prompt</p>
-              <p>• Persona-consistency check on the output</p>
-              <p>• Learns reply preferences from feedback</p>
+              <p>• Detects feedback such as &quot;be more concise&quot;</p>
+              <p>• Persists preferences per session in Redis</p>
+              <p>• Length guidance lives in the system prompt</p>
             </div>
           </HighlightBox>
 
           <CodeBlock title="Modules">
-{`import { validateMoodCompliance } from '@/lib/response-validator';
-import { getResponseLengthInstruction } from '@/lib/response-manager';
-import { detectFeedback } from '@/lib/feedback-detector';
+{`import { detectFeedback, applyFeedback } from '@/lib/feedback-detector';
 
-const lengthRule = getResponseLengthInstruction();
 const feedback = detectFeedback(userMessage);
-const check = validateMoodCompliance(aiOutput, mood);`}
+if (feedback?.isProfessional) {
+  preferences = applyFeedback(preferences, feedback);
+}`}
           </CodeBlock>
         </div>
       ),
@@ -181,7 +181,7 @@ if (!validation.isValid) return getPersonaResponse(validation.errorType, mood);
 const { messages: history } = await loadSessionData(sessionId);
 
 // 3. Retrieve relevant chunks
-const rag = await searchVectorContext(vectorIndex, enhanceQuery(corrected), { topK: 3 });
+const rag = await searchVectorContext(vectorIndex, searchQuery, { topK: 6 });
 
 // 4. Stream the answer in the chosen voice
 const { systemPromptAddition, temperature } = getMoodConfig(mood);

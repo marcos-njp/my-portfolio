@@ -21,7 +21,7 @@ const accent: Record<AlertType, string> = {
 
 export function AlertBox({ type = "info", icon: Icon, title, children, className = "" }: AlertBoxProps) {
   return (
-    <div className={`rounded-md border-2 ${accent[type]} bg-card p-5 ${className}`}>
+    <div className={`rounded-md border ${accent[type]} bg-card p-5 ${className}`}>
       <div className="flex items-start gap-3">
         {Icon && <Icon className="w-4 h-4 mt-0.5 text-foreground shrink-0" strokeWidth={1.75} />}
         <div className="flex-1">

@@ -67,7 +67,7 @@ const sections = [
 
 const SPECS = [
   { label: "Framework", value: "Next.js 16" },
-  { label: "AI Model", value: "Groq · llama-3.3-70b" },
+  { label: "AI Model", value: "Groq gpt-oss-120b" },
   { label: "Vector DB", value: "Upstash Vector" },
   { label: "Deployment", value: "Vercel" },
 ];
@@ -118,7 +118,7 @@ export default function DocsContent() {
         <h2 className="text-lg font-medium tracking-tight mb-2">About this portfolio</h2>
         <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
           A production Next.js portfolio featuring an AI digital twin powered by Retrieval-Augmented Generation (RAG).
-          It runs Groq AI (<code className="font-mono text-xs">llama-3.3-70b-versatile</code>) over an Upstash Vector store
+          It runs Groq AI (<code className="font-mono text-xs">openai/gpt-oss-120b</code>) over an Upstash Vector store
           for semantic search, with persona-aware error handling, a dual storage system (session memory + chat history),
           smart suggested questions, semantic query validation, and a synchronized robot companion.
         </p>
@@ -155,7 +155,7 @@ export default function DocsContent() {
           <p className="nm-label mb-3">quick links</p>
           <div className="grid gap-2.5 text-sm">
             <Link href="/" className="hover:text-foreground text-muted-foreground transition-colors">← Back to portfolio</Link>
-            <Link href="https://github.com/marcos-njp/my-portfolio" target="_blank" className="hover:text-foreground text-muted-foreground transition-colors">Source code on GitHub ↗</Link>
+            <Link href="https://github.com/drSabine/my-portfolio" target="_blank" className="hover:text-foreground text-muted-foreground transition-colors">Source code on GitHub ↗</Link>
             <Link href="https://m-njp.vercel.app" target="_blank" className="hover:text-foreground text-muted-foreground transition-colors">Live demo ↗</Link>
           </div>
         </div>

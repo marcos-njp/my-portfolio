@@ -35,13 +35,13 @@ export function TroubleshootCard({ problem, description, diagnosis, solution, pr
         </div>
 
         {/* Full border — foreground color on all sides, not just left */}
-        <div className="rounded-md border-2 border-foreground bg-card p-4">
+        <div className="rounded-md border border-foreground bg-card p-4">
           <p className="nm-label-sm mb-2">solution</p>
           {typeof solution === "string" ? <p className="text-xs text-muted-foreground leading-relaxed">{solution}</p> : solution}
         </div>
 
         {/* Full border — line-strong color on all sides */}
-        <div className="rounded-md border-2 border-line-strong bg-card p-4">
+        <div className="rounded-md border border-line-strong bg-card p-4">
           <p className="nm-label-sm mb-2">prevention</p>
           <p className="text-xs text-muted-foreground leading-relaxed">{prevention}</p>
         </div>

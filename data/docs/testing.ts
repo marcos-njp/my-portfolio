@@ -1,5 +1,5 @@
 export const improvementMetrics = [
-  { label: "Model", value: "Groq", description: "llama-3.3-70b-versatile" },
+  { label: "Model", value: "Groq", description: "openai/gpt-oss-120b" },
   { label: "Responses", value: "Streamed", description: "Token by token" },
   { label: "Client timeout", value: "30s", description: "Then a graceful error" },
   { label: "Min score", value: "0.75", description: "0.65 fallback" },

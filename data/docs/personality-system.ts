@@ -25,7 +25,7 @@ export const personalityWorkflowSteps = [
   },
   {
     title: "AI Response Generated",
-    description: "Groq AI: llama-3.3-70b-versatile with personality validation and error handling",
+    description: "Groq AI: openai/gpt-oss-120b with personality validation and error handling",
   },
   {
     title: "Memory Updated",

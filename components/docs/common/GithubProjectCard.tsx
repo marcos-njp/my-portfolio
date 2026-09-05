@@ -22,7 +22,7 @@ export function GithubProjectCard({ name, description, tech, github, demo, highl
         <p className="nm-label-sm mb-2">tech stack</p>
         <div className="flex flex-wrap gap-2">
           {tech.map((t, i) => (
-            <span key={i} className="font-mono text-[11px] tracking-wide border border-border rounded-full px-2.5 py-1 text-muted-foreground">
+            <span key={i} className="font-mono text-[11px] tracking-wide border border-border rounded-sm px-2.5 py-1 text-muted-foreground">
               {t}
             </span>
           ))}

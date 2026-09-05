@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { useTheme } from "next-themes";
+import { DigitalNino } from "@/components/digital-nino";
 import {
   AlertBox,
   CodeBlock,
@@ -54,7 +59,7 @@ const promptFlowSteps = [
   {
     title: "Enhance and route the query",
     description:
-      "Valid prompts are expanded when needed, FAQ hints are attached, and the final search query is sent to Upstash Vector.",
+      "Follow-ups are resolved against conversation history first, then the search query is sent to Upstash Vector.",
   },
   {
     title: "Validate the retrieved context",
@@ -64,7 +69,7 @@ const promptFlowSteps = [
   {
     title: "Assemble the full system prompt",
     description:
-      "The final prompt combines personality mode, conversation history, vector context, FAQ hints, feedback preferences, and response-length guidance.",
+      "The final prompt combines personality mode, conversation history, vector context, and feedback preferences.",
   },
   {
     title: "Stream and persist the answer",
@@ -74,6 +79,10 @@ const promptFlowSteps = [
 ];
 
 export function CompanionProcessingSection() {
+  const { resolvedTheme } = useTheme();
+  const theme: "dark" | "light" = resolvedTheme === "light" ? "light" : "dark";
+  const [thinking, setThinking] = useState(false);
+
   return (
     <DocPageLayout
       title="Companion & Prompt Flow"
@@ -88,6 +97,17 @@ export function CompanionProcessingSection() {
       </AlertBox>
 
       <DocSection title="Robot Companion States">
+        <div className="rounded-md border border-border bg-card p-6 flex flex-col sm:flex-row items-center gap-6 mb-4">
+          <DigitalNino size={96} mood="normal" isTalking={thinking} theme={theme} />
+          <div className="flex-1 text-center sm:text-left">
+            <p className="text-sm text-muted-foreground mb-3">
+              This is the live companion. Toggle the thinking state to see the exact animation the chat uses, and tap the robot to make it spin.
+            </p>
+            <button type="button" onClick={() => setThinking((v) => !v)} className="nm-link nm-hover">
+              {thinking ? "Stop thinking" : "Make it think"}
+            </button>
+          </div>
+        </div>
         <div className="grid md:grid-cols-3 gap-4">
           <HighlightBox type="info" title="Idle">
             <p className="text-xs">Rotating helper lines invite a conversation before the modal opens.</p>
@@ -138,7 +158,7 @@ if (!shouldSkipValidation) {
   if (!validation.isValid) return personaAwareError;
 }
 
-const ragContext = await searchVectorContext(vectorIndex, enhanceQuery(cleanQuery), {
+const ragContext = await searchVectorContext(vectorIndex, searchQuery, {
   topK: RAG_THRESHOLDS.topK,
   minScore: RAG_THRESHOLDS.routeMinScore,
 });

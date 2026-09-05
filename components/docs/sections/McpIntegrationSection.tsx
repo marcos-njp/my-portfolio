@@ -206,7 +206,7 @@ export async function POST(request: Request) {
             href="https://modelcontextprotocol.io/introduction"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 p-4 rounded-lg border hover:border-primary transition-colors"
+            className="flex items-center gap-2 p-4 rounded-md border hover:border-primary transition-colors"
           >
             <ExternalLink className="w-4 h-4 text-muted-foreground" />
             <div>
@@ -218,7 +218,7 @@ export async function POST(request: Request) {
             href="https://github.com/modelcontextprotocol"
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center gap-2 p-4 rounded-lg border hover:border-primary transition-colors"
+            className="flex items-center gap-2 p-4 rounded-md border hover:border-primary transition-colors"
           >
             <ExternalLink className="w-4 h-4 text-muted-foreground" />
             <div>

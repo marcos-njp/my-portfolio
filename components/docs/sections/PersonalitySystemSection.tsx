@@ -101,7 +101,7 @@ export function PersonalitySystemSection() {
         </div>
 
         <CodeBlock title="Implementation" className="mt-4">
-{`// lib/response-validator.ts
+{`// lib/ai-moods.ts
 export function getPersonaResponse(errorType: string, mood: 'professional' | 'genz') {
   const responses = errorResponses[errorType];
   return responses?.[mood] || responses?.professional || defaultResponse;
