@@ -21,8 +21,8 @@
 
 | Skill | Level | Notes |
 |-------|-------|-------|
-| Groq AI SDK | Expert | `llama-3.3-70b-versatile`, streaming, system prompts |
-| Upstash Vector | Expert | Cosine similarity, 1024 dims, auto-embedding |
+| Groq AI SDK | Expert | `openai/gpt-oss-120b`, streaming, system prompts |
+| Upstash Vector | Expert | Cosine similarity, 1536 dims, hosted auto-embedding |
 | Upstash Redis | Expert | Session memory, chat history, TTL management |
 | Query preprocessing | Expert | Typo fix, normalization, Levenshtein distance |
 | Semantic validation | Expert | Pattern matching, rejection categories |

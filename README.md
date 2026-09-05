@@ -46,7 +46,7 @@ Visit `http://localhost:3000`
 - **TypeScript**: Full type safety throughout
 
 ### AI & Database
-- **Groq AI**: Lightning-fast inference with llama-3.3-70b-versatile
+- **Groq AI**: Lightning-fast inference with openai/gpt-oss-120b
 - **Upstash Vector**: Semantic search and RAG capabilities
 - **Upstash Redis**: Session management and caching
 

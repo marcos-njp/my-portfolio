@@ -9,7 +9,7 @@ always npm run start
 
 AI SETUP:
 - Use Groq AI (NOT OpenAI) - faster and more cost-effective
-- Model: llama-3.3-70b-versatile for chat responses
+- Model: openai/gpt-oss-120b (Groq) for chat responses
 - Upstash Vector for semantic search with RAG
 - Upstash Redis for caching 
 

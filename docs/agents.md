@@ -27,8 +27,8 @@ Infer your mode from the user's prompt. Read the matching guide immediately.
 ## /stack
 
 - **Framework:** Next.js 16 (App Router), React 19, TypeScript
-- **AI:** Groq AI (`llama-3.3-70b-versatile`), Vercel AI SDK (`streamText`)
-- **Vector DB:** Upstash Vector (`mxbai-embed-large-v1`, 1024 dims, cosine similarity)
+- **AI:** Groq AI (`openai/gpt-oss-120b`), Vercel AI SDK (`streamText`)
+- **Vector DB:** Upstash Vector (dense, 1536 dims, cosine, hosted `text-embedding-3-small` auto-embedding)
 - **Cache/Session:** Upstash Redis (8-msg session window, 1-hour TTL history)
 - **Styling:** Tailwind CSS 4, Shadcn UI, Framer Motion
 - **Validation:** Zod schemas throughout
@@ -42,7 +42,7 @@ Infer your mode from the user's prompt. Read the matching guide immediately.
 
 ### AI / RAG Pipeline
 
-1. **Use Groq AI only.** Never OpenAI. Model: `llama-3.3-70b-versatile`.
+1. **Use Groq AI only.** Never OpenAI directly. Model: `openai/gpt-oss-120b`.
 2. **Vector search before LLM call.** Always retrieve context (top_k=3, minScore=0.6) before generating.
 3. **Session memory = 8 messages.** Token-efficient window. Complete history stored separately.
 4. **Validate queries before RAG.** Use `query-validator.ts` — reject unrelated/manipulation attempts.
@@ -146,7 +146,7 @@ DocsSidebar, common/ (10 reusable doc components), sections/ (10 doc sections)
 
 | Mistake | Correct approach |
 |---------|-----------------|
-| Use OpenAI instead of Groq | Always `@ai-sdk/groq` with `llama-3.3-70b-versatile` |
+| Use OpenAI instead of Groq | Always `@ai-sdk/groq` with `openai/gpt-oss-120b` |
 | Skip query validation | Always validate through `query-validator.ts` |
 | Duplicate component markup | Check inventory, reuse or extract |
 | Inline complex logic in JSX | Extract to `lib/` utils or custom hooks |

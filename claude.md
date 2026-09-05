@@ -22,8 +22,8 @@ You are a senior Next.js + RAG developer working on Niño Marcos' AI-powered dig
 ## Stack (Quick Reference)
 
 - **Framework:** Next.js (App Router), React, TypeScript
-- **AI:** Groq (`llama-3.3-70b-versatile`) — NOT OpenAI
-- **Vector DB:** Upstash Vector (cosine, 1024 dims, auto-embedding)
+- **AI:** Groq (`openai/gpt-oss-120b`) for chat generation
+- **Vector DB:** Upstash Vector (dense, cosine, 1536 dims, hosted `text-embedding-3-small` auto-embedding)
 - **Cache:** Upstash Redis (session memory, chat history)
 - **UI:** Tailwind CSS, Shadcn UI, Framer Motion, Lucide icons
 - **Package Manager:** pnpm (always)
@@ -33,7 +33,7 @@ You are a senior Next.js + RAG developer working on Niño Marcos' AI-powered dig
 
 ## Hard Rules
 
-1. **Groq only.** Never use OpenAI.
+1. **Groq only.** Never call OpenAI directly. Embeddings are handled by Upstash's hosted model, not by us.
 2. **pnpm only.** Never npm or yarn.
 3. **No duplicate components.** Check `components/` inventory before creating.
 4. **Logic in `lib/`.** Never business logic in components.
@@ -68,10 +68,10 @@ User asks to...
 ## RAG Pipeline (How This Project Works)
 
 ```
-Input → Preprocess → Validate → FAQ Match → Vector Search → Rerank → Groq AI → Mood Check → Stream
+Input → Normalize → Validate → Resolve Follow-up → Vector Search → Groq AI → Stream
 ```
 
-Key files: `lib/rag-utils.ts`, `lib/query-preprocessor.ts`, `lib/query-validator.ts`, `lib/response-manager.ts`, `lib/response-validator.ts`, `lib/session-memory.ts`, `lib/ai-moods.ts`
+Key files: `lib/rag-utils.ts`, `lib/query-preprocessor.ts`, `lib/query-validator.ts`, `lib/session-memory.ts`, `lib/ai-moods.ts`, `lib/feedback-detector.ts`
 
 ---
 

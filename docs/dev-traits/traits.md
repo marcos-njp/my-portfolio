@@ -73,24 +73,16 @@ components/
   ui/                     ← SHADCN PRIMITIVES (check here first)
     button.tsx, card.tsx, dialog.tsx, input.tsx, select.tsx, textarea.tsx
     contact-card.tsx, philippine-time.tsx, timeline-card.tsx
-  ai-chat/                ← CHAT INTERFACE (8 components)
-    chat-trigger.tsx      ← Floating chat button
-    chat-sidebar.tsx      ← Main chat panel
-    chat-input.tsx        ← Message input with mood styling
-    chat-message.tsx      ← Message bubble rendering
-    chat-features-modal.tsx
-    comment-input.tsx
-    mood-selector.tsx
-    suggested-questions.tsx
-  sections/               ← PAGE SECTIONS (5 sections)
-    hero-section.tsx, tech-stack.tsx, projects-section.tsx,
-    experience-section.tsx, education-section.tsx
-  cards/                  ← Card variants
-    project-card.tsx
-  forms/                  ← Form components
-    contact-form.tsx
+  ai-chat/                ← CHAT INTERFACE
+    chat-message.tsx      ← Message bubble (user / assistant / pending)
+    chat-history-panel.tsx ← Saved session list, new chat, delete
+  sections/               ← PAGE SECTIONS
+    side-nav.tsx          ← Left rail nav + mobile drawer (scroll-spy)
+    intro-screen.tsx, hero-section.tsx, ai-chat-section.tsx,
+    approach-section.tsx, experience-section.tsx, education-section.tsx,
+    contact-section.tsx, section-header.tsx, footer.tsx
   modals/                 ← Modal components
-    project-modal.tsx
+    chat-features-modal.tsx
   docs/                   ← Documentation components
     DocsSidebar.tsx
     common/               ← 10 reusable doc primitives
@@ -100,12 +92,10 @@ lib/                      ← ALL BUSINESS LOGIC + UTILS
   rag-utils.ts            ← Vector search, reranking, relevance
   query-preprocessor.ts   ← Typo fix, normalization
   query-validator.ts      ← Input validation, rejection
-  response-manager.ts     ← Length, follow-ups
-  response-validator.ts   ← Mood compliance
-  session-memory.ts       ← Redis session management
+  session-memory.ts       ← Redis session management (AI context window)
+  chat-store.ts           ← Local chat sessions, prompts, drafts (localStorage)
   feedback-detector.ts    ← Adaptive learning
   ai-moods.ts             ← Mood configs (GenZ, Professional)
-  interviewer-faqs.ts     ← FAQ patterns for RAG boost
   url-resolver.ts         ← API domain resolution
   chat-mcp.ts             ← MCP tool definition
   projects-data.ts        ← Static project data
