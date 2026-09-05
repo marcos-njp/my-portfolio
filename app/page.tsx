@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Header from "@/components/sections/header"
+import SideNav from "@/components/sections/side-nav"
 import Footer from "@/components/sections/footer"
 import HeroSection from "@/components/sections/hero-section"
 import AiChatSection from "@/components/sections/ai-chat-section"
@@ -26,8 +26,8 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section id={id} className="py-14 md:py-20 border-t border-border">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id={id} className="scroll-mt-16 py-14 md:py-20 border-t border-border">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
         <SectionHeader index={index} title={title} subtitle={subtitle} />
         {children}
       </div>
@@ -44,20 +44,22 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <HeroSection />
-        <AiChatSection />
-        <ApproachSection />
-        <Section id="experience" index="02" title="Experience">
-          <ExperienceSection />
-        </Section>
-        <Section id="education" index="03" title="Education">
-          <EducationSection />
-        </Section>
-        <ContactSection />
-      </main>
-      <Footer />
+      <SideNav />
+      <div className="lg:pl-64">
+        <main>
+          <HeroSection />
+          <AiChatSection />
+          <ApproachSection />
+          <Section id="experience" index="03" title="Experience">
+            <ExperienceSection />
+          </Section>
+          <Section id="education" index="04" title="Education">
+            <EducationSection />
+          </Section>
+          <ContactSection />
+        </main>
+        <Footer />
+      </div>
     </div>
   )
 }

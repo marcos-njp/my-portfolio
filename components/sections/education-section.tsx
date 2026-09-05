@@ -32,9 +32,8 @@ export default function EducationSection() {
               <h3 className="text-lg font-medium tracking-tight">{edu.school}</h3>
               <span className="nm-label whitespace-nowrap">{edu.period}</span>
             </div>
-            <p className="mt-1.5 nm-label">
-              {edu.degree} · {edu.location}
-            </p>
+            <p className="mt-1.5 nm-label">{edu.degree}</p>
+            <p className="nm-label-sm">{edu.location}</p>
             <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed max-w-2xl">{edu.description}</p>
           </div>
         </div>

@@ -46,7 +46,7 @@ const lettera = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Niño Justin Marcos · Agentic AI Developer",
+  title: "Niño Justin Marcos, Agentic AI Developer",
   description: "Portfolio and AI digital twin of Niño Justin Marcos. Agentic AI development, automation, and project management.",
 }
 

@@ -31,7 +31,7 @@ export default function ApproachSection() {
         {/* How I work with AI */}
         <div className="mt-8">
           <p className="nm-label-sm mb-3">How I work with AI</p>
-          <div className="grid gap-px bg-border border border-border rounded-md overflow-hidden sm:grid-cols-3">
+          <div className="grid gap-px bg-border border border-border sm:grid-cols-3">
             {WORKFLOW.map((w) => (
               <div key={w.tool} className="bg-background p-4">
                 <p className="font-medium">{w.tool}</p>
@@ -48,7 +48,7 @@ export default function ApproachSection() {
           {FOCUS.map((t) => (
             <span
               key={t}
-              className="font-mono text-[11px] tracking-tight text-muted-foreground border border-border rounded-full px-3 py-1.5"
+              className="font-mono text-[11px] tracking-tight text-muted-foreground border border-border rounded-sm px-3 py-1.5"
             >
               {t}
             </span>
@@ -61,7 +61,7 @@ export default function ApproachSection() {
             <p className="text-sm text-muted-foreground mt-1">My latest work lives on GitHub. Let&apos;s connect on LinkedIn.</p>
           </div>
           <div className="flex flex-wrap gap-2.5">
-            <Link href="https://github.com/marcos-njp" target="_blank" rel="noopener noreferrer" className="nm-link nm-hover">
+            <Link href="https://github.com/drSabine" target="_blank" rel="noopener noreferrer" className="nm-link nm-hover">
               <Github className="w-3.5 h-3.5" /> GitHub <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
             <Link href="https://www.linkedin.com/in/niño-marcos/" target="_blank" rel="noopener noreferrer" className="nm-link nm-link-accent">

@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/sections/section-header"
 const CONTACTS = [
   { icon: Mail, label: "Email", value: "justinpmarcos@gmail.com", href: "mailto:justinpmarcos@gmail.com" },
   { icon: Linkedin, label: "LinkedIn", value: "Connect with me", href: "https://www.linkedin.com/in/niño-marcos/" },
-  { icon: Github, label: "GitHub", value: "@marcos-njp", href: "https://github.com/marcos-njp" },
+  { icon: Github, label: "GitHub", value: "@drSabine", href: "https://github.com/drSabine" },
 ]
 
 export default function ContactSection() {

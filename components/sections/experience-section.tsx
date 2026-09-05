@@ -27,7 +27,7 @@ const experiences: Experience[] = [
     label: "Organization",
     accent: true,
     title: "Vice President of External Affairs",
-    organization: "Junior Philippine Computer Society · SPUP Chapter",
+    organization: "Junior Philippine Computer Society, SPUP Chapter",
     location: "St. Paul University Philippines",
     description:
       "I lead external affairs for the student developer community, handling partnerships, sponsorships, and outreach with organizations beyond the campus.",
@@ -37,7 +37,7 @@ const experiences: Experience[] = [
     period: "Sep to Dec 2025",
     label: "Internship",
     title: "Fullstack & Agentic AI Developer",
-    organization: "Industry Project Internship · Employability Advantage",
+    organization: "Industry Project Internship with Employability Advantage",
     location: "with AusBiz Consulting (Australia)",
     description:
       "A 10-week hands-on industry engagement building production fullstack and agentic AI features, mentored by industry experts. Worked through real project requirements end to end, from setup to delivery.",
@@ -49,7 +49,7 @@ const experiences: Experience[] = [
   {
     period: "2025",
     label: "Competition",
-    title: "Semi-Finalist · Group Stage 4",
+    title: "Semi-Finalist, Group Stage 4",
     organization: "CodeChum National Programming Challenge 2025, Season 2",
     description:
       "Advanced to the semi-finals of a national competitive programming challenge, solving timed algorithmic problems against teams across the country.",
@@ -61,7 +61,7 @@ const experiences: Experience[] = [
   {
     period: "Nov 2018",
     label: "International",
-    title: "Programming Skills Excellence · 4th of 118 teams",
+    title: "Programming Skills Excellence, 4th of 118 teams",
     organization: "2018 STEAM International Challenge (国际挑战赛), Robotics",
     location: "Shenzhen, Guangdong, China",
     description:
@@ -73,7 +73,7 @@ const experiences: Experience[] = [
   {
     period: "Oct 2018",
     label: "National",
-    title: "Excellence Award · 5th of 43 schools",
+    title: "Excellence Award, 5th of 43 schools",
     organization: "6th Robothon National Competition",
     location: "Trinity University of Asia, Quezon City",
     description:
@@ -92,8 +92,8 @@ export default function ExperienceSection() {
           <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-2.5">
             <span className="nm-label">{exp.period}</span>
             <span
-              className={`nm-label-sm rounded-full px-2.5 py-1 border ${
-                exp.accent ? "text-primary border-primary" : "text-muted-foreground border-border"
+              className={`nm-label-sm rounded-sm px-2.5 py-1 border ${
+                exp.accent ? "text-foreground border-line-strong" : "text-muted-foreground border-border"
               }`}
             >
               {exp.label}
@@ -104,7 +104,7 @@ export default function ExperienceSection() {
             <h3 className="text-lg font-medium tracking-tight">{exp.title}</h3>
             <p className="mt-1.5 nm-label">
               {exp.organization}
-              {exp.location ? ` · ${exp.location}` : ""}
+              {exp.location ? `, ${exp.location}` : ""}
             </p>
             <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed max-w-2xl">{exp.description}</p>
 

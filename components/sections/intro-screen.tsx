@@ -109,7 +109,7 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
       <div className="relative flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
         {/* Fixed-height bubble area so the layout below never shifts when text wraps */}
         <div className="h-16 flex items-end justify-center">
-          <div className="bg-white/10 border border-white/15 rounded-2xl px-5 py-2.5 max-w-xs text-center font-ntype text-[15px] leading-snug text-white/90 backdrop-blur-sm">
+          <div className="bg-white/10 border border-white/15 rounded-sm px-5 py-2.5 max-w-xs text-center font-ntype text-[15px] leading-snug text-white/90 backdrop-blur-sm">
             {displayedText}
             {isTalking && (
               <span className="inline-block w-[2px] h-3.5 bg-white/70 ml-0.5 align-middle animate-pulse" />
@@ -147,7 +147,7 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
           </div>
           <div className="h-px bg-white/15 relative">
             <div
-              className="absolute left-0 top-0 h-px bg-primary transition-all duration-100"
+              className="absolute left-0 top-0 h-px bg-white transition-all duration-100"
               style={{ width: `${progress}%` }}
             />
           </div>

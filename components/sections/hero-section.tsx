@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react"
 
 const LINKS = [
-  { href: "https://github.com/marcos-njp", label: "Github", icon: Github },
+  { href: "https://github.com/drSabine", label: "Github", icon: Github },
   { href: "https://www.linkedin.com/in/niño-marcos/", label: "LinkedIn", icon: Linkedin },
 ]
 
@@ -20,7 +20,7 @@ export default function HeroSection() {
           <div>
             <div className="flex items-center gap-2.5 mb-6">
               <span className="nm-led nm-led-blink" />
-              <span className="nm-label-hero">Agentic AI Developer · Automation &amp; Project Management</span>
+              <span className="nm-label-hero">Agentic AI Developer, Automation and Project Management</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[0.95] text-balance">
@@ -28,7 +28,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-md leading-relaxed font-body">
-              Obsessed with the details. A perfectionist who can&apos;t unsee an inconsistency, and builds systems that hold up to it.
+              Building automation and AI systems, with a close eye on the details.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-2.5">
@@ -58,7 +58,7 @@ export default function HeroSection() {
             <span className="pointer-events-none absolute -bottom-px -left-px w-3 h-3 border-b border-l border-primary" />
             <span className="pointer-events-none absolute -bottom-px -right-px w-3 h-3 border-b border-r border-primary" />
             <span className="absolute bottom-0 inset-x-0 bg-background/85 backdrop-blur-sm border-t border-border py-1.5 text-center nm-label-sm">
-              ID · 001
+              ID 001
             </span>
           </div>
         </div>

@@ -8,7 +8,7 @@ export default function Footer() {
             m-njp<span className="text-primary">.</span>
           </span>
           <p className="nm-label-sm text-center">
-            built with next.js, react and tailwind · deployed on vercel
+            built with next.js, react and tailwind, deployed on vercel
           </p>
           <p className="nm-label-sm">&copy; 2026 niño marcos</p>
         </div>
