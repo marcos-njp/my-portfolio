@@ -8,7 +8,7 @@
     "contact": {
       "email": "justinpmarcos@gmail.com",
       "linkedin": "https://www.linkedin.com/in/niño-marcos/",
-      "github": "https://github.com/marcos-njp"
+      "github": "https://github.com/drSabine"
     }
   },
   "status": {
@@ -93,7 +93,7 @@
       "status": "Live",
       "description": "This portfolio. A Next.js site with a RAG-powered AI digital twin using Groq and Upstash Vector, plus an MCP server for AI agents.",
       "technologies": ["Next.js", "TypeScript", "Groq", "Upstash Vector", "RAG", "MCP"],
-      "github_url": "https://github.com/marcos-njp/my-portfolio"
+      "github_url": "https://github.com/drSabine/my-portfolio"
     }
   ],
   "career_goals": {
@@ -113,7 +113,7 @@
       "id": "chunk_2",
       "title": "Contact",
       "type": "contact",
-      "content": "You can reach me at justinpmarcos@gmail.com, on LinkedIn at linkedin.com/in/niño-marcos, and on GitHub at github.com/marcos-njp.",
+      "content": "You can reach me at justinpmarcos@gmail.com, on LinkedIn at linkedin.com/in/niño-marcos, and on GitHub at github.com/drSabine.",
       "metadata": { "category": "contact", "tags": ["contact", "links", "email"] }
     },
     {

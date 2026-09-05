@@ -5,32 +5,6 @@
  * used across lib/ utilities. Edit HERE, not in lib files.
  */
 
-// ─── Typo Corrections ───────────────────────────────────────────────
-export const COMMON_TYPOS: Record<string, string> = {
-  // Question words
-  wat: 'what', wut: 'what', hw: 'how', wy: 'why',
-  // Text speak
-  ur: 'your', u: 'you', r: 'are', n: 'and',
-  // Professional terms
-  experiance: 'experience', skilss: 'skills', projets: 'projects',
-  programing: 'programming', developement: 'development', educaton: 'education',
-  abotu: 'about', teh: 'the', taht: 'that', wich: 'which',
-};
-
-export const TEXT_SPEAK_PATTERNS = [
-  { pattern: /\b(can|could|do|are|were|did)\s+u\b/gi, replace: '$1 you' },
-  { pattern: /\bur\s+(skills|experience|background|projects)/gi, replace: 'your $1' },
-  { pattern: /\b(wat|wut)\s+(can|do|are|is)/gi, replace: 'what $2' },
-  { pattern: /\bhw\s+(many|much)/gi, replace: 'how $1' },
-  { pattern: /\br\s+u\b/gi, replace: 'are you' },
-];
-
-/** Professional terms for fuzzy Levenshtein correction */
-export const KEY_TERMS = [
-  'programming', 'experience', 'development', 'projects',
-  'skills', 'technical', 'education', 'university',
-];
-
 // ─── Validation Patterns ─────────────────────────────────────────────
 
 /** Patterns that indicate a professionally relevant query */
@@ -49,10 +23,6 @@ export const REJECTION_PATTERNS: Record<string, RegExp> = {
   manipulation: /(?:ignore|forget|disregard).{0,20}(?:previous|instruction|rule|prompt|system)|(?:act as|pretend to be|jailbreak)/i,
   personal: /\b(?:girlfriend|boyfriend|dating|relationship|family|parents|address|phone|bank|password|salary|income|age|birthday)\b/i,
   inappropriate: /\b(?:hack|illegal|cheat|steal|pirate|crack|bypass|porn|sex|drugs|alcohol)\b/i,
-  tech_preferences: /\b(?:prefer|like|choose|better)\b.{0,20}\b(?:mac|windows|linux|android|ios)\b|\b(?:pc specs?|computer specs?|hardware|RAM|graphics? card|processor|CPU|GPU|intel|amd|nvidia|macbook|gaming rig)\b/i,
-  entertainment: /\b(?:favorite|like|watch|listen).{0,20}\b(?:movie|music|show|game|anime|netflix|spotify)\b|\b(?:gaming|games|xbox|playstation|nintendo|youtube|tiktok|instagram|band|artist|actor|celebrity)\b/i,
-  general_offtopic: /\b(?:weather|temperature|forecast|sports?|football|basketball|soccer|news|politics|politician|recipe|cooking|food|restaurant|travel|vacation|joke|funny|meme)\b/i,
-  offtopic: /\b(?:medical advice|legal advice|religion)\b/i,
 };
 
 /** Knowledge gap detection — queries we can flag early */
@@ -62,7 +32,10 @@ export const KNOWLEDGE_GAP_PATTERNS = [
   { pattern: /how many (?:users|downloads|visits|views|clicks)/i, type: 'metrics' },
   { pattern: /(?:traffic|revenue|conversion|performance) (?:numbers|metrics|stats)/i, type: 'metrics' },
   { pattern: /(?:salary|income|how much (?:do you make|earn)|home address|phone number)/i, type: 'personal_data' },
-  { pattern: /^(?:tell me about yourself|what can you do|anything|everything)$/i, type: 'vague_inquiry' },
+  // NOTE: "tell me about yourself" and "what can you do" are standard interview
+  // openers that FAQ_PATTERNS.introduction is built to answer, so they are NOT
+  // knowledge gaps. Only genuinely contentless prompts belong here.
+  { pattern: /^(?:anything|everything)$/i, type: 'vague_inquiry' },
 ];
 
 /** Suggested questions from the UI — always bypass validation */
@@ -112,110 +85,11 @@ export const INVALID_REQUEST_PATTERNS = [
   /(?:tell me|write).{0,30}(?:joke|poem|story|song)/i,
 ];
 
-// ─── GenZ Validation (single source) ─────────────────────────────────
-// response-validator uses this instead of maintaining its own Set.
-// prompt-templates.ts keeps the PROMPT INSTRUCTIONS (what to tell the AI).
-// This is the DETECTION vocabulary (what to check in responses).
-
-import { genzSlang } from './prompt-templates';
-
-/** Flat set of all GenZ slang for response validation scoring */
-export const GENZ_SLANG_SET: Set<string> = new Set([
-  ...genzSlang.useOften,
-  ...genzSlang.useSometimes,
-  ...genzSlang.spicyTier,
-]);
-
-export const CASUAL_STARTERS = [
-  'yo', 'aight', 'so like', 'okay so', 'real talk', 'ngl', 'tbh', 'bruh', 'hey',
-];
-
-// ─── RAG Thresholds ──────────────────────────────────────────────────
-
 export const RAG_THRESHOLDS = {
-  /** Primary score filter */
-  minScore: 0.75,
-  /** Fallback tier — used when nothing passes minScore */
-  fallbackScore: 0.65,
   /** Minimum score the route considers "good context" */
   routeMinScore: 0.6,
-  /** Default top-K results */
-  topK: 3,
+  /** Default top-K results. 3 was too narrow: broad questions like "what projects
+   * have you built" dropped real chunks below the cut, and the model invented
+   * details to fill the gap. */
+  topK: 6,
 };
-
-// ─── FAQ Context Hints ───────────────────────────────────────────────
-// Category-based hints instead of brittle chunk IDs.
-
-export interface FAQPattern {
-  category: string;
-  question: string;
-  keywords: string[];
-  contextHint: string;
-  relevance_boost: number;
-}
-
-export const FAQ_PATTERNS: FAQPattern[] = [
-  {
-    category: 'introduction',
-    question: 'Tell me about yourself',
-    keywords: ['about yourself', 'introduce yourself', 'who are you', 'background', 'tell me about'],
-    contextHint: 'Focus on: personal profile, education, key projects, competition achievements',
-    relevance_boost: 0.95,
-  },
-  {
-    category: 'introduction',
-    question: 'Why should we hire you?',
-    keywords: ['why hire', 'why should we', 'what makes you', 'why you', 'hire you'],
-    contextHint: 'Focus on: unique value proposition, competition achievements, deployed projects, technical skills',
-    relevance_boost: 0.95,
-  },
-  {
-    category: 'technical',
-    question: 'What programming languages?',
-    keywords: ['programming languages', 'languages', 'what languages', 'languages do you know'],
-    contextHint: 'Focus on: programming languages with years and proficiency levels',
-    relevance_boost: 0.95,
-  },
-  {
-    category: 'technical',
-    question: 'Tech stack and tools',
-    keywords: ['tech stack', 'technologies', 'frameworks', 'tools', 'what do you use'],
-    contextHint: 'Focus on: technical skills and tools - databases, cloud, frontend, backend, AI/ML',
-    relevance_boost: 0.95,
-  },
-  {
-    category: 'projects',
-    question: 'Tell me about your projects',
-    keywords: ['projects', 'what have you built', 'portfolio', 'applications', 'apps'],
-    contextHint: 'Focus on: the capstone academic information system, Nihilita, the AI digital twin portfolio, and agentic AI work',
-    relevance_boost: 0.93,
-  },
-  {
-    category: 'achievements',
-    question: 'What are your achievements?',
-    keywords: ['achievements', 'accomplishments', 'awards', 'proud of', 'success'],
-    contextHint: 'Focus on: key achievements, international competition, national competition',
-    relevance_boost: 0.95,
-  },
-  {
-    category: 'career',
-    question: 'Career goals',
-    keywords: ['career goals', 'future plans', 'where do you see yourself', 'aspirations', 'long term'],
-    contextHint: 'Focus on: career goals, technical interests, learning focus',
-    relevance_boost: 0.9,
-  },
-  {
-    category: 'compensation',
-    question: 'Salary expectations',
-    keywords: ['salary', 'compensation', 'pay', 'rate', 'expectations'],
-    contextHint: 'Focus on: salary and location preferences',
-    relevance_boost: 0.85,
-  },
-  {
-    category: 'interview',
-    question: 'What are your weaknesses?',
-    keywords: ['weakness', 'weaknesses', 'areas to improve', 'what you struggle'],
-    contextHint: 'Focus on: weakness mitigation strategies',
-    relevance_boost: 0.9,
-  },
-];

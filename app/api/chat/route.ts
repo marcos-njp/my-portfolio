@@ -2,12 +2,9 @@ import { createGroq } from '@ai-sdk/groq';
 import { streamText } from 'ai';
 import { Index } from '@upstash/vector';
 import { FOLLOW_UP_PATTERN, RAG_THRESHOLDS } from '@/data/rag-config';
-import { searchVectorContext, buildContextPrompt, validateContextRelevance } from '@/lib/rag-utils';
-import { preprocessQuery } from '@/lib/query-preprocessor';
-import { validateQuery, enhanceQuery } from '@/lib/query-validator';
-import { findRelevantFAQPatterns, buildContextHints } from '@/lib/interviewer-faqs';
-import { validateMoodCompliance } from '@/lib/response-validator';
-import { getResponseLengthInstruction } from '@/lib/response-manager';
+import { searchVectorContext, buildContextPrompt } from '@/lib/rag-utils';
+import { preprocessQuery, resolveFollowUpQuery } from '@/lib/query-preprocessor';
+import { validateQuery } from '@/lib/query-validator';
 import { getMoodConfig, getPersonaResponse, getSmartFallbackResponse, type AIMood } from '@/lib/ai-moods';
 import { saveConversationHistory, loadSessionData, buildConversationContext } from '@/lib/session-memory';
 import {
@@ -69,7 +66,9 @@ RULES:
 - Answer the question first, then stop. One or two sentences for simple questions, three or four for complex ones.
 - Be specific: use real names, tools, and numbers from CONTEXT. No vague filler.
 - For follow-ups ("it", "that", "more"), use the conversation history.
-- If something isn't in CONTEXT, say so briefly and offer what you do know. Never make things up.`;
+- If something isn't in CONTEXT, say so briefly and offer what you do know. Never make things up.
+
+LENGTH: Be concise. One or two sentences for simple questions, up to four for complex ones. Hard cap around 150 words. Do not pad, repeat, or list everything. Specifics over length.`;
 
 export async function POST(req: Request) {
   let mood: AIMood = 'professional';
@@ -147,12 +146,16 @@ export async function POST(req: Request) {
       }
     }
     
-    // Enhance query with professional terms
-    const searchQuery = enhanceQuery(cleanQuery);
+    // Resolve references against history BEFORE embedding. Without this a query
+    // like "tell me more about that first one" is embedded verbatim, retrieves
+    // unrelated chunks that still clear the score threshold, and the model
+    // invents details to bridge the gap.
+    const resolved = resolveFollowUpQuery(cleanQuery, sessionHistory);
+    if (resolved.resolved) {
+      console.log(`[Follow-up] resolved "${cleanQuery}" using ${sessionHistory.length} prior message(s)`);
+    }
 
-    // FAQ pattern matching - guides RAG to relevant chunks
-    const faqMatches = findRelevantFAQPatterns(cleanQuery);
-    const faqContextHints = faqMatches.length > 0 ? buildContextHints(faqMatches) : '';
+    const searchQuery = resolved.searchQuery;
 
     // Vector search with RAG
     const ragContext = await searchVectorContext(getVectorIndex(), searchQuery, {
@@ -161,15 +164,21 @@ export async function POST(req: Request) {
       includeMetadata: true,
     });
 
+    // Retrieval infrastructure failure is NOT a knowledge gap -- never mask it as one.
+    if (ragContext.retrievalFailed) {
+      return new Response(
+        JSON.stringify({
+          error: 'Knowledge base unavailable',
+          message: 'My knowledge base is unreachable right now, so I cannot answer accurately. Check the Upstash Vector URL and token.',
+        }),
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Knowledge gap detection - graceful fallback
     const hasGoodContext = ragContext.chunksUsed > 0 && ragContext.topScore >= RAG_THRESHOLDS.routeMinScore;
     
-    let contextRelevance = { isRelevant: true, reason: '', confidence: 1.0 };
-    if (hasGoodContext) {
-      contextRelevance = validateContextRelevance(cleanQuery, ragContext.relevantChunks.join(' '), ragContext.topScore);
-    }
-    
-    if ((!hasGoodContext || !contextRelevance.isRelevant) && !isShortFollowUp && !isFollowUpResponse) {
+    if (!hasGoodContext && !isShortFollowUp && !isFollowUpResponse) {
       const smartFallback = getSmartFallbackResponse(cleanQuery, mood);
       return new Response(smartFallback, {
         status: 200,
@@ -189,7 +198,6 @@ export async function POST(req: Request) {
     // Build final system prompt with mood + context + feedback
     const feedbackInstruction = buildFeedbackInstruction(feedbackPreferences);
     const moodConfig = getMoodConfig(mood);
-    const lengthInstruction = getResponseLengthInstruction();
     
     const finalSystemPrompt = [
       moodConfig.systemPromptAddition,
@@ -197,25 +205,20 @@ export async function POST(req: Request) {
       SYSTEM_PROMPT,
       conversationContext,
       contextInfo,
-      faqContextHints,
       feedbackInstruction,
-      lengthInstruction,
     ].filter(Boolean).join('\n');
     
     const startTime = Date.now();
     
     const result = streamText({
-      model: getGroqClient()('llama-3.3-70b-versatile'),
+      model: getGroqClient()('openai/gpt-oss-120b'),
       system: finalSystemPrompt,
       messages,
       temperature: moodConfig.temperature,
+      maxOutputTokens: 2048,
+      providerOptions: { groq: { reasoningEffort: 'medium' } },
       onFinish: async ({ text }) => {
         console.log(`[Response] ${Date.now() - startTime}ms, ${text.length} chars, mood: ${mood}`);
-        
-        const moodValidation = validateMoodCompliance(text, mood);
-        if (!moodValidation.compliant) {
-          console.warn(`[Mood] ${mood} compliance: ${moodValidation.score}/100`);
-        }
         
         if (sessionId) {
           await saveConversationHistory(sessionId, [
@@ -233,11 +236,44 @@ export async function POST(req: Request) {
     
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     const isRateLimit = /429|rate limit|Too Many Requests/i.test(errorMessage);
+    const isConfigError = /missing|required environment variables|not configured/i.test(errorMessage);
+    const isAuthError = /401|403|unauthorized|forbidden|invalid api key|authentication/i.test(errorMessage);
+    const isUpstashError = /upstash|vector/i.test(errorMessage);
     
     if (isRateLimit) {
       return new Response(
         JSON.stringify({ error: 'Rate limit exceeded', message: getPersonaResponse('rate_limit', mood || 'professional') }),
         { status: 429, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (isConfigError) {
+      return new Response(
+        JSON.stringify({
+          error: 'Server configuration error',
+          message: 'Deployment is missing one or more AI service environment variables.',
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (isAuthError) {
+      return new Response(
+        JSON.stringify({
+          error: 'Authentication failed',
+          message: 'The AI service key appears invalid or expired. Check the Groq and Upstash tokens in deployment.',
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (isUpstashError) {
+      return new Response(
+        JSON.stringify({
+          error: 'Knowledge base unavailable',
+          message: 'The Upstash Vector connection failed. Check the vector URL and token in deployment.',
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
     

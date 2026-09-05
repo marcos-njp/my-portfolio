@@ -1,32 +1,9 @@
 /**
- * Query Preprocessing - Typo Detection & Text Normalization
- * Patterns sourced from data/rag-config.ts
+ * Query Preprocessing - normalization and follow-up (coreference) resolution.
+ *
+ * Typo/fuzzy correction was removed: the embedding model already tolerates
+ * misspellings, and the Levenshtein pass rewrote legitimate words.
  */
-
-import { COMMON_TYPOS, TEXT_SPEAK_PATTERNS, KEY_TERMS } from '@/data/rag-config';
-
-/**
- * Smart typo correction using patterns and common fixes
- */
-export function fixTypos(query: string): string {
-  let corrected = query.toLowerCase();
-  
-  // Apply text speak patterns
-  for (const { pattern, replace } of TEXT_SPEAK_PATTERNS) {
-    corrected = corrected.replace(pattern, replace);
-  }
-  
-  // Fix common individual words
-  const words = corrected.split(/\s+/);
-  const fixedWords = words.map(word => {
-    const cleanWord = word.replace(/[.,!?;:]$/, '');
-    const punctuation = word.slice(cleanWord.length);
-    
-    return (COMMON_TYPOS[cleanWord] || cleanWord) + punctuation;
-  });
-  
-  return fixedWords.join(' ');
-}
 
 /**
  * Normalize query text
@@ -45,94 +22,66 @@ export function normalizeQuery(query: string): string {
 }
 
 /**
- * Calculate Levenshtein distance between two strings
- */
-function levenshteinDistance(str1: string, str2: string): number {
-  const m = str1.length;
-  const n = str2.length;
-  const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
-
-  for (let i = 0; i <= m; i++) dp[i][0] = i;
-  for (let j = 0; j <= n; j++) dp[0][j] = j;
-
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      if (str1[i - 1] === str2[j - 1]) {
-        dp[i][j] = dp[i - 1][j - 1];
-      } else {
-        dp[i][j] = Math.min(
-          dp[i - 1][j] + 1,     // deletion
-          dp[i][j - 1] + 1,     // insertion
-          dp[i - 1][j - 1] + 1  // substitution
-        );
-      }
-    }
-  }
-
-  return dp[m][n];
-}
-
-/**
- * Smart correction for key professional terms using fuzzy matching
- */
-export function correctKeyTerms(query: string): string {
-  // Focus on most commonly misspelled professional terms
-  const words = query.split(/\s+/);
-  
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i].toLowerCase().replace(/[.,!?;:]$/, '');
-    
-    // Skip if word is too short or already correct
-    if (word.length < 4 || KEY_TERMS.includes(word)) continue;
-    
-    // Find best match using Levenshtein distance
-    let bestMatch = word;
-    let minDistance = Math.floor(word.length * 0.4);
-    
-    for (const term of KEY_TERMS) {
-      const distance = levenshteinDistance(word, term);
-      if (distance < minDistance && distance <= 3) { // Max 3 character changes
-        minDistance = distance;
-        bestMatch = term;
-      }
-    }
-    
-    if (bestMatch !== word) {
-      const punctuation = words[i].slice(word.length);
-      words[i] = bestMatch + punctuation;
-    }
-  }
-  
-  return words.join(' ');
-}
-
-/**
- * OPTIMIZED preprocessing pipeline
+ * Preprocessing pipeline.
  */
 export function preprocessQuery(query: string): { original: string; corrected: string; changes: string[] } {
-  const original = query;
-  const changes: string[] = [];
-  
-  // Step 1: Normalize
-  let processed = normalizeQuery(query);
-  
-  // Step 2: Fix known typos (dictionary)
-  const afterTypoFix = fixTypos(processed);
-  if (afterTypoFix !== processed) {
-    changes.push('Fixed common typos');
-    processed = afterTypoFix;
+  return { original: query, corrected: normalizeQuery(query), changes: [] };
+}
+
+/**
+ * Follow-up resolution (coreference).
+ *
+ * A pronoun-only query like "tell me more about that first one" carries no
+ * semantic signal, so embedding it verbatim retrieves noise that can still
+ * scrape past the score threshold — and noise labelled as RELEVANT CONTEXT is
+ * what makes the model invent details. We therefore retrieve using the recent
+ * turns as well, so the vector search sees the subject the query refers to.
+ *
+ * Deterministic on purpose: no extra LLM round-trip on the hot path.
+ */
+
+/** Queries that only make sense relative to what was just said. */
+const REFERENCE_PATTERN =
+  /\b(?:it|its|that|this|these|those|them|they|the (?:first|second|third|last|other) one)\b|^\s*(?:tell me more|more|elaborate|go on|continue|what else|how so)\b/i;
+
+/** How much of a prior message to carry into the search query. */
+const CONTEXT_CHARS = 300;
+
+export interface ResolvedQuery {
+  /** Query to embed for vector search. */
+  searchQuery: string;
+  /** True when prior turns were folded in. */
+  resolved: boolean;
+}
+
+export function needsContextResolution(query: string): boolean {
+  return REFERENCE_PATTERN.test(query.trim());
+}
+
+/**
+ * Expand a referring query with the previous turns so vector search can find
+ * the subject. Returns the query unchanged when it already stands alone.
+ */
+export function resolveFollowUpQuery(
+  query: string,
+  history: { role: string; content: string }[]
+): ResolvedQuery {
+  if (history.length === 0 || !needsContextResolution(query)) {
+    return { searchQuery: query, resolved: false };
   }
-  
-  // Step 3: Correct key professional terms
-  const afterTermCorrection = correctKeyTerms(processed);
-  if (afterTermCorrection !== processed) {
-    changes.push('Corrected professional terminology');
-    processed = afterTermCorrection;
-  }
-  
-  return {
-    original,
-    corrected: processed,
-    changes,
-  };
+
+  // The last assistant turn names the entities ("the first one"); the last user
+  // turn supplies the topic. Both help, so include whichever exist.
+  const lastUser = [...history].reverse().find(m => m.role === 'user');
+  const lastAssistant = [...history].reverse().find(m => m.role === 'assistant');
+
+  const parts = [
+    lastUser?.content.slice(0, CONTEXT_CHARS),
+    lastAssistant?.content.slice(0, CONTEXT_CHARS),
+    query,
+  ].filter(Boolean);
+
+  if (parts.length === 1) return { searchQuery: query, resolved: false };
+
+  return { searchQuery: parts.join(' '), resolved: true };
 }

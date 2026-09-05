@@ -10,6 +10,7 @@ import * as path from 'path';
 
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const UPSTASH_VECTOR_REST_URL = process.env.UPSTASH_VECTOR_REST_URL;
 const UPSTASH_VECTOR_REST_TOKEN = process.env.UPSTASH_VECTOR_REST_TOKEN;
@@ -40,10 +41,12 @@ async function updateVectorDatabase() {
   });
 
   try {
-    // Prepare vectors for upsert
-    const vectors = digitalTwinData.content_chunks.map((chunk: ChunkData) => ({
+    const chunks = digitalTwinData.content_chunks as ChunkData[];
+
+    // The index has a hosted embedding model, so Upstash embeds `data` on upsert.
+    const vectors = chunks.map(chunk => ({
       id: chunk.id,
-      data: chunk.content, // Upstash auto-embeds this text
+      data: chunk.content,
       metadata: {
         title: chunk.title,
         category: chunk.metadata?.category || chunk.type || 'general',
@@ -64,8 +67,8 @@ async function updateVectorDatabase() {
     console.log(`Successfully uploaded ${vectors.length} vectors to Upstash Vector DB`);
     console.log('\nUpload Summary:');
     console.log(`   Total chunks: ${vectors.length}`);
-    console.log(`   Embedding model: mixedbread-ai/mxbai-embed-large-v1`);
-    console.log(`   Dimensions: 1024`);
+    console.log(`   Embedding model: text-embedding-3-small (Upstash hosted)`);
+    console.log(`   Dimensions: 1536`);
     console.log(`   Similarity: Cosine`);
     console.log('\nVector database updated with enhanced content including personality traits!');
 

@@ -1,149 +1,173 @@
-"use client";
+"use client"
 
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Bot, Sparkles, MessageSquare, Zap, Shield, Globe, Info } from "lucide-react";
+} from "@/components/ui/dialog"
+import { ChevronDown } from "lucide-react"
+
+const FLOW_STEPS = [
+  {
+    step: "01",
+    label: "You ask a question",
+    summary: "The chat is scoped to portfolio questions: my work, projects, skills, and background.",
+    detail:
+      "Every message is treated as something that should be answered from my own material. This is not a general assistant. It is a direct window into what I have built and done.",
+  },
+  {
+    step: "02",
+    label: "The system retrieves context",
+    summary: "Before writing anything, it searches a knowledge base built from my notes and docs.",
+    detail:
+      "Upstash Vector indexes the portfolio knowledge base. A semantic similarity search pulls the most relevant chunks before any answer is composed, so the reply starts from the right projects, background details, and documentation.",
+  },
+  {
+    step: "03",
+    label: "Groq writes the response",
+    summary: "The model receives retrieved context first, then composes a grounded reply.",
+    detail:
+      "Using gpt-oss-120b via Groq, the response draws from actual source material rather than general training data. It sounds natural because it is working from real portfolio content.",
+  },
+  {
+    step: "04",
+    label: "Scope is enforced",
+    summary: "The response stays close to what is actually in the portfolio.",
+    detail:
+      "If a question falls outside portfolio scope, the system declines cleanly rather than guessing. No fabricated credentials, no invented project details.",
+  },
+]
+
+const STACK = ["Groq gpt-oss-120b", "Upstash Vector", "Upstash Redis"]
 
 export function ChatFeaturesModal() {
-  const features = [
-    {
-      icon: Bot,
-      title: "AI-Powered Responses",
-      description: "Uses Groq AI with llama-3.3-70b-versatile model for fast, intelligent responses about my background, skills, and projects.",
-    },
-    {
-      icon: Sparkles,
-      title: "Persona-Aware System",
-      description: "Professional/GenZ modes with mood-aware error handling. Smart suggested questions adapt to conversation context.",
-    },
-    {
-      icon: MessageSquare,
-      title: "Retrieval & Response Flow",
-      description: "Retrieval-Augmented Generation with Upstash Vector searches the knowledge base with a 75% relevance threshold.",
-    },
-    {
-      icon: Zap,
-      title: "Real-Time Streaming",
-      description: "Responses stream in real-time using Vercel AI SDK for a smooth, interactive experience.",
-    },
-    {
-      icon: Shield,
-      title: "Dual Storage System",
-      description: "Session memory (8 messages for AI context) + complete chat history (UI display). Auto-clears after 1 hour.",
-    },
-    {
-      icon: Globe,
-      title: "Semantic Validation",
-      description: "Regex-pattern validation with suggestion whitelisting. Persona-aware error responses replace hardcoded messages.",
-    },
-  ];
-
-  const capabilities = [
-    "Answer questions about my technical skills and experience",
-    "Explain my projects and their technical implementations",
-    "Discuss my competition achievements and background",
-    "Provide information about my education and career goals",
-    "Share insights about my work style and personality",
-    "Switch between professional and casual conversation modes",
-    "Provide smart suggested questions with localStorage persistence",
-  ];
+  const [activeStep, setActiveStep] = useState<number | null>(null)
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="nm-link nm-hover">
-          <Info className="w-3.5 h-3.5" /> features
-        </button>
+        <button className="nm-link nm-hover">How it works</button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+
+      <DialogContent className="max-w-[500px] max-h-[90vh] overflow-y-auto p-0 gap-0 [&>button]:top-4 [&>button]:right-4 [&>button]:z-20 [&>button]:rounded-sm [&>button]:border [&>button]:border-border [&>button]:bg-background [&>button]:p-1 [&>button]:opacity-100">
         <DialogHeader>
-          <DialogTitle className="text-xl flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            AI Digital Twin Features
-          </DialogTitle>
-          <DialogDescription>
-            Learn about the capabilities and technology behind this AI assistant
-          </DialogDescription>
+          <div className="border-b border-border px-6 py-5 pr-14">
+            <div className="flex items-center gap-3">
+              <span className="nm-display text-muted-foreground text-sm leading-none">01</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+            <DialogTitle className="mt-3 text-xl font-medium">
+              How the chat works
+            </DialogTitle>
+            <p className="mt-1 text-sm text-muted-foreground">
+              A RAG pipeline scoped entirely to my portfolio.
+            </p>
+          </div>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
-          {/* Features Grid */}
-          <div>
-            <h3 className="font-semibold mb-3 text-sm">Core Features</h3>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex gap-3 p-3 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
-                >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-md bg-secondary flex items-center justify-center">
-                    <feature.icon className="h-4 w-4 text-foreground" />
+        <div className="px-6 py-5">
+          <div className="relative">
+            <div className="absolute left-5 top-8 bottom-8 w-px bg-border" />
+
+            <div className="space-y-0">
+              {FLOW_STEPS.map((item, index) => {
+                const isActive = activeStep === index
+
+                return (
+                  <div key={item.step}>
+                    <button
+                      type="button"
+                      onClick={() => setActiveStep(isActive ? null : index)}
+                      className="group relative flex w-full items-start gap-4 py-3 text-left"
+                    >
+                      <div
+                        className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center border transition-all duration-200 ${
+                          isActive
+                            ? "border-foreground bg-secondary"
+                            : "border-border bg-background group-hover:border-line-strong"
+                        }`}
+                      >
+                        <span
+                          className={`nm-display text-xs leading-none transition-colors duration-200 ${
+                            isActive
+                              ? "text-foreground"
+                              : "text-muted-foreground group-hover:text-foreground"
+                          }`}
+                        >
+                          {item.step}
+                        </span>
+                      </div>
+
+                      <div className="flex-1 min-w-0 pt-1.5">
+                        <div className="flex items-center justify-between gap-3">
+                          <h3
+                            className={`text-sm font-medium transition-colors duration-200 ${
+                              isActive
+                                ? "text-foreground"
+                                : "text-foreground/80 group-hover:text-foreground"
+                            }`}
+                          >
+                            {item.label}
+                          </h3>
+                          <ChevronDown
+                            className={`h-3.5 w-3.5 shrink-0 transition-all duration-200 ${
+                              isActive
+                                ? "rotate-180 text-foreground"
+                                : "text-muted-foreground"
+                            }`}
+                          />
+                        </div>
+                        <p className="mt-1 text-sm leading-relaxed text-muted-foreground pr-2">
+                          {item.summary}
+                        </p>
+                      </div>
+                    </button>
+
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          key="detail"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="ml-14 pb-4 pt-1">
+                            <div className="border border-border rounded-sm px-4 py-3">
+                              <p className="text-sm leading-relaxed text-foreground/80">
+                                {item.detail}
+                              </p>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-sm mb-1">{feature.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
 
-          {/* Capabilities List */}
-          <div>
-            <h3 className="font-semibold mb-3 text-sm">What I Can Do</h3>
-            <div className="space-y-2">
-              {capabilities.map((capability, index) => (
-                <div key={index} className="flex items-start gap-2 text-sm">
-                  <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-primary mt-1.5" />
-                  <p className="text-muted-foreground">{capability}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tech Stack */}
-          <div>
-            <h3 className="font-semibold mb-3 text-sm">Technology Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Groq AI",
-                "llama-3.3-70b-versatile",
-                "Upstash Vector",
-                "Upstash Redis",
-                "Vercel AI SDK",
-                "Next.js 16",
-                "TypeScript",
-              ].map((tech) => (
+          <div className="mt-4 border-t border-border pt-4">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="nm-label-sm">powered by</span>
+              {STACK.map((tech) => (
                 <span
                   key={tech}
-                  className="font-mono text-[11px] tracking-wide border border-border rounded-full px-3 py-1"
+                  className="nm-label-sm border border-border px-2.5 py-1"
                 >
                   {tech}
                 </span>
               ))}
             </div>
           </div>
-
-          {/* Usage Tips */}
-          <div className="p-3 rounded-lg bg-muted/50 border">
-            <h3 className="font-semibold mb-2 text-sm">Tips for Best Results</h3>
-            <ul className="space-y-1 text-xs text-muted-foreground">
-              <li>• Use smart suggested questions for guided conversation flow</li>
-              <li>• Try personality modes - error messages adapt to selected mood</li>
-              <li>• Session memory maintains context, chat history shows full conversation</li>
-              <li>• Semantic validation improves query understanding and accuracy</li>
-            </ul>
-          </div>
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

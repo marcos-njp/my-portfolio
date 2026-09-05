@@ -145,25 +145,3 @@ export function validateQuery(query: string): ValidationResult {
     confidence: 0.8
   };
 }
-
-/**
- * OPTIMIZED: Enhance query for better context retrieval
- */
-export function enhanceQuery(query: string): string {
-  const queryLower = query.toLowerCase();
-  
-  // Add context to common vague queries
-  if (queryLower.includes('tell me about yourself') || queryLower === 'about you') {
-    return `${query} - include technical skills, projects, education, achievements`;
-  }
-  
-  if (queryLower.includes('what can you do') || queryLower.includes('capabilities')) {
-    return `technical skills, programming languages, frameworks, projects, achievements`;
-  }
-  
-  if (queryLower.includes('experience') && !queryLower.includes('work') && !queryLower.includes('project')) {
-    return `${query} work experience and projects`;
-  }
-  
-  return query;
-}
