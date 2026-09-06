@@ -1,6 +1,6 @@
 // data/profiler-samples.ts
 //
-// The Sample_Dataset index for the CSV Data Profiler playground.
+// The Sample_Dataset index for the CSV Data Profiler sandbox.
 //
 // Requirement 1.1: the Profiler_UI presents between 1 and 10 Sample_Dataset
 // entries, each labeled with its name and its data row count. `label` and

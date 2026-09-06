@@ -1,6 +1,6 @@
 "use client"
 
-// components/playground/data-profiler/quality-panel.tsx
+// components/data-analyst-sandbox/data-profiler/quality-panel.tsx
 //
 // The Quality_Score, its four penalty contributions, and the cleaning
 // recommendations.
@@ -44,6 +44,8 @@ interface QualityPanelProps {
    * count, so Requirement 5.12's statement is not printed twice on the page.
    */
   hideTruncationNotice?: boolean
+  /** `rail` tightens the padding and drops the explanatory paragraph. */
+  variant?: "full" | "rail"
   className?: string
 }
 
@@ -80,8 +82,10 @@ function formatCount(value: number): string {
 export function QualityPanel({
   quality,
   hideTruncationNotice = false,
+  variant = "full",
   className = "",
 }: QualityPanelProps) {
+  const rail = variant === "rail"
   // Requirement 5.10: no profile means no score, stated plainly.
   if (quality === null) {
     return (
@@ -97,9 +101,9 @@ export function QualityPanel({
   const undisplayed = recommendations.length - shown.length
 
   return (
-    <div className={`space-y-5 ${className}`}>
+    <div className={`${rail ? "space-y-3" : "space-y-5"} ${className}`}>
       {/* --- Score -------------------------------------------------------- */}
-      <div className="rounded-md border border-border bg-card p-5 space-y-3">
+      <div className={`rounded-md border border-border bg-card space-y-3 ${rail ? "p-3" : "p-5"}`}>
         <div className="flex items-baseline justify-between gap-4">
           <p className="nm-label">Quality score</p>
           <p className="flex items-baseline gap-1">
@@ -116,19 +120,30 @@ export function QualityPanel({
           label={`Data quality score: ${score} out of 100`}
           className="h-3"
         />
-        <p className="text-xs text-muted-foreground">
-          100 minus the four penalty contributions below. Every penalty is
-          derived from the profile, never from a sample of rows.
-        </p>
+        {rail ? null : (
+          <p className="text-xs text-muted-foreground">
+            100 minus the four penalty contributions below. Every penalty is
+            derived from the profile, never from a sample of rows.
+          </p>
+        )}
       </div>
 
       {/* --- Penalty contributions ---------------------------------------- */}
+      {/*
+        A penalty of zero renders as "0", not "-0". "-0" reads as a broken
+        computation rather than as "nothing was deducted", and a clean dataset
+        showing four of them was the single most confusing thing on the panel.
+
+        The "max 40, 0.0% affected" gloss is gone with it. The weight is a
+        constant a visitor cannot act on, and the percentage restates the
+        penalty it sits under; both are explained once on the How it works page,
+        which is where the arithmetic belongs.
+      */}
       <MetricGrid
-        columns={4}
+        columns={rail ? 2 : 4}
         metrics={penalties.map((penalty) => ({
           label: FACTOR_LABELS[penalty.factor],
-          value: `-${penalty.penalty}`,
-          description: `${penalty.weight} point maximum · ${(penalty.ratio * 100).toFixed(1)}% affected`,
+          value: penalty.penalty === 0 ? '0' : `-${penalty.penalty}`,
         }))}
       />
 
@@ -156,7 +171,7 @@ export function QualityPanel({
                   <HighlightBox
                     type="warning"
                     icon={ISSUE_ICONS[recommendation.issue]}
-                    title={`${recommendation.column ?? "Whole dataset"} — ${ISSUE_LABELS[recommendation.issue]}`}
+                    title={`${recommendation.column ?? "Whole dataset"}: ${ISSUE_LABELS[recommendation.issue]}`}
                   >
                     <p>{recommendation.detail}</p>
                     <p className="mt-1 text-foreground">{recommendation.action}</p>

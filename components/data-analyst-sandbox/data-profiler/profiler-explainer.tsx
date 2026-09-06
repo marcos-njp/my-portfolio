@@ -1,6 +1,6 @@
 'use client';
 
-// components/playground/data-profiler/profiler-explainer.tsx
+// components/data-analyst-sandbox/data-profiler/profiler-explainer.tsx
 //
 // The Requirement 9.3 explanation section. Visible before — and without ever —
 // profiling a dataset, so it takes no profile prop and has no empty state.
@@ -69,7 +69,7 @@ const TYPE_RULES: Array<{ type: string; rule: string }> = [
   },
   {
     type: 'unknown',
-    rule: 'Nothing above matched — or the column has zero non-null values, in which case no other rule is even evaluated.',
+    rule: 'Nothing above matched, or the column has zero non-null values, in which case no other rule is even evaluated.',
   },
 ];
 
@@ -88,7 +88,7 @@ const FACTOR_RATIOS: Record<QualityFactor, string> = {
 };
 
 const FACTOR_RATIONALE: Record<QualityFactor, string> = {
-  nulls: 'Weighted highest because missing data blocks the most downstream analysis — every aggregate, join and model has to decide what to do about it first.',
+  nulls: 'Weighted highest because missing data blocks the most downstream analysis. Every aggregate, join and model has to decide what to do about it first.',
   duplicates:
     'Next highest because duplicates silently bias every aggregate. Nothing errors; the numbers are just wrong.',
   outliers:
@@ -141,7 +141,7 @@ const PIPELINE_STEPS = [
   {
     title: 'Infer one type per column',
     description:
-      'A fixed precedence — numeric, datetime, identifier, categorical, unknown — with the first matching rule winning. Row order never changes the outcome.',
+      'A fixed precedence (numeric, datetime, identifier, categorical, unknown) with the first matching rule winning. Row order never changes the outcome.',
   },
   {
     title: 'Profile in a single pass',
@@ -211,7 +211,7 @@ export function ProfilerExplainer({ className = '' }: ProfilerExplainerProps) {
               <div className="space-y-3">
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Outliers use the Tukey fence on the interquartile range. For a numeric column with
-                  first quartile Q1 and third quartile Q3, IQR = Q3 − Q1 and a value is an outlier
+                  first quartile Q1 and third quartile Q3, IQR = Q3 - Q1 and a value is an outlier
                   when it falls outside these bounds:
                 </p>
                 <CodeBlock title="outlier rule" language="text">
@@ -225,7 +225,7 @@ outlier  <=>  value < lower  OR  value > upper`}
                   The multiplier is {IQR_MULTIPLIER}. Q1, the median and Q3 are obtained by linear
                   interpolation between the two closest ranks of the ascending sorted values, so a
                   column with an even count does not snap to a neighbouring observation. The rule is
-                  distribution-free — it makes no normality assumption, which matters because most
+                  distribution-free. It makes no normality assumption, which matters because most
                   real columns are skewed. Both bounds are reported alongside the count so you can
                   judge whether a flagged value is a defect or a legitimate extreme.
                 </p>
@@ -276,7 +276,7 @@ outlier  <=>  value < lower  OR  value > upper`}
               <div className="space-y-3">
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Parsing, profiling, charting, scoring and exporting all run in this tab. There is
-                  exactly one server call in the whole feature — the optional AI narrative — and it
+                  exactly one server call in the whole feature, the optional AI narrative, and it
                   carries derived data only: no data rows, no cell values, and no text you typed.
                   The one exception is stated plainly: aggregate extrema already recorded in the
                   profile (a minimum, a maximum, a most-frequent value, an earliest and latest date)
@@ -288,7 +288,7 @@ outlier  <=>  value < lower  OR  value > upper`}
                 </CodeBlock>
                 <ComparisonGrid
                   before={{
-                    title: '/api/chat — filter the text',
+                    title: '/api/chat: filter the text',
                     items: [
                       'Input is visitor free text, so prompt injection is a live threat',
                       'Defended by lib/query-validator.ts: length caps, pattern checks, rejection reasons',
@@ -297,11 +297,11 @@ outlier  <=>  value < lower  OR  value > upper`}
                     ],
                   }}
                   after={{
-                    title: '/api/profile-insights — remove the text',
+                    title: '/api/profile-insights: remove the text',
                     items: [
                       'The payload schema has no free-text field, so there is nothing to inject into',
                       'Every object is .strict(): a smuggled instruction key is a 400 before any model call',
-                      'The model receives exactly two inputs — a server-side instruction and the validated payload',
+                      'The model receives exactly two inputs: a server-side instruction and the validated payload',
                       'Injection is absent by construction, not filtered at runtime',
                     ],
                   }}
@@ -309,7 +309,7 @@ outlier  <=>  value < lower  OR  value > upper`}
                 <HighlightBox type="tip" title="Why the contrast is the point">
                   Both routes are in this project on purpose. Where visitor text is the feature, you
                   have to filter it and keep filtering it. Where it is not, the stronger move is to
-                  design the channel so the text cannot exist — then no filter can be bypassed
+                  design the channel so the text cannot exist, and then no filter can be bypassed
                   because there is no filter to bypass.
                 </HighlightBox>
               </div>

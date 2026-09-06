@@ -1,6 +1,6 @@
 'use client';
 
-// components/playground/data-profiler/export-controls.tsx
+// components/data-analyst-sandbox/data-profiler/export-controls.tsx
 //
 // The Markdown and JSON export controls. Both delegate to `onExport(format)`;
 // the hook owns serialization, the export clock and `triggerDownload`, so this
@@ -76,7 +76,7 @@ export function ExportControls({
               className="min-h-11 min-w-11"
             >
               <Download aria-hidden="true" />
-              {pending ? `Preparing ${extension}…` : label}
+              {pending ? `Preparing ${extension}...` : label}
             </Button>
           );
         })}
@@ -84,7 +84,7 @@ export function ExportControls({
 
       {!canExport ? (
         <p className="text-xs text-muted-foreground">
-          Profile a dataset first — exports are generated from a completed profile.
+          Profile a dataset first. Exports are generated from a completed profile.
         </p>
       ) : null}
 

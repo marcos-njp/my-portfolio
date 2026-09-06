@@ -16,13 +16,13 @@
 //
 // This is a PUBLIC, UNAUTHENTICATED POST endpoint that spends model tokens. Its
 // only abuse control is a 10-request-per-hour-per-IP limiter. That is a
-// deliberate choice for a portfolio page — there are no accounts to
-// authenticate against — but it should be understood as such rather than
+// deliberate choice for a portfolio page - there are no accounts to
+// authenticate against - but it should be understood as such rather than
 // mistaken for a hardened API.
 //
 // What IS structurally guaranteed here, and is the actual point of the feature:
 // prompt injection is impossible by construction, not by filtering. The model
-// receives exactly two things (Requirement 6.7) — a server-defined instruction
+// receives exactly two things (Requirement 6.7) - a server-defined instruction
 // constant that never leaves this file, and the object that came out of
 // `insightPayloadSchema.strict().safeParse()`. The payload schema has no
 // free-text field anywhere in its tree and is `.strict()` at every depth, so
@@ -37,7 +37,7 @@
 //   "`docs/agents.md` rule 6 ... and rule 4 ('validate queries before RAG')
 //    apply to the digital-twin chat persona. They do NOT apply to
 //    `/api/profile-insights`, which has no persona, no visitor text, and no RAG
-//    retrieval. Applying `query-validator.ts` here would be meaningless — there
+//    retrieval. Applying `query-validator.ts` here would be meaningless - there
 //    is no query to validate. This is a deliberate scoping decision, not an
 //    oversight."
 //
@@ -45,12 +45,12 @@
 // topicality and injection markers. This route never receives such a string:
 // the request body is a tree of numbers, enums and already-truncated aggregate
 // labels. There is nothing to hand it. The schema *is* the validation layer on
-// this path, and it is a strictly stronger one — an allow-list of shapes rather
+// this path, and it is a strictly stronger one - an allow-list of shapes rather
 // than a deny-list of patterns.
 
 import { createGroq } from '@ai-sdk/groq';
 import { generateObject } from 'ai';
-import type { ZodIssue } from 'zod';
+import { clientKeyFrom, describeIssue, formatWait, json } from '@/lib/api/edge-helpers';
 import { insightNarrativeSchema, insightPayloadSchema } from '@/lib/data-profiler/insight-schema';
 import { checkRateLimit } from '@/lib/rate-limit';
 
@@ -81,7 +81,7 @@ const REQUIRED_ENV = [
 // permits.
 //
 // It is written to be read by the model, not by a human: dense, imperative, no
-// preamble. The paragraph about derived statistics is load-bearing — without it
+// preamble. The paragraph about derived statistics is load-bearing - without it
 // the model writes "looking at the rows I can see…" and invents record-level
 // detail it was never given, which would misrepresent the whole architecture
 // this feature exists to demonstrate.
@@ -93,12 +93,14 @@ YOUR INPUT IS DERIVED STATISTICS ONLY. You receive per-column aggregates (counts
 Cover, in the summary and observations:
 - DATA QUALITY FIRST. Null counts as a share of rows, duplicate rows, columns typed 'unknown', and outlier counts. Name the affected columns. Say what each issue blocks or biases.
 - DISTRIBUTION SHAPE. Compare mean to median to infer skew and direction. Read the spread from standard deviation and the quartile gaps. Flag a standard deviation near zero as a near-constant column, and a distinct count equal to the non-null count as an identifier rather than a measure.
-- CORRELATIONS AS ASSOCIATION, NEVER CAUSE. Report strength and sign. Never state or imply that one column causes another. Where a strong pair looks like it could be an artifact — a derived column, a unit restatement, a shared driver — say so as a possibility to check.
+- CORRELATIONS AS ASSOCIATION, NEVER CAUSE. Report strength and sign. Never state or imply that one column causes another. Where a strong pair looks like it could be an artifact - a derived column, a unit restatement, a shared driver - say so as a possibility to check.
 - WHAT THE PROFILE CANNOT TELL YOU. If a column's type or statistics make its meaning ambiguous, say the ambiguity out loud instead of resolving it by assumption.
 
-Then give concrete next analyses. Each one names the actual columns involved and the specific check to run — a segmentation, a group comparison, a time trend, a residual inspection, a missingness pattern test. No generic advice like "explore the data" or "consider visualizing"; if it would apply to any dataset, it does not belong here.
+Then give concrete next analyses. Each one names the actual columns involved and the specific check to run - a segmentation, a group comparison, a time trend, a residual inspection, a missingness pattern test. No generic advice like "explore the data" or "consider visualizing"; if it would apply to any dataset, it does not belong here.
 
-STYLE. Plain declarative sentences. Quantify with the numbers you were given. No hedging filler, no restating the schema back, no bullet markers or headings inside any field. Each observation makes one distinct point; do not repeat the summary.`;
+LENGTH. The summary must be at most 600 characters: three or four sentences that frame the dataset. Detail belongs in the observations, which are at most 300 characters each, and there must be between three and seven of them. Give between two and five next analyses, at most 200 characters each. Exceeding any of these produces no narrative at all, so stay clear of the limits rather than filling them.
+
+STYLE. Plain declarative sentences. Use ASCII punctuation only: no em dashes, en dashes, non-breaking hyphens, ellipsis characters, curly quotes or mathematical symbols such as the approximately-equal sign. Write "about 0.62", not a symbol. Quantify with the numbers you were given. No hedging filler, no restating the schema back, no bullet markers or headings inside any field. Each observation makes one distinct point; do not repeat the summary.`;
 
 // --- Lazy singleton client, matching `/api/chat` ------------------------------
 
@@ -116,69 +118,12 @@ function getGroqClient() {
   return groqClient;
 }
 
-// --- Response helpers --------------------------------------------------------
-
-function json(body: unknown, status: number, headers: Record<string, string> = {}): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json', ...headers },
-  });
-}
-
-/**
- * Client identity for the limiter: the first `x-forwarded-for` hop, which on
- * Vercel is the address the edge saw.
- *
- * `x-forwarded-for` IS SPOOFABLE. Anyone can send a different value on each
- * request and get a fresh 10-request budget, and a shared NAT or corporate
- * proxy conversely puts unrelated visitors in one bucket. Both are accepted
- * here: this limiter is abuse resistance for a public portfolio page — it stops
- * a loop or a curious visitor from burning the token budget — and it is NOT a
- * security control. Nothing downstream trusts this value for anything but a
- * Redis key, and there is no authorization decision hanging off it. If this
- * endpoint ever guards something that matters, the fix is authentication, not a
- * cleverer way of reading a header a client controls.
- */
-function clientKeyFrom(req: Request): string {
-  const forwarded = req.headers.get('x-forwarded-for');
-  const firstHop = forwarded?.split(',')[0]?.trim();
-  return firstHop && firstHop.length > 0 ? firstHop : 'unknown';
-}
-
-/** Human wait for the 429 message. Requirement 6.10 wants a time remaining. */
-function formatWait(retryAfterMs: number): string {
-  const seconds = Math.max(1, Math.ceil(retryAfterMs / 1000));
-  if (seconds < 60) return `${seconds} second${seconds === 1 ? '' : 's'}`;
-  const minutes = Math.ceil(seconds / 60);
-  return `${minutes} minute${minutes === 1 ? '' : 's'}`;
-}
-
-/**
- * Renders a zod issue path as `columns[0].name`, plus the offending key names
- * for an `unrecognized_keys` issue (whose path points at the *containing*
- * object, so the path alone would not say what was rejected).
- *
- * A schema path is safe to return: it names the wire contract the client
- * already has, not server internals (security.md §7). No zod message, no stack,
- * and nothing echoed back from the request value.
- */
-function describeIssue(issue: ZodIssue | undefined): string {
-  if (!issue) return 'payload';
-
-  const path = issue.path.reduce<string>((acc, segment) => {
-    if (typeof segment === 'number') return `${acc}[${segment}]`;
-    return acc.length === 0 ? String(segment) : `${acc}.${String(segment)}`;
-  }, '');
-
-  const location = path.length > 0 ? path : 'payload';
-
-  if (issue.code === 'unrecognized_keys') {
-    const keys = issue.keys.join(', ');
-    return `${location} (unrecognized field: ${keys})`;
-  }
-
-  return location;
-}
+// --- Response helpers ---------------------------------------------------------
+//
+// `json`, `clientKeyFrom`, `formatWait` and `describeIssue` were defined here and
+// moved to `lib/api/edge-helpers.ts` when `/api/profile-qa` needed the same four.
+// Behaviour is unchanged; see that file for the note on why `x-forwarded-for` is
+// acceptable as a limiter key and not as a security control.
 
 // --- Handler -----------------------------------------------------------------
 //
@@ -219,7 +164,7 @@ export async function POST(req: Request): Promise<Response> {
   // position, so the policy lives here.
   //
   // DO NOT "FIX" THIS TO FAIL OPEN. `session-memory.ts` fails open on the same
-  // kind of failure and that is correct there — losing chat history is
+  // kind of failure and that is correct there - losing chat history is
   // cosmetic. This path is different in kind: every accepted request spends
   // model tokens against a real bill, so serving unmetered requests while the
   // meter is down is the expensive failure, not the safe one. design.md records
@@ -255,14 +200,14 @@ export async function POST(req: Request): Promise<Response> {
   //
   // Everything from here to the `parsed.data` binding is the only path to the
   // model, and it contains no model call. That is the structural form of
-  // Requirement 6.6 — "SHALL issue no model request for that call" is not a
+  // Requirement 6.6 - "SHALL issue no model request for that call" is not a
   // rule that has to be remembered, it is a consequence of the generation step
   // living after this block and reading only `parsed.data`.
   let rawBody: unknown;
   try {
     rawBody = await req.json();
   } catch {
-    // Not JSON at all — never reaches the schema, and never reaches the model.
+    // Not JSON at all - never reaches the schema, and never reaches the model.
     return json(
       { error: 'Invalid request body', message: 'Request body must be valid JSON.' },
       400,
@@ -284,71 +229,97 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
-  // The validated object. Deliberately the ONLY value carried forward —
+  // The validated object. Deliberately the ONLY value carried forward -
   // `rawBody` is not referenced again below this line.
   const validatedPayload = parsed.data;
 
   // ---- 4. Generate (Requirements 6.7, 6.8) ---------------------------------
-  try {
-    const result = await generateObject({
-      model: getGroqClient()(MODEL_ID),
-      schema: insightNarrativeSchema,
-      // ==== Requirement 6.7: EXACTLY TWO INPUTS REACH THE MODEL ====
-      //
-      //   `system` <- INSIGHT_INSTRUCTION, a module constant in this file.
-      //   `prompt` <- validatedPayload, the OUTPUT of safeParse.
-      //
-      // Serializing `parsed.data` rather than `rawBody` is the whole guarantee
-      // and not a stylistic choice. `safeParse` returns a value rebuilt from
-      // the schema, so even if a `.strict()` check were somehow bypassed, an
-      // unknown key could not survive into this string — the object here has
-      // only fields the schema declares. Passing `rawBody`, or concatenating
-      // any request-derived string into `system`, would reintroduce exactly the
-      // injection surface this design removes. There is no third input: no
-      // `messages`, no header value, no query parameter.
-      system: INSIGHT_INSTRUCTION,
-      prompt: JSON.stringify(validatedPayload),
-      // Low but non-zero: the task is interpretation, and near-zero
-      // temperature on a structured schema tends toward terse, repetitive
-      // observations that trip the schema's `.min(3)`.
-      temperature: 0.3,
-      maxOutputTokens: 2048,
-    });
+  //
+  // Two attempts, not one.
+  //
+  // Structured output on this model is not reliable enough for a single shot.
+  // Sampling the exact payload the profiler sends produced roughly one failure
+  // in three, split between two causes: the provider rejecting its own
+  // generation ('Failed to generate JSON'), and the returned object missing the
+  // schema. Both are properties of one sample, and a repeat with identical
+  // inputs usually succeeds.
+  //
+  // The retry is safe because this call is a pure function of two constants: a
+  // module-level instruction and an already-validated payload. It reads
+  // nothing, writes nothing, and has no side effect to repeat. The only cost is
+  // tokens, which the rate limit above already bounds.
+  //
+  // One retry, not a loop. A second failure is more likely to be the payload
+  // than the sample, and a visitor watching a spinner is a worse outcome than a
+  // message telling them to try again.
+  const MAX_ATTEMPTS = 2;
+  let lastError: unknown = null;
 
-    // Requirement 6.8, second half: the schema constrains generation AND the
-    // result is re-validated before responding. `generateObject` already
-    // validates, so in practice this is belt-and-braces — but it is what makes
-    // the 6.9 branch below reachable from our own code rather than only from
-    // the SDK's internals, and it narrows `narrative` to `InsightNarrative`.
-    const narrative = insightNarrativeSchema.safeParse(result.object);
-    if (!narrative.success) {
-      console.error('[profile-insights] model result failed narrative validation');
-      // Requirement 6.9: no partial content. Nothing from `result.object` is
-      // echoed — not a field, not a length, not a reason.
-      return json(
-        {
-          error: 'Narrative generation failed',
-          message: 'The narrative could not be generated. Try again.',
-        },
-        502,
-      );
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
+    try {
+      const result = await generateObject({
+        model: getGroqClient()(MODEL_ID),
+        schema: insightNarrativeSchema,
+        // ==== Requirement 6.7: EXACTLY TWO INPUTS REACH THE MODEL ====
+        //
+        //   `system` <- INSIGHT_INSTRUCTION, a module constant in this file.
+        //   `prompt` <- validatedPayload, the OUTPUT of safeParse.
+        //
+        // Serializing `parsed.data` rather than `rawBody` is the whole guarantee
+        // and not a stylistic choice. `safeParse` returns a value rebuilt from
+        // the schema, so even if a `.strict()` check were somehow bypassed, an
+        // unknown key could not survive into this string - the object here has
+        // only fields the schema declares. Passing `rawBody`, or concatenating
+        // any request-derived string into `system`, would reintroduce exactly the
+        // injection surface this design removes. There is no third input: no
+        // `messages`, no header value, no query parameter.
+        system: INSIGHT_INSTRUCTION,
+        prompt: JSON.stringify(validatedPayload),
+        // Low but non-zero: the task is interpretation, and near-zero
+        // temperature on a structured schema tends toward terse, repetitive
+        // observations that trip the schema's `.min(3)`.
+        temperature: 0.3,
+        maxOutputTokens: 2048,
+      });
+
+      // Requirement 6.8, second half: the schema constrains generation AND the
+      // result is re-validated before responding. `generateObject` already
+      // validates, so in practice this is belt-and-braces - but it is what makes
+      // the 6.9 branch below reachable from our own code rather than only from
+      // the SDK's internals, and it narrows `narrative` to `InsightNarrative`.
+      const narrative = insightNarrativeSchema.safeParse(result.object);
+      if (!narrative.success) {
+        // Retryable for the same reason a thrown schema miss is: one bad
+        // sample, not a bad request. Nothing from `result.object` is echoed.
+        console.error(
+          `[profile-insights] attempt ${attempt}: model result failed narrative validation`,
+        );
+        lastError = narrative.error;
+        continue;
+      }
+
+      return json({ narrative: narrative.data }, 200);
+    } catch (error) {
+      // Everything from the model call collapses together: a transport failure,
+      // an upstream 429, an auth failure, and `NoObjectGeneratedError` (thrown
+      // by `generateObject` when the model's output does not fit the schema)
+      // all mean the same thing to the caller - there is no narrative.
+      // Requirement 6.9 wants that single message with no partial content, so
+      // unlike `/api/chat` this route does not branch on the error text. The
+      // detail goes to the log, where the attempt number separates a flaky
+      // sample from a request that cannot succeed.
+      console.error(`[profile-insights] attempt ${attempt} failed:`, error);
+      lastError = error;
     }
-
-    return json({ narrative: narrative.data }, 200);
-  } catch (error) {
-    // Everything from the model call collapses to one 502: a transport failure,
-    // an upstream 429, an auth failure, and `NoObjectGeneratedError` (thrown by
-    // `generateObject` when the model's output does not fit the schema) all mean
-    // the same thing to the caller — there is no narrative. Requirement 6.9
-    // wants that single message with no partial content, so unlike `/api/chat`
-    // this route does not branch on the error text. The detail goes to the log.
-    console.error('[profile-insights] generateObject failed:', error);
-    return json(
-      {
-        error: 'Narrative generation failed',
-        message: 'The narrative could not be generated. Try again.',
-      },
-      502,
-    );
   }
+
+  // Both attempts spent. Requirement 6.9: one message, no partial content.
+  console.error('[profile-insights] giving up after retries:', lastError);
+  return json(
+    {
+      error: 'Narrative generation failed',
+      message: 'The narrative could not be generated. Try again.',
+    },
+    502,
+  );
 }

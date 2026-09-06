@@ -1,6 +1,6 @@
 "use client"
 
-// components/playground/data-profiler/correlation-list.tsx
+// components/data-analyst-sandbox/data-profiler/correlation-list.tsx
 //
 // Pearson correlation pairs, rendered in the order the profile supplies them.
 // `profiler.ts` already sorts by descending absolute coefficient with a
@@ -17,6 +17,8 @@ import type { CorrelationPair } from "@/lib/data-profiler/types"
 
 interface CorrelationListProps {
   correlations: CorrelationPair[]
+  /** `rail` is the compact form: a stacked list rather than a four-column table. */
+  variant?: "full" | "rail"
   className?: string
 }
 
@@ -32,7 +34,7 @@ function describeStrength(coefficient: number): string {
 }
 
 function formatCoefficient(coefficient: number): string {
-  if (!Number.isFinite(coefficient)) return "—"
+  if (!Number.isFinite(coefficient)) return "n/a"
   return coefficient.toLocaleString("en-US", {
     minimumFractionDigits: 3,
     maximumFractionDigits: 3,
@@ -43,7 +45,11 @@ function formatCoefficient(coefficient: number): string {
 const CELL = "px-3 py-2 align-top"
 const HEAD_CELL = "px-3 py-2 text-left nm-label-sm whitespace-nowrap"
 
-export function CorrelationList({ correlations, className = "" }: CorrelationListProps) {
+export function CorrelationList({
+  correlations,
+  variant = "full",
+  className = "",
+}: CorrelationListProps) {
   if (correlations.length === 0) {
     return (
       <p className={`text-sm text-muted-foreground ${className}`}>
@@ -51,6 +57,32 @@ export function CorrelationList({ correlations, className = "" }: CorrelationLis
         with a non-zero standard deviation and at least 3 rows where both values
         are present and numeric.
       </p>
+    )
+  }
+
+  // The rail is 22rem wide. A four-column table with two header names in it
+  // becomes a horizontal scroller at that width, which is worse than a list, so
+  // the same rows are stacked instead. The pair, the coefficient and the
+  // strength band are all still present; only the grid is gone.
+  if (variant === "rail") {
+    return (
+      <ul className={`divide-y divide-border overflow-hidden rounded-md border border-border bg-card ${className}`}>
+        {correlations.map((pair) => (
+          <li key={`${pair.columnA}__${pair.columnB}`} className="px-3 py-2">
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="min-w-0 truncate text-sm text-foreground">
+                {`${pair.columnA} vs ${pair.columnB}`}
+              </p>
+              <p className="shrink-0 font-mono text-sm tabular-nums text-foreground">
+                {formatCoefficient(pair.coefficient)}
+              </p>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {describeStrength(pair.coefficient)}
+            </p>
+          </li>
+        ))}
+      </ul>
     )
   }
 

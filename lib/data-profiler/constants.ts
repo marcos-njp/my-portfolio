@@ -70,3 +70,34 @@ export const QUALITY_WEIGHTS: Record<QualityFactor, number> = {
   outliers: 20,
   unknownTypes: 15,
 };
+
+// --- Dataset question answering ----------------------------------------------
+//
+// The profiler's Q&A retrieves from an index built out of the profile itself.
+// These bound both ends of that: how much text one fact may carry, and how much
+// of it a single question is allowed to ship.
+
+/** Longest rendered `DatasetFact.text`. Kept under the wire schema's 300 cap. */
+export const FACT_TEXT_CAP = 300;
+
+/**
+ * Ceiling on the index. `MAX_PROFILE_COLUMNS` columns emit at most two facts
+ * each, plus correlations, recommendations, charts and two dataset-level facts,
+ * which lands near 570 in the worst case.
+ */
+export const MAX_FACTS = 600;
+
+/**
+ * Facts sent with one question. The point of retrieving at all is that this
+ * number stays small while `MAX_FACTS` does not.
+ */
+export const MAX_RETRIEVED_FACTS = 12;
+
+/** Second ceiling on the same payload, in characters, whichever binds first. */
+export const MAX_FACT_CONTEXT_CHARS = 6_000;
+
+export const QUESTION_MIN_LENGTH = 3;
+export const QUESTION_MAX_LENGTH = 300;
+
+/** Matches `INSIGHT_TIMEOUT_MS`: the same model behind the same edge runtime. */
+export const QA_TIMEOUT_MS = 30_000;

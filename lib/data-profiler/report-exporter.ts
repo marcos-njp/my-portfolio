@@ -191,7 +191,7 @@ function num(value: number): string {
 
 /** A ratio in [0,1] as a percentage with two decimals. */
 function pct(ratio: number): string {
-  if (!Number.isFinite(ratio)) return '—';
+  if (!Number.isFinite(ratio)) return 'n/a';
   return `${(ratio * 100).toFixed(2)}%`;
 }
 
@@ -308,7 +308,7 @@ export function reportFileName(
 
 function overviewSection(profile: DataProfile, timestamp: string): string[] {
   return [
-    `# Data profile — ${escapeInline(profile.sourceName)}`,
+    `# Data profile: ${escapeInline(profile.sourceName)}`,
     '',
     `- **Source dataset:** ${escapeInline(profile.sourceName)}`,
     `- **Exported (UTC):** ${timestamp}`,

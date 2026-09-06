@@ -1,6 +1,6 @@
 "use client"
 
-// components/playground/data-profiler/column-profile-table.tsx
+// components/data-analyst-sandbox/data-profiler/column-profile-table.tsx
 //
 // Every Column_Profile, rendered as semantic tables. There is no `Table`
 // primitive in `components/ui/`, so these are plain `<table>` elements with
@@ -44,7 +44,7 @@ function formatCount(value: number): string {
 
 /** Statistics are already rounded to 6dp upstream; this only formats them. */
 function formatStat(value: number): string {
-  if (!Number.isFinite(value)) return "—"
+  if (!Number.isFinite(value)) return "n/a"
   return value.toLocaleString("en-US", { maximumFractionDigits: 6 })
 }
 
@@ -54,7 +54,7 @@ function formatStat(value: number): string {
  * blank cell that could pass for a zero.
  */
 function describeStatsAvailability(column: ColumnProfile): string {
-  if (!column.statsComputed) return "Not computed — no non-null values"
+  if (!column.statsComputed) return "Not computed: no non-null values"
   if (column.numeric) return "Numeric summary below"
   if (column.categorical) return "Top values below"
   if (column.datetime) return "Date range below"

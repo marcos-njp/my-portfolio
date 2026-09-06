@@ -145,7 +145,13 @@ export const insightPayloadSchema = z
  */
 export const insightNarrativeSchema = z
   .object({
-    summary: z.string().min(1).max(1200),
+    // 2000, not 1200. The old ceiling sat almost exactly at the length this
+    // model naturally writes for a six-column profile: one sampled run landed
+    // at 1192 characters and two others overran, and an overrun is not a
+    // truncation here, it is a thrown `NoObjectGeneratedError` and a 502 with
+    // no narrative at all. The instruction now states a much smaller budget, so
+    // this is the safety margin behind that request rather than the target.
+    summary: z.string().min(1).max(2000),
     observations: z.array(z.string().min(1).max(300)).min(3).max(7),
     nextAnalyses: z.array(z.string().min(1).max(200)).min(2).max(5),
   })

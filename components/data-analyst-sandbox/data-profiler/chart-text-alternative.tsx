@@ -1,4 +1,4 @@
-// components/playground/data-profiler/chart-text-alternative.tsx
+// components/data-analyst-sandbox/data-profiler/chart-text-alternative.tsx
 //
 // The screen-reader half of Requirement 4.9: a programmatically associated text
 // alternative stating the chart type, the source column names, and the plotted

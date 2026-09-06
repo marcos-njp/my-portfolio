@@ -52,7 +52,21 @@
 
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 
+import {
+  askQuestion as sendQuestion,
+  type AskFailure,
+  type AskOutcome,
+} from '@/lib/data-profiler/ask-client';
 import { recommendCharts } from '@/lib/data-profiler/chart-recommender';
+import {
+  buildFactIndex,
+  type FactIndex,
+} from '@/lib/data-profiler/fact-index';
+import {
+  retrieveFacts,
+  type RetrievedFacts,
+} from '@/lib/data-profiler/fact-retriever';
+import { validateQuestion, describeRejection } from '@/lib/data-profiler/question-validator';
 import {
   MAX_RENDERED_RECOMMENDATIONS,
   READ_TIMEOUT_MS,
@@ -113,6 +127,8 @@ export type ProfilerStatus =
   | { kind: 'profiling'; column: string }
   | { kind: 'profiled' }
   | { kind: 'insightPending' }
+  /** A dataset question is in flight. Text may already be arriving. */
+  | { kind: 'answering' }
   | { kind: 'error'; message: string };
 
 /** Per-chart render failures, keyed by the chart's index in `charts` (Req 4.12). */
@@ -128,10 +144,16 @@ export interface ProfilerState {
   /** Row-cap notice (Req 1.7) and recommendation truncation count (Req 5.12). */
   notice: string | null;
   chartErrors: ChartErrorMap;
+  /** The question currently being answered, or the one the answer belongs to. */
+  askedQuestion: string | null;
+  /** The answer text so far. Grows as the stream arrives, so it is never partial-looking. */
+  answer: string | null;
+  /** Which facts the answer was grounded in, for the provenance line. */
+  retrieval: RetrievedFacts | null;
   runId: number;
 }
 
-/** The seven fields Requirement 8.3 discards together. */
+/** The fields Requirement 8.3 discards together. */
 type ProfilerResults = Omit<ProfilerState, 'status' | 'runId'>;
 
 const EMPTY_RESULTS: ProfilerResults = {
@@ -142,6 +164,9 @@ const EMPTY_RESULTS: ProfilerResults = {
   issues: [],
   notice: null,
   chartErrors: {},
+  askedQuestion: null,
+  answer: null,
+  retrieval: null,
 };
 
 const INITIAL_STATE: ProfilerState = {
@@ -178,6 +203,15 @@ type ProfilerAction =
   | { type: 'error'; message: string }
   | { type: 'insightStart' }
   | { type: 'insightDone'; narrative: InsightNarrative }
+  /** A question was accepted and sent. Carries what the retriever chose. */
+  | { type: 'askStart'; question: string; retrieval: RetrievedFacts }
+  /** One chunk of the streamed answer. */
+  | { type: 'askDelta'; chunk: string }
+  | { type: 'askDone' }
+  /** The question failed. The answer so far, if any, is kept (see the reducer). */
+  | { type: 'askFailed'; message: string }
+  /** Dismiss the answer without touching the profile. */
+  | { type: 'askClear' }
   | { type: 'chartError'; index: number; message: string };
 
 function reducer(state: ProfilerState, action: ProfilerAction): ProfilerState {
@@ -220,6 +254,10 @@ function reducer(state: ProfilerState, action: ProfilerAction): ProfilerState {
         issues: action.issues,
         notice: action.notice,
         chartErrors: {},
+        // A new dataset invalidates any answer about the old one.
+        askedQuestion: null,
+        answer: null,
+        retrieval: null,
       };
 
     case 'loadFailed':
@@ -237,6 +275,36 @@ function reducer(state: ProfilerState, action: ProfilerAction): ProfilerState {
 
     case 'insightDone':
       return { ...state, status: { kind: 'profiled' }, narrative: action.narrative };
+
+    case 'askStart':
+      // The previous answer clears in the same commit that records the new
+      // question, so the panel never shows an old answer under a new heading.
+      return {
+        ...state,
+        status: { kind: 'answering' },
+        askedQuestion: action.question,
+        answer: null,
+        retrieval: action.retrieval,
+      };
+
+    case 'askDelta':
+      // Dropped unless a question is actually in flight. A chunk that arrives
+      // after a failure or a clear has no answer to belong to.
+      if (state.status.kind !== 'answering') return state;
+      return { ...state, answer: (state.answer ?? '') + action.chunk };
+
+    case 'askDone':
+      if (state.status.kind !== 'answering') return state;
+      return { ...state, status: { kind: 'profiled' } };
+
+    case 'askFailed':
+      // The partial answer is KEPT. A stream that dies halfway has already told
+      // the visitor something true, and discarding it to show an error would
+      // throw away the useful half of the response. The panel renders both.
+      return { ...state, status: { kind: 'error', message: action.message } };
+
+    case 'askClear':
+      return { ...state, askedQuestion: null, answer: null, retrieval: null };
 
     case 'chartError':
       return {
@@ -294,7 +362,7 @@ export function describeParseRejection(rejection: ParseRejection): string {
 export function describeSampleFailure(failure: SampleLoadFailure): string {
   switch (failure.kind) {
     case 'unknown-id':
-      return `“${failure.id}” is not one of the bundled sample datasets.`;
+      return `"${failure.id}" is not one of the bundled sample datasets.`;
     case 'http':
       return `That sample dataset could not be loaded (HTTP ${failure.status}).`;
     case 'network':
@@ -402,10 +470,50 @@ function yieldToBrowser(): Promise<void> {
   });
 }
 
+/**
+ * Maps an `AskFailure` onto the sentence the panel shows.
+ *
+ * Exhaustive by the same convention as `describeInsightFailure`: adding a
+ * failure arm in `ask-client.ts` fails the build here rather than rendering an
+ * empty string.
+ */
+export function describeAskFailure(failure: AskFailure): string {
+  switch (failure.kind) {
+    case 'rejected':
+      // The route already produced a specific sentence; prefer it.
+      return failure.message;
+    case 'rate-limit':
+      return failure.message;
+    case 'http':
+      return failure.message;
+    case 'empty-stream':
+      return 'The answer could not be generated. Try asking again.';
+    case 'timeout':
+      return `The answer took longer than ${Math.round(failure.timeoutMs / 1000)} seconds and was stopped. Try a narrower question.`;
+    case 'aborted':
+      return 'The question was cancelled.';
+    case 'network':
+      return 'The question could not be sent. Check your connection and try again.';
+  }
+}
+
 // --- Hook --------------------------------------------------------------------
 
 export interface ProfilerController {
   state: ProfilerState;
+  /**
+   * The retrievable facts for the current profile, or null before one exists.
+   *
+   * Built here rather than in the component because it is derived state, and
+   * exposed because the ask panel shows its size ("12 of 570 facts"). Building
+   * it costs no request: `buildFactIndex` is pure, which is what keeps the
+   * privacy test's "profiling issues no request at all" assertion true.
+   */
+  factIndex: FactIndex | null;
+  /** True once a question can be asked and none is in flight. */
+  canAsk: boolean;
+  askQuestion(question: string): void;
+  clearAnswer(): void;
   /** Requirement 8.1: true once there is something to discard. */
   canReset: boolean;
   /** Requirement 9.7 / 6.12: the insight control's enabled state. */
@@ -467,8 +575,30 @@ export function useProfiler(): ProfilerController {
 
   /** Copies what is on screen into `retainedRef` before a load clears it. */
   const stashResults = useCallback(() => {
-    const { dataset, profile, charts, narrative, issues, notice, chartErrors } = stateRef.current;
-    retainedRef.current = { dataset, profile, charts, narrative, issues, notice, chartErrors };
+    const {
+      dataset,
+      profile,
+      charts,
+      narrative,
+      issues,
+      notice,
+      chartErrors,
+      askedQuestion,
+      answer,
+      retrieval,
+    } = stateRef.current;
+    retainedRef.current = {
+      dataset,
+      profile,
+      charts,
+      narrative,
+      issues,
+      notice,
+      chartErrors,
+      askedQuestion,
+      answer,
+      retrieval,
+    };
   }, []);
 
   /** Aborts any in-flight work and claims the next run id. */
@@ -538,7 +668,7 @@ export function useProfiler(): ProfilerController {
         failLoad(
           firstColumn === ''
             ? 'The profile could not be computed for that dataset.'
-            : `The profile could not be computed. Processing stopped at column “${firstColumn}”.`,
+            : `The profile could not be computed. Processing stopped at column "${firstColumn}".`,
         );
         return;
       }
@@ -744,6 +874,120 @@ export function useProfiler(): ProfilerController {
     dispatch({ type: 'chartError', index, message });
   }, []);
 
+  /**
+   * The retrievable index, rebuilt whenever the profile or the charts change.
+   *
+   * A `useMemo` and not reducer state: it is a pure function of two fields
+   * already in state, and storing it would give the same information two owners
+   * that could disagree.
+   */
+  const factIndex = useMemo(
+    () => (state.profile === null ? null : buildFactIndex(state.profile, state.charts)),
+    [state.profile, state.charts],
+  );
+
+  const factIndexRef = useRef(factIndex);
+  useEffect(() => {
+    factIndexRef.current = factIndex;
+  }, [factIndex]);
+
+  const clearAnswer = useCallback(() => {
+    dispatch({ type: 'askClear' });
+  }, []);
+
+  const askQuestion = useCallback(
+    (question: string) => {
+      const current = stateRef.current;
+
+      // A second activation while one is in flight does nothing, matching
+      // `requestNarrative`: no queued request, no replaced one.
+      if (current.status.kind === 'answering') return;
+
+      if (current.profile === null) {
+        dispatch({ type: 'error', message: 'Profile a dataset before asking about it.' });
+        return;
+      }
+
+      // Screened in the browser as well as on the server. The server check is
+      // the one that matters (a client check is only advice), but doing it here
+      // too turns a typo into instant feedback instead of a round trip.
+      const check = validateQuestion(question);
+      if (!check.ok) {
+        dispatch({
+          type: 'error',
+          message: describeRejection(check.reason ?? 'empty'),
+        });
+        return;
+      }
+
+      const index = factIndexRef.current;
+      if (index === null || index.facts.length === 0) {
+        dispatch({
+          type: 'error',
+          message: 'This profile produced no facts to answer from.',
+        });
+        return;
+      }
+
+      const retrieval = retrieveFacts(index, check.cleaned);
+      if (retrieval.facts.length === 0) {
+        dispatch({
+          type: 'error',
+          message: 'Nothing in the profile matched that question. Try naming a column.',
+        });
+        return;
+      }
+
+      // Like the insight request, this belongs to the run that loaded the
+      // dataset: it shares that run's id and controller and must not call
+      // `beginRun`, which would abort the controller it is about to use.
+      const controller = abortRef.current ?? new AbortController();
+      abortRef.current = controller;
+      const runId = runIdRef.current;
+
+      dispatch({ type: 'askStart', question: check.cleaned, retrieval });
+
+      void (async () => {
+        let outcome: AskOutcome;
+        try {
+          outcome = await sendQuestion(
+            {
+              question: check.cleaned,
+              // Only the rendered text crosses the wire. `terms` and `columns`
+              // are retrieval aids the server has no use for.
+              facts: retrieval.facts.map((fact) => ({
+                id: fact.id,
+                kind: fact.kind,
+                text: fact.text,
+              })),
+              totalFacts: retrieval.totalFacts,
+              columnCount: current.profile === null ? 0 : current.profile.columns.length,
+              rowCount: current.profile === null ? 0 : current.profile.retainedRowCount,
+            },
+            (chunk) => {
+              if (!isCurrentRun(runId)) return;
+              dispatch({ type: 'askDelta', chunk });
+            },
+            controller.signal,
+          );
+        } catch {
+          outcome = { ok: false, failure: { kind: 'network' } };
+        }
+
+        if (!isCurrentRun(runId)) return;
+
+        if (!outcome.ok) {
+          if (outcome.failure.kind === 'aborted') return;
+          dispatch({ type: 'askFailed', message: describeAskFailure(outcome.failure) });
+          return;
+        }
+
+        dispatch({ type: 'askDone' });
+      })();
+    },
+    [isCurrentRun],
+  );
+
   const derived = useMemo(() => {
     const busyLoading =
       state.status.kind === 'reading' ||
@@ -756,15 +1000,19 @@ export function useProfiler(): ProfilerController {
       canReset: state.dataset !== null || busyLoading || state.status.kind === 'error',
       canRequestNarrative: state.profile !== null && state.status.kind !== 'insightPending',
       canExport: state.profile !== null,
+      canAsk: state.profile !== null && state.status.kind !== 'answering',
     };
   }, [state.dataset, state.profile, state.status]);
 
   return {
     state,
     ...derived,
+    factIndex,
     selectFile,
     selectSample,
     requestNarrative,
+    askQuestion,
+    clearAnswer,
     exportReport,
     reset,
     reportChartError,

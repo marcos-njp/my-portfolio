@@ -51,7 +51,7 @@ interface Ranked {
 function clampReason(text: string): string {
   if (text.length === 0) return 'Recommended chart';
   if (text.length <= MAX_REASON_LENGTH) return text;
-  return `${text.slice(0, MAX_REASON_LENGTH - 1)}\u2026`;
+  return `${text.slice(0, MAX_REASON_LENGTH - 3)}...`;
 }
 
 // --- Dataset access ----------------------------------------------------------
@@ -221,7 +221,7 @@ function buildHistogram(
       bins,
       unbinnableCount: unbinnable > 0 ? unbinnable : 0,
       reason: clampReason(
-        `Histogram of ${column.name} (${column.type}) across ${binCount} bins showing its value distribution.`,
+        `Distribution of ${column.name} across ${binCount} bins.`,
       ),
     },
   };
@@ -259,7 +259,7 @@ function buildBar(column: ColumnProfile, index: number): Ranked | null {
       columnType: column.type,
       points,
       reason: clampReason(
-        `Bar chart of the ${points.length} most frequent values in ${column.name} (${column.type}).`,
+        `Top ${points.length} values in ${column.name} by frequency.`,
       ),
     },
   };
@@ -323,7 +323,7 @@ function buildLine(
       yType: yColumn.type,
       points,
       reason: clampReason(
-        `Line chart of ${yColumn.name} (${yColumn.type}) over ${xColumn.name} (${xColumn.type}) in ascending date order.`,
+        `${yColumn.name} over ${xColumn.name}, in ascending date order.`,
       ),
     },
   };
@@ -459,7 +459,7 @@ function buildScatter(
       points,
       totalPointCount,
       reason: clampReason(
-        `Scatter chart of ${xColumn.name} (${xColumn.type}) against ${yColumn.name} (${yColumn.type}), correlation ${best.pair.coefficient}.` +
+        `${xColumn.name} against ${yColumn.name}. r = ${best.pair.coefficient}.` +
           (downsampled ? ` Showing ${points.length} of ${totalPointCount} points.` : ''),
       ),
     },

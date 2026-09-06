@@ -1,6 +1,6 @@
 'use client';
 
-// components/playground/data-profiler/chart-grid.tsx
+// components/data-analyst-sandbox/data-profiler/chart-grid.tsx
 //
 // Renders every supplied Chart_Spec in the supplied order (Requirement 4.6), one
 // `ChartCard` per spec, each with its own error boundary so a single failure
@@ -29,6 +29,16 @@ export interface ChartGridProps {
   /** Failures recorded by the hook, keyed by index in `charts`. */
   chartErrors?: ChartErrorMap;
   onChartError?: (index: number, message: string) => void;
+  /**
+   * True when the inspector rail is taking a third of the width. The canvas is
+   * then too narrow for two charts side by side, so the grid drops back to one
+   * column at `xl` and only splits again at `2xl`.
+   *
+   * Passed down rather than read from a media query here: a leaf that reads the
+   * viewport cannot know the rail is open, and two components computing the same
+   * layout independently is how they end up disagreeing.
+   */
+  dense?: boolean;
   className?: string;
 }
 
@@ -38,6 +48,7 @@ export function ChartGrid({
   reducedMotion = false,
   chartErrors = {},
   onChartError,
+  dense = false,
   className = '',
 }: ChartGridProps) {
   if (charts.length === 0) {
@@ -63,8 +74,13 @@ export function ChartGrid({
   }
 
   return (
-    // Single column at the base breakpoint (Requirement 9.5); two columns from md.
-    <div className={`grid grid-cols-1 gap-4 md:grid-cols-2 ${className}`}>
+    // Single column at the base breakpoint (Requirement 9.5); two columns from
+    // md. With the rail open, back to one at xl and two again at 2xl.
+    <div
+      className={`grid grid-cols-1 gap-4 md:grid-cols-2 ${
+        dense ? 'xl:grid-cols-1 2xl:grid-cols-2' : ''
+      } ${className}`}
+    >
       {charts.map((spec, index) => (
         <ChartCard
           key={index}

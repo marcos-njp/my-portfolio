@@ -1,6 +1,6 @@
 'use client';
 
-// components/playground/data-profiler/chart-card.tsx
+// components/data-analyst-sandbox/data-profiler/chart-card.tsx
 //
 // One rendered Chart_Spec. A pure switch over `ChartSpec.kind` → Recharts
 // element; no business logic, no data derivation. Every series value already
@@ -24,10 +24,18 @@
 // that all but disappears against the black page background, so primary series
 // use `chart-1` through `chart-3`.
 //
-// No Recharts `<Tooltip>`: the library renders its tooltip with hardcoded inline
-// colors that ignore the theme tokens and break the dark palette. Every plotted
-// value is already available to everyone through the sr-only table, so the
-// tooltip would add styling debt for no information gain.
+// The Recharts `<Tooltip>` renders through `content={<ChartTooltip />}`, never
+// through `contentStyle`/`labelStyle`/`wrapperStyle`. Those props take literal
+// values, and the library's default tooltip paints itself with hardcoded inline
+// colors that ignore the theme tokens and go white-on-black in dark mode.
+// Owning the surface keeps it on `bg-popover`/`border-border` like every other
+// floating panel. See `chart-tooltip.tsx` for why this adds no a11y debt: it
+// mounts inside the `aria-hidden` subtree and the sr-only table remains the
+// accessible source of every plotted value.
+//
+// No `<Legend>`: none of the four spec kinds plots more than one series, so a
+// legend would render a single entry and spend vertical space saying what the
+// `<figcaption>` already says.
 //
 // _Requirements: 4.6, 4.7, 4.9, 4.12, 9.6_
 
@@ -41,6 +49,7 @@ import {
   ResponsiveContainer,
   Scatter,
   ScatterChart,
+  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -53,11 +62,40 @@ import {
   chartTitle,
   formatChartNumber,
 } from './chart-text-alternative';
+import { ChartTooltip } from './chart-tooltip';
 
 /** Axis and grid styling, token-only. Passed as SVG props, not a style attribute. */
 const AXIS_TICK = { fill: 'var(--muted-foreground)', fontSize: 11 } as const;
 const AXIS_LINE = 'var(--border)';
-const CHART_HEIGHT_CLASS = 'h-64 w-full';
+
+/**
+ * The hover indicator behind the tooltip. An object of SVG presentation props,
+ * so the values stay tokens; Recharts applies them to a `<rect>` (categorical
+ * charts) or a `<line>` (continuous ones).
+ */
+const BAND_CURSOR = { fill: 'var(--muted)', fillOpacity: 0.4 } as const;
+const LINE_CURSOR = { stroke: 'var(--border)', strokeDasharray: '2 2' } as const;
+
+/**
+ * Taller once the viewport is wide enough for the inspector rail to sit beside
+ * the canvas rather than under it, where the extra height costs nothing.
+ */
+const CHART_HEIGHT_CLASS = 'h-72 w-full xl:h-80';
+
+/**
+ * Trims an ISO instant to its date for axis and tooltip display.
+ *
+ * `parseAcceptedDate` normalises every datetime column to a full UTC instant, so
+ * the raw tick text is `2024-04-07T00:00:00.000Z`. Six of those across an axis
+ * overlap into an unreadable smear, and the time half is noise for a column the
+ * profiler classified as a date in the first place. The full value is unchanged
+ * in the spec and still appears in the sr-only text alternative.
+ */
+function formatDateTick(value: unknown): string {
+  const text = String(value ?? '');
+  const separator = text.indexOf('T');
+  return separator === -1 ? text : text.slice(0, separator);
+}
 
 interface SeriesProps {
   spec: ChartSpec;
@@ -69,7 +107,7 @@ function ChartSeries({ spec, animationActive }: SeriesProps) {
   switch (spec.kind) {
     case 'histogram': {
       const data = spec.bins.map((bin) => ({
-        label: `${formatChartNumber(bin.lower)}–${formatChartNumber(bin.upper)}`,
+        label: `${formatChartNumber(bin.lower)} to ${formatChartNumber(bin.upper)}`,
         count: bin.count,
       }));
       return (
@@ -78,7 +116,18 @@ function ChartSeries({ spec, animationActive }: SeriesProps) {
             <CartesianGrid stroke={AXIS_LINE} strokeDasharray="2 2" vertical={false} />
             <XAxis dataKey="label" tick={AXIS_TICK} stroke={AXIS_LINE} interval="preserveStartEnd" />
             <YAxis tick={AXIS_TICK} stroke={AXIS_LINE} allowDecimals={false} />
-            <Bar dataKey="count" fill="var(--chart-1)" isAnimationActive={animationActive} />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={BAND_CURSOR}
+              isAnimationActive={animationActive}
+              animationDuration={animationActive ? 200 : 0}
+            />
+            <Bar
+              dataKey="count"
+              name="rows"
+              fill="var(--chart-1)"
+              isAnimationActive={animationActive}
+            />
           </BarChart>
         </ResponsiveContainer>
       );
@@ -90,7 +139,18 @@ function ChartSeries({ spec, animationActive }: SeriesProps) {
             <CartesianGrid stroke={AXIS_LINE} strokeDasharray="2 2" vertical={false} />
             <XAxis dataKey="label" tick={AXIS_TICK} stroke={AXIS_LINE} interval="preserveStartEnd" />
             <YAxis tick={AXIS_TICK} stroke={AXIS_LINE} allowDecimals={false} />
-            <Bar dataKey="count" fill="var(--chart-2)" isAnimationActive={animationActive} />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={BAND_CURSOR}
+              isAnimationActive={animationActive}
+              animationDuration={animationActive ? 200 : 0}
+            />
+            <Bar
+              dataKey="count"
+              name="rows"
+              fill="var(--chart-2)"
+              isAnimationActive={animationActive}
+            />
           </BarChart>
         </ResponsiveContainer>
       );
@@ -99,11 +159,26 @@ function ChartSeries({ spec, animationActive }: SeriesProps) {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={spec.points} margin={{ top: 8, right: 8, bottom: 8, left: 0 }}>
             <CartesianGrid stroke={AXIS_LINE} strokeDasharray="2 2" vertical={false} />
-            <XAxis dataKey="x" tick={AXIS_TICK} stroke={AXIS_LINE} interval="preserveStartEnd" />
+            <XAxis
+              dataKey="x"
+              tick={AXIS_TICK}
+              stroke={AXIS_LINE}
+              interval="preserveStartEnd"
+              minTickGap={32}
+              tickFormatter={formatDateTick}
+            />
             <YAxis tick={AXIS_TICK} stroke={AXIS_LINE} />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={LINE_CURSOR}
+              labelFormatter={formatDateTick}
+              isAnimationActive={animationActive}
+              animationDuration={animationActive ? 200 : 0}
+            />
             <Line
               type="monotone"
               dataKey="y"
+              name={spec.yColumn}
               stroke="var(--chart-1)"
               strokeWidth={2}
               dot={false}
@@ -116,9 +191,15 @@ function ChartSeries({ spec, animationActive }: SeriesProps) {
       return (
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 8, right: 8, bottom: 8, left: 0 }}>
-            <CartesianGrid stroke={AXIS_LINE} strokeDasharray="2 2" />
+            <CartesianGrid stroke={AXIS_LINE} strokeDasharray="2 2" vertical />
             <XAxis type="number" dataKey="x" name={spec.xColumn} tick={AXIS_TICK} stroke={AXIS_LINE} />
             <YAxis type="number" dataKey="y" name={spec.yColumn} tick={AXIS_TICK} stroke={AXIS_LINE} />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={LINE_CURSOR}
+              isAnimationActive={animationActive}
+              animationDuration={animationActive ? 200 : 0}
+            />
             <Scatter
               data={spec.points}
               fill="var(--chart-3)"

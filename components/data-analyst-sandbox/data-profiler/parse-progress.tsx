@@ -1,6 +1,6 @@
 "use client"
 
-// components/playground/data-profiler/parse-progress.tsx
+// components/data-analyst-sandbox/data-profiler/parse-progress.tsx
 //
 // The read-progress indicator for Requirement 1.8: a whole-number percentage
 // from 0 to 100 alongside a determinate bar.

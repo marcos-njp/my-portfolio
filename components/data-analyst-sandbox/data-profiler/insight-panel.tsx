@@ -1,6 +1,6 @@
 'use client';
 
-// components/playground/data-profiler/insight-panel.tsx
+// components/data-analyst-sandbox/data-profiler/insight-panel.tsx
 //
 // The insight control and the rendered Insight_Narrative.
 //
@@ -24,14 +24,14 @@
 //
 // _Requirements: 6.4, 6.11, 6.12, 6.13, 6.14, 6.15_
 
-import { Sparkles } from 'lucide-react';
+import { ArrowRight, Minus, Sparkles } from 'lucide-react';
 import { AlertBox, HighlightBox } from '@/components/docs/common';
 import { Button } from '@/components/ui/button';
 import type { InsightNarrative } from '@/lib/data-profiler/insight-schema';
 
 /** Requirement 6.15, shown adjacent to both the control and any narrative. */
 const PRIVACY_STATEMENT =
-  'The narrative is generated from aggregated statistics only — column types, counts, summary statistics, correlations and the quality score. Your raw rows stay in this browser and are never sent anywhere.';
+  'The narrative is generated from aggregated statistics only: column types, counts, summary statistics, correlations and the quality score. Your raw rows stay in this browser and are never sent anywhere.';
 
 export interface InsightPanelProps {
   narrative: InsightNarrative | null;
@@ -70,11 +70,11 @@ export function InsightPanel({
           className="min-h-11 min-w-11"
         >
           <Sparkles aria-hidden="true" />
-          {pending ? 'Generating insights…' : 'Generate AI insights'}
+          {pending ? 'Generating insights...' : 'Generate AI insights'}
         </Button>
         {!canRequest ? (
           <p className="text-xs text-muted-foreground">
-            Profile a dataset first — insights are derived from a completed profile.
+            Profile a dataset first. Insights are derived from a completed profile.
           </p>
         ) : null}
       </div>
@@ -107,9 +107,7 @@ export function InsightPanel({
             <ul className="space-y-1.5">
               {narrative.observations.map((observation, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="font-mono text-foreground" aria-hidden="true">
-                    —
-                  </span>
+                  <Minus className="mt-1 size-3 shrink-0 text-foreground" aria-hidden="true" />
                   <span className="leading-relaxed">{observation}</span>
                 </li>
               ))}
@@ -121,9 +119,7 @@ export function InsightPanel({
             <ul className="space-y-1.5">
               {narrative.nextAnalyses.map((suggestion, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="font-mono text-foreground" aria-hidden="true">
-                    →
-                  </span>
+                  <ArrowRight className="mt-1 size-3 shrink-0 text-foreground" aria-hidden="true" />
                   <span className="leading-relaxed">{suggestion}</span>
                 </li>
               ))}

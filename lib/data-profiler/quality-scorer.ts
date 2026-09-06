@@ -31,31 +31,19 @@ const FACTOR_ORDER: readonly QualityFactor[] = [
 /**
  * Upper bound on a rendered `detail` or `action` string. Requirement 6.2 caps
  * these at 240 characters inside the insight payload, so they are kept within
- * that budget at the source rather than silently truncated downstream. Only the
- * column name is variable-length, so only the column name is shortened.
+ * that budget at the source rather than silently truncated downstream.
+ *
+ * Every template below is now fixed-length prose around a handful of numbers.
+ * The column name used to be interpolated into each sentence, which is what made
+ * these strings variable-length and needed a separate name truncator; it now
+ * travels in `CleaningRecommendation.column`, where the UI renders it as the
+ * card title instead of burying it mid-sentence.
  */
 const MAX_TEXT_LENGTH = 240;
 
-/** Room left for the fixed prose around a column name in the longest template. */
-const MAX_COLUMN_NAME_LENGTH = 80;
-
-/**
- * A column name rendered for display: empty names become a positional
- * placeholder (a CSV header should never be empty, but Requirement 1.15 is
- * enforced by the parser, not here, and this module must stay total), and long
- * names are truncated so the surrounding prose cannot be pushed past
- * `MAX_TEXT_LENGTH`.
- */
-function displayName(name: string | null | undefined, index: number): string {
-  const raw = typeof name === 'string' ? name : '';
-  if (raw === '') return `column ${index + 1}`;
-  if (raw.length <= MAX_COLUMN_NAME_LENGTH) return raw;
-  return `${raw.slice(0, MAX_COLUMN_NAME_LENGTH - 1)}\u2026`;
-}
-
 /** Final defence for the Requirement 6.2 length budget. */
 function capText(s: string): string {
-  return s.length <= MAX_TEXT_LENGTH ? s : `${s.slice(0, MAX_TEXT_LENGTH - 1)}\u2026`;
+  return s.length <= MAX_TEXT_LENGTH ? s : `${s.slice(0, MAX_TEXT_LENGTH - 3)}...`;
 }
 
 /** A non-negative integer count, or 0 for anything else. Keeps ratios total. */
@@ -186,13 +174,11 @@ function collectRecommendations(
       issue: 'duplicates',
       factor: 'duplicates',
       detail: capText(
-        `${duplicateRowCount} duplicate row${duplicateRowCount === 1 ? '' : 's'} ` +
-          `(${percentOf(duplicateRowCount, retainedRowCount).toFixed(1)}% of ` +
-          `${retainedRowCount} retained rows) repeat an earlier row exactly.`,
+        `Duplicate rows: ${duplicateRowCount} of ${retainedRowCount} retained ` +
+          `(${percentOf(duplicateRowCount, retainedRowCount).toFixed(1)}%)`,
       ),
       action: capText(
-        'Deduplicate: drop the repeated rows, keeping the first occurrence of each, ' +
-          'or confirm the repetition is genuine before aggregating.',
+        'Fix: drop the repeats, keeping the first of each, or confirm they are genuine before aggregating.',
       ),
     });
   }
@@ -200,7 +186,6 @@ function collectRecommendations(
   for (let i = 0; i < columns.length; i += 1) {
     const column = columns[i];
     if (column === undefined || column === null) continue;
-    const name = displayName(column.name, i);
 
     // Requirement 5.3
     const nullCount = safeCount(column.nullCount);
@@ -210,12 +195,11 @@ function collectRecommendations(
         issue: 'nulls',
         factor: 'nulls',
         detail: capText(
-          `${name} has ${nullCount} missing value${nullCount === 1 ? '' : 's'} ` +
-            `(${percentOf(nullCount, retainedRowCount).toFixed(1)}% of ${retainedRowCount} rows).`,
+          `Missing: ${nullCount} of ${retainedRowCount} rows ` +
+            `(${percentOf(nullCount, retainedRowCount).toFixed(1)}%)`,
         ),
         action: capText(
-          'Handle the missing values: impute them, drop the affected rows, or drop the ' +
-            'column if too little data remains to be useful.',
+          'Fix: impute, drop the affected rows, or drop the column if too little data remains.',
         ),
       });
     }
@@ -230,14 +214,12 @@ function collectRecommendations(
           issue: 'outliers',
           factor: 'outliers',
           detail: capText(
-            `${name} has ${outlierCount} outlier${outlierCount === 1 ? '' : 's'} ` +
-              `outside the interquartile range bounds ` +
-              `[${formatBound(numeric.lowerBound)}, ${formatBound(numeric.upperBound)}] ` +
-              `(Q1 ${formatBound(numeric.q1)}, Q3 ${formatBound(numeric.q3)}).`,
+            `Outliers: ${outlierCount} outside ` +
+              `[${formatBound(numeric.lowerBound)}, ${formatBound(numeric.upperBound)}]. ` +
+              `Q1 ${formatBound(numeric.q1)}, Q3 ${formatBound(numeric.q3)}`,
           ),
           action: capText(
-            'Review the flagged values: correct entry errors, cap or transform genuine ' +
-              'extremes, or keep them and prefer median-based summaries.',
+            'Fix: correct entry errors, cap or transform genuine extremes, or keep them and prefer median summaries.',
           ),
         });
       }
@@ -249,12 +231,9 @@ function collectRecommendations(
         column: column.name,
         issue: 'unknownType',
         factor: 'unknownTypes',
-        detail: capText(
-          `${name} could not be classified as numeric, datetime, identifier or categorical.`,
-        ),
+        detail: capText('Type: unclassified. Not numeric, datetime, identifier or categorical.'),
         action: capText(
-          'Review this column manually: check for mixed formats, stray separators or an ' +
-            'all-empty column, then normalize the values or exclude the column.',
+          'Fix: check for mixed formats, stray separators or an all-empty column, then normalize or exclude it.',
         ),
       });
     }
