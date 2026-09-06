@@ -7,7 +7,7 @@ interface DocPageLayoutProps {
   /**
    * The small label above the title. Defaults to the docs wording so every
    * existing caller renders exactly as before; routes outside `/docs` (the
-   * playground, for one) pass their own.
+   * sandbox, for one) pass their own.
    */
   eyebrow?: string;
   children: ReactNode;

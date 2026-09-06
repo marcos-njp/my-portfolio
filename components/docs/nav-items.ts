@@ -1,4 +1,10 @@
 // Single source of truth for the docs navigation (used by sidebar + mobile nav).
+//
+// The active-state rule moved to `components/nav/section-nav.ts` when the
+// sandbox gained a sidebar of its own; `isDocActive` is re-exported here so
+// nothing that imports it has to change.
+import { isSectionActive, type SectionNavItem } from "@/components/nav/section-nav"
+
 export const docsNav = [
   { index: "00", name: "Overview", href: "/docs" },
   { index: "01", name: "Retrieval & Response Flow", href: "/docs?section=rag-architecture" },
@@ -9,10 +15,7 @@ export const docsNav = [
   { index: "06", name: "GitHub Repositories", href: "/docs?section=github" },
   { index: "07", name: "Profile Data", href: "/docs?section=profile-data" },
   { index: "08", name: "Companion & Prompt Flow", href: "/docs?section=companion-processing" },
-] as const
+] as const satisfies readonly SectionNavItem[]
 
 /** True when the given nav href matches the current pathname + ?section. */
-export function isDocActive(href: string, pathname: string, section: string | null) {
-  const itemSection = new URLSearchParams(href.split("?")[1] ?? "").get("section")
-  return (pathname === "/docs" && !section && !itemSection) || (!!section && section === itemSection)
-}
+export const isDocActive = isSectionActive

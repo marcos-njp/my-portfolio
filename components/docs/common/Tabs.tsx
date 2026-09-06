@@ -1,3 +1,9 @@
+"use client";
+
+// Uses `useState`, so it must declare the boundary itself. It went without one
+// for as long as every route reached it through an already-client parent; the
+// server-rendered /data-analyst-sandbox/data-profiler/how-it-works page is the first that
+// does not.
 import { ReactNode, useState } from "react";
 import { LucideIcon } from "lucide-react";
 
