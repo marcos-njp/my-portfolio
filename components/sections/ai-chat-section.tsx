@@ -5,10 +5,11 @@ import { useTheme } from "next-themes"
 import { type AIMood, getPersonaResponse } from "@/lib/ai-moods"
 import { ChatFeaturesModal } from "@/components/modals/chat-features-modal"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
-import { ArrowUpRight, CornerDownLeft, History, MessageSquare } from "lucide-react"
+import { ArrowUpRight, CornerDownLeft, History } from "lucide-react"
 import Link from "next/link"
 import { SectionHeader } from "@/components/sections/section-header"
 import { DigitalNino } from "@/components/digital-nino"
+import { NinoCard } from "@/components/nino-card"
 import { ChatMessage } from "@/components/ai-chat/chat-message"
 import { ChatHistoryPanel } from "@/components/ai-chat/chat-history-panel"
 import {
@@ -27,7 +28,8 @@ import {
   type StoredMessage,
 } from "@/lib/chat-store"
 
-const WELCOME = "Hey, I am Niño's digital twin. Ask me anything about my work, projects, or experience."
+const WELCOME =
+  "Hey, I am Niño's digital twin. My answers come from a vector search over his real project notes, not a scripted FAQ. Ask me anything about his work, projects, or experience."
 
 const SUGGESTED = [
   "What are you building right now?",
@@ -72,11 +74,7 @@ export default function AiChatSection() {
   const prevLoadingRef = useRef(false)
   const hasReactedToTyping = useRef(false)
 
-  const [triggerDialogue, setTriggerDialogue] = useState(IDLE_DIALOGUES[0])
-  useEffect(() => {
-    const t = setInterval(() => setTriggerDialogue(pick(IDLE_DIALOGUES)), 4000)
-    return () => clearInterval(t)
-  }, [])
+
 
   // Hydrate after mount so the server and client markup match.
   useEffect(() => {
@@ -347,35 +345,20 @@ export default function AiChatSection() {
   return (
     <section id="ai-chat" className="scroll-mt-16 py-14 md:py-20 border-t border-border">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
-        <SectionHeader index="01" title="AI Digital Twin" />
+        <SectionHeader
+          index="01"
+          title="AI Digital Twin"
+        />
 
         <div className="max-w-3xl">
           {/* Trigger card */}
-          <button
+          <NinoCard
             onClick={() => setChatOpen(true)}
-            className="w-full nm-panel nm-hover relative overflow-hidden text-center p-8 group"
-          >
-            <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-            <div className="relative flex flex-col items-center gap-3">
-              <div className="flex flex-col items-center pointer-events-none">
-                <div className="relative mb-1">
-                  <div className="bg-background/60 border border-border rounded-sm px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm font-ntype">
-                    {triggerDialogue}
-                  </div>
-                  <div className="absolute left-1/2 -translate-x-1/2 -bottom-[7px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-border" />
-                </div>
-                <DigitalNino size={84} mood="normal" isTalking={false} theme={robotTheme} />
-              </div>
-
-              <div>
-                <h3 className="text-xl font-medium">Meet Digital Niño</h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">Ask about my work, projects, and experience.</p>
-              </div>
-              <span className="nm-link nm-link-accent">
-                <MessageSquare className="w-3.5 h-3.5" /> Start chat <ArrowUpRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </button>
+            dialogues={IDLE_DIALOGUES}
+            title="Meet Digital Niño"
+            subtitle="Ask about my work, projects, and experience. Every answer is grounded in retrieved context."
+            ctaLabel="Start chat"
+          />
 
           {/* Action row */}
           <div className="flex flex-wrap gap-3 mt-6">
@@ -412,6 +395,11 @@ export default function AiChatSection() {
             >
               <History className="w-3.5 h-3.5" /> History
             </button>
+          </div>
+
+          {/* RAG pipeline context */}
+          <div className="px-4 py-2 border-b border-border bg-secondary/40 text-xs text-muted-foreground">
+            Responses are grounded in real project context via an enhanced RAG pipeline using gpt-oss-120b, Upstash Vector, and Upstash Redis.
           </div>
 
           <div className="flex-1 min-h-0 flex">

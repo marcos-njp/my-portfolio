@@ -9,9 +9,9 @@
 
 /** Patterns that indicate a professionally relevant query */
 export const PROFESSIONAL_PATTERNS = {
-  technical: /\b(?:code|coding|program|develop|software|web|app|api|database|tech|stack)\b/i,
-  skills: /\b(?:skill|knowledge|experience|proficiency|expertise|learn|familiar)\b/i,
-  projects: /\b(?:project|built|created|portfolio|deployed|application)\b/i,
+  technical: /\b(?:code|coding|program|develop|software|web|app|api|database|tech|stack|data|analyst|analytics|profiler|statistics|correlation|dataset)\b/i,
+  skills: /\b(?:skill|knowledge|experience|proficiency|expertise|learn|familiar|analysis|profiling)\b/i,
+  projects: /\b(?:project|built|created|portfolio|deployed|application|sandbox)\b/i,
   career: /\b(?:work|job|career|interview|hire|position|role|responsibility)\b/i,
   education: /\b(?:education|university|college|degree|study|course|graduate)\b/i,
   questions: /\b(?:what|how|why|when|where|who|which|can|do|are|is|tell|describe|explain)\b/i,

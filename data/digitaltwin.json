@@ -56,6 +56,7 @@
     "backend_data": ["Node.js", "REST APIs", "Firebase", "NoSQL", "PostgreSQL", "Upstash Vector", "Upstash Redis"],
     "cloud_deploy": ["Vercel", "Cloudflare R2", "Laravel Cloud", "Git/GitHub"],
     "ai": ["Agentic AI (custom agents and subagents)", "RAG systems", "LLM integration (Groq)", "prompt engineering", "basic LLM internals (tokenization, embeddings)"],
+    "data_analysis": ["Data Profiling", "Descriptive Statistics", "Pearson Correlation", "Data Quality Scoring", "Data Visualization", "In-browser Processing (Web Workers)"],
     "tools": ["OpenCode", "Claude Code", "Codex"],
     "soft": ["detail-oriented", "self-directed learning", "calm under pressure", "clear communication", "documentation"]
   },
@@ -77,6 +78,12 @@
   },
   "projects_portfolio": [
     {
+      "name": "Data Analyst Sandbox (Data Profiler)",
+      "status": "Live",
+      "description": "An interactive, client-side data analysis sandbox and data profiler built in Next.js. Analyzes CSV datasets directly in the browser with statistical profiling, column distributions, correlation matrices, missing value detection, and local AI-assisted insights via Web Worker and BM25 lexical RAG.",
+      "technologies": ["Next.js", "Web Workers", "PapaParse", "Recharts", "BM25 Lexical RAG", "Data Profiling", "TypeScript"]
+    },
+    {
       "name": "Basic Education Unit Academic Information System with Data Analytics",
       "status": "Ongoing capstone",
       "description": "A comprehensive, streamlined student academic information system for the Junior High School department of St. Paul University Philippines, with data analytics for academic insights.",
@@ -97,9 +104,9 @@
     }
   ],
   "career_goals": {
-    "short_term": "Land an internship or entry-level role building agentic AI or fullstack products with a team I can learn from.",
+    "short_term": "Land an internship or entry-level role building agentic AI, fullstack, or data analytics products with a team I can learn from.",
     "long_term": "Grow into a strong agentic AI and fullstack developer who ships products people actually use.",
-    "interests": ["Agentic AI and automation", "Data and research", "AI research (the data we feed to LLMs)", "Mobile and web development"]
+    "interests": ["Agentic AI and automation", "Data science and analysis", "AI research (how models take in and learn from data)", "Mobile and web development"]
   },
   "content_chunks": [
     {
@@ -141,7 +148,7 @@
       "id": "chunk_6",
       "title": "Agentic AI Work",
       "type": "skills",
-      "content": "I'm highly comfortable with agentic AI. I build my own agents and custom subagents instead of just using off-the-shelf tools. I work in OpenCode, Claude Code, and Codex, and I split models by task: Sonnet for coding, GPT 5.4 for large context-gathering, and Gemini for UI/UX evaluation and planning.",
+      "content": "I'm highly comfortable with agentic AI. I build my own agents and custom subagents instead of just using off-the-shelf tools. I work in OpenCode, Claude Code, and Codex, and I split models by task: Claude for coding, GPT for context gathering, and Gemini for UI/UX evaluation and planning.",
       "metadata": { "category": "skills", "tags": ["agentic ai", "agents", "subagents", "claude code", "codex", "opencode", "ai tools"] }
     },
     {
@@ -220,6 +227,55 @@
       "type": "interview_prep",
       "content": "Honestly, I'm still early in my career. What I bring is that I build real things, I work with agentic AI day to day, and I care about getting the details right. I don't have years of corporate experience, so I'd rather contribute and learn from a strong team than oversell myself.",
       "metadata": { "category": "interview", "tags": ["pitch", "hiring", "value"] }
+    },
+    {
+      "id": "chunk_18",
+      "title": "Data Analyst Sandbox and Data Profiler",
+      "type": "project",
+      "content": "I built the Data Analyst Sandbox and Data Profiler in this portfolio. It is an interactive dataset analysis tool that processes CSV files client-side in the browser using Web Workers. It computes column statistics, null and uniqueness rates, data quality scores, distribution histograms, and Pearson correlation matrices. It also includes an in-browser BM25 lexical RAG system so users can ask natural language questions about their datasets with zero data leakage.",
+      "metadata": { "category": "projects", "tags": ["data analysis", "data analyst", "data profiler", "sandbox", "statistics", "correlation", "csv", "bm25", "web worker"] }
+    },
+    {
+      "id": "chunk_19",
+      "title": "Data Analysis Skills and Experience",
+      "type": "skills",
+      "content": "As a data analyst and developer, I work with descriptive statistics, correlation analysis, data quality profiling, and data visualization. In my academic capstone, I built academic analytics to track student performance trends. In the Data Analyst Sandbox, I implemented automated data profiling covering cardinality, completeness, distributions, and outliers. I combine data analytics with agentic AI to help users understand complex datasets quickly and accurately.",
+      "metadata": { "category": "skills", "tags": ["data analyst", "data analytics", "statistics", "data quality", "profiling", "visualization", "metrics", "analytics"] }
+    },
+    {
+      "id": "chunk_20",
+      "title": "Why I Chose Data Analysis",
+      "type": "interests",
+      "content": "I chose data analysis as a sub-focus because I want to delve deeper into data science to understand how AI truly absorbs, processes, and learns from data. More broadly, data is essential in every facet of business and life. It is the foundation for communicating effectively with stakeholders, understanding marketability, assessing demand, and identifying the real problems worth solving. For developers like me, data is the reason we build in the first place.",
+      "metadata": { "category": "interests", "tags": ["data analysis", "why data analyst", "data science", "stakeholders", "marketability", "business", "demand", "problem solving", "motivation"] }
+    },
+    {
+      "id": "chunk_21",
+      "title": "Data Science as the Foundation for AI",
+      "type": "interests",
+      "content": "My drive toward data analysis and data science comes from wanting to understand the mechanics of how AI models take in and learn from data. Machine learning and LLMs are shaped entirely by dataset quality, tokenization, representations, and distribution. By studying data science and curation, I understand how models interpret real-world signals, where training biases emerge, and how to structure cleaner context for agentic systems and RAG pipelines.",
+      "metadata": { "category": "interests", "tags": ["data science", "ai data", "tokenization", "embeddings", "machine learning", "curation", "ai research", "training data"] }
+    },
+    {
+      "id": "chunk_22",
+      "title": "Data as the Reason Developers Build",
+      "type": "philosophy",
+      "content": "To me, data is the catalyst for software development. Developers do not write code for its own sake; data is the reason we embark on a project in the first place. Data reveals genuine market demand, tests product viability, and proves whether an application addresses a real human problem. Before writing code, looking at the data prevents building in the dark and ensures the software creates measurable impact.",
+      "metadata": { "category": "philosophy", "tags": ["software development", "marketability", "demand", "problem solving", "why developers build", "product design", "purpose"] }
+    },
+    {
+      "id": "chunk_23",
+      "title": "Communicating with Stakeholders Through Data",
+      "type": "skills",
+      "content": "In business and tech, data is the common language for communicating with stakeholders. While technical implementation details can feel abstract to non-engineers, concrete metrics, distributions, and trends provide an objective ground truth. Whether explaining data quality issues, user engagement patterns, or architectural trade-offs, I use data analytics to translate technical complexity into clear business insights that stakeholders can trust.",
+      "metadata": { "category": "skills", "tags": ["stakeholders", "communication", "business", "metrics", "data storytelling", "transparency", "insights", "collaboration"] }
+    },
+    {
+      "id": "chunk_24",
+      "title": "Data Quality and Diagnostics Philosophy",
+      "type": "philosophy",
+      "content": "In any analytical or AI system, poor data quality corrupts every downstream result. That is why in my Data Profiler, I prioritized immediate diagnostics: missingness rates, uniqueness, cardinality, distribution histograms, and Pearson correlation coefficients. Identifying outliers and null spikes early protects decision-making and ensures that both human stakeholders and AI models work from clean, reliable signals.",
+      "metadata": { "category": "philosophy", "tags": ["data quality", "diagnostics", "profiler", "pearson correlation", "clean data", "reliability", "metrics"] }
     }
   ]
 }
