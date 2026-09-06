@@ -96,11 +96,11 @@ function NavFooter({ onNavigate }: { onNavigate?: () => void }) {
       </Link>
 
       <Link
-        href="/playground/data-profiler"
+        href="/data-analyst-sandbox/data-profiler"
         onClick={onNavigate}
         className="flex items-center justify-between px-3 py-2.5 border border-border hover:border-foreground transition-colors"
       >
-        <span className="nm-label text-foreground">Playground</span>
+        <span className="nm-label text-foreground">Data Analyst Sandbox</span>
         <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground" />
       </Link>
 

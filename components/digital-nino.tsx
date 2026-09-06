@@ -268,7 +268,20 @@ export const DigitalNino: React.FC<DigitalNinoProps> = ({
       onClick={handleTap}
       style={{ width: size * CANVAS_W_RATIO, height: size * CANVAS_H_RATIO }}
     >
-      <canvas ref={canvasRef} />
+      {/*
+        Sized in CSS as well as by the draw loop.
+
+        `draw()` sets `canvas.style.width/height` the first time it runs, but it
+        runs inside `requestAnimationFrame`, and until that first frame lands the
+        element keeps the HTML default of 300x150. On a 375px viewport that is
+        wider than the column it sits in, so the page gained a horizontal
+        scrollbar until the animation started, and never lost it anywhere rAF is
+        throttled (a background tab, a hidden pane, reduced-motion tooling).
+
+        The wrapper above already carries the true size, so filling it is both
+        the correct value and the same one the draw loop writes.
+      */}
+      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
     </div>
   );
 };

@@ -50,7 +50,7 @@ export function ChatFeaturesModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="nm-link nm-hover">How it works</button>
+        <button className="nm-link nm-hover">How the RAG pipeline works</button>
       </DialogTrigger>
 
       <DialogContent className="max-w-[500px] max-h-[90vh] overflow-y-auto p-0 gap-0 [&>button]:top-4 [&>button]:right-4 [&>button]:z-20 [&>button]:rounded-sm [&>button]:border [&>button]:border-border [&>button]:bg-background [&>button]:p-1 [&>button]:opacity-100">

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import SideNav from "@/components/sections/side-nav"
 import Footer from "@/components/sections/footer"
+import { AnnouncementBanner } from "@/components/sections/announcement-banner"
 import HeroSection from "@/components/sections/hero-section"
 import AiChatSection from "@/components/sections/ai-chat-section"
 import ApproachSection from "@/components/sections/approach-section"
@@ -46,6 +47,7 @@ export default function Page() {
     <div className="min-h-screen bg-background">
       <SideNav />
       <div className="lg:pl-64">
+        <AnnouncementBanner />
         <main>
           <HeroSection />
           <AiChatSection />

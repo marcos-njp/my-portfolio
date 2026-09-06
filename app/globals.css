@@ -185,7 +185,9 @@
   /* ---------- Ndot display — ONLY for indices / numerals / section numbers ---------- */
   .nm-display {
     font-family: var(--font-ndot), "Space Mono", monospace;
-    letter-spacing: 0.02em;
+    /* No tracking. The dot-matrix face is already wide by construction, and
+       adding to it made numerals read as spaced-out rather than set. */
+    letter-spacing: 0;
     line-height: 1;
   }
 
